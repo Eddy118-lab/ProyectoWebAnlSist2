@@ -1,0 +1,68 @@
+/* Estilo del contenedor principal */
+.App-main {
+  padding: 80px 20px 20px; /* Padding superior para evitar el solapamiento con el encabezado fijo */
+  margin: 0;
+  margin-top: 30px; /* Margen adicional para asegurar que el contenido no quede cubierto */
+  min-height: calc(100vh - 80px); /* Calcula la altura mínima restando el encabezado y el footer */
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+  }
+  
+  /* Estilo para los botones del módulo */
+  .module-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  /* Estilo para cada tarjeta de módulo */
+  .module-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .module-card img {
+    height: 100px;
+    margin-bottom: 10px;
+  }
+  
+  .module-card h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  /* Estilo para el botón de módulo */
+  .btn-module {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* Estilos de paginación */
+  .pagination-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination .page-item .page-link {
+    color: #007bff;
+    border: 1px solid #dee2e6;
+    padding: 8px 16px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+  }
+  

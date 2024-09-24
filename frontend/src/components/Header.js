@@ -1,0 +1,122 @@
+import { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import logo from './pictures/logo.png';
+import usuario from './pictures/usuario.png';
+import './Styles/Header.css'; // Agrega los estilos del Header si los tienes
+
+function Header({ onLogout }) {
+  const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [userName, setUserName] = useState(null); // Estado para el nombre del usuario
+  const navigate = useNavigate();
+  const location = useLocation();
+  const userMenuRef = useRef(null);
+
+  useEffect(() => {
+    // Obtener el nombre del usuario del localStorage
+    const storedUserName = localStorage.getItem('userName');
+    if (storedUserName) {
+      setUserName(storedUserName); // Actualiza el estado del nombre de usuario
+    }
+  }, []);
+
+  const isInModule = [
+    '/inventario',
+    '/ventas',
+    '/proveedor/gestion-proveedores',
+    '/gestion-personal/colaborador',
+    '/usuario/gestion-usuarios',
+    '/cliente/gestion-clientes',
+    '/compras',  // Aquí se incluye la ruta del nuevo módulo
+    '/material/gestion-materiales',
+    '/factura-proveedor/gestion-facturas-proveedores'
+  ].includes(location.pathname);
+
+  useEffect(() => {
+    if (isInModule) {
+      document.body.classList.add('in-module');
+    } else {
+      document.body.classList.remove('in-module');
+    }
+
+    if (!isInModule) {
+      setIsNavOpen(false);
+    }
+  }, [location.pathname, isInModule]);
+
+  const handleNavItemClick = (path) => {
+    navigate(path);
+    setIsNavOpen(false);
+  };
+
+  const toggleUserMenu = () => {
+    setIsUserMenuOpen(prevState => !prevState);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
+  // Si está en la ruta de login, oculta el menú de usuario
+  const isInLogin = location.pathname === '/login';
+
+  return (
+    <header className="App-header">
+      <div
+        className="logo"
+        onMouseEnter={() => setIsNavOpen(true)}
+        onMouseLeave={() => setIsNavOpen(false)}
+      >
+        <img src={logo} alt="Logo" className="App-logo" />
+      </div>
+
+      {!isInLogin && (
+        <div className="user-menu" ref={userMenuRef}>
+          {/* Mostrar el nombre del usuario si está disponible */}
+          {userName && <span className="user-name">Hola, {userName}</span>}
+          <img
+            src={usuario}
+            alt="Perfil de Usuario"
+            className="profile-icon"
+            onClick={toggleUserMenu}
+          />
+          {isUserMenuOpen && (
+            <div className="user-dropdown-menu">
+              <button onClick={onLogout} className="user-menu-item">Cerrar Sesión</button>
+            </div>
+          )}
+        </div>
+      )}
+
+      <nav
+        className={`side-nav ${isNavOpen ? 'open' : ''}`}
+        onMouseEnter={() => setIsNavOpen(true)}
+        onMouseLeave={() => setIsNavOpen(false)}
+      >
+        <ul>
+          <li onClick={() => handleNavItemClick('/home')}>Inicio</li>
+          <li onClick={() => handleNavItemClick('/inventario')}>Gestión de Inventario</li>
+          <li onClick={() => handleNavItemClick('/ventas')}>Gestión de Ventas</li>
+          <li onClick={() => handleNavItemClick('/proveedor/gestion-proveedores')}>Gestión de Proveedores</li>
+          <li onClick={() => handleNavItemClick('/gestion-personal/colaborador')}>Gestión de Personal</li>
+          <li onClick={() => handleNavItemClick('/usuario/gestion-usuarios')}>Gestión de Usuarios</li>
+          <li onClick={() => handleNavItemClick('/cliente/gestion-clientes')}>Gestión de Clientes</li>
+          <li onClick={() => handleNavItemClick('/compras')}>Gestión de Compras</li>
+          <li onClick={() => handleNavItemClick('/material/gestion-materiales')}>Gestión de Materiales</li>
+          <li onClick={() => handleNavItemClick('/factura-proveedor/gestion-facturas-proveedores')}>Gestión de Facturas de Proveedores</li>
+        </ul>
+      </nav>
+    </header>
+  );
+}
+
+export default Header;

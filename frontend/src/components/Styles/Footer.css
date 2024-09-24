@@ -1,0 +1,10 @@
+.App-footer {
+    background-color: #3d5c78;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    position: relative; /* Cambia a absolute para fijarlo en la parte inferior */
+    width: 100%;
+    bottom: 0;
+    z-index: 500;
+  }
