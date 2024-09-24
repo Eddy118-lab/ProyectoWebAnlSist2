@@ -1,4 +1,3 @@
-// Importar Sequelize
 import { DataTypes } from 'sequelize';
 import sequelize from '../database/db.js'; // O la ruta a tu configuración de base de datos
 import TipoCliente from './TipoCliente.js'; // Importa el modelo de tipo_cliente para la relación

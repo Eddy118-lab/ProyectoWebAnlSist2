@@ -1,14 +1,14 @@
 import express from "express";
 import cors from 'cors';
 import db from "./database/db.js";
-import UsuarioRoutes from './routes/usuarioRoutes.js';
+import mainRoutes from './routes/routes.js';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // Definir las rutas
-app.use('/api', UsuarioRoutes);
+app.use('/api', mainRoutes);
 
 db.authenticate()
     .then(() => console.log('Conexión exitosa a la base de datos'))

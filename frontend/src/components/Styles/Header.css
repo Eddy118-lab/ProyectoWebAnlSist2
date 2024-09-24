@@ -1,109 +1,109 @@
 /* Estilo del encabezado de la aplicación */
 .App-header {
-  background-color: #89a4b6;
-  height: 80px; /* Altura del header */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-  font-size: calc(10px + 2vmin);
-  color: white;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-}
-
-/* Ajusta el tamaño del logo según sea necesario */
-.App-logo, .logo img {
-  height: 70px; /* Ajusta el tamaño del logo */
-  cursor: pointer;
-}
-
-/* Estilo para el menú de usuario */
-.user-menu {
-  display: flex;
-  align-items: center;
-  margin-left: 20px; /* Espaciado a la izquierda del menú de usuario */
-}
-
-/* Estilo para el nombre de usuario */
-.user-name {
-  margin-right: 10px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* Estilo del icono del perfil del usuario */
-.profile-icon {
-  height: 30px;
-  cursor: pointer;
-}
-
-/* Estilo del menú desplegable del usuario */
-.user-dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 50px;
-  background-color: #3d5c78;
-  border: 1px solid #3d5c78; 
-  border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
-  min-width: 107.1px;
-  max-height: 200px; /* Limita la altura máxima del menú */
-  overflow-y: auto;  /* Habilita el scroll vertical */
-}
-
-/* Mostrar si se pasa el cursor sobre el menú de usuario o el menú desplegable */
-.user-menu:hover .user-dropdown-menu,
-.user-dropdown-menu:hover {
-  display: block;
-}
-
-/* Estilo para los elementos del menú desplegable del usuario */
-.user-menu-item {
-  padding: 10px;
-  text-align: left;
-  display: block;
-  color: #333;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.user-menu-item:hover {
-  background-color: #91aec7; /* Color de fondo al pasar el cursor */
-}
-
-/* Ajustamos el margen superior para que el login no quede cubierto por el header */
-.login-container {
-  display: flex;
-  margin-top: 120px; /* Ajuste según la altura del header */
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  background-color: #f8f9fa;
-}
-
-.login-form {
-  width: 100%;
-  max-width: 400px;
-  padding: 40px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Aseguramos que el contenido del formulario no esté cubierto */
-.form-container {
-  max-width: 900px;
-  margin: 0 auto;
-  margin-top: 120px; /* Ajusta esto según la altura exacta del header */
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 80px;
-}
+    background-color: #89a4b6;
+    height: 80px; /* Altura del header */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+  }
+  
+  /* Ajusta el tamaño del logo según sea necesario */
+  .App-logo, .logo img {
+    height: 70px; /* Ajusta el tamaño del logo */
+    cursor: pointer;
+  }
+  
+  /* Estilo para el menú de usuario */
+  .user-menu {
+    display: flex;
+    align-items: center;
+    margin-left: 20px; /* Espaciado a la izquierda del menú de usuario */
+  }
+  
+  /* Estilo para el nombre de usuario */
+  .user-name {
+    margin-right: 10px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Estilo del icono del perfil del usuario */
+  .profile-icon {
+    height: 30px;
+    cursor: pointer;
+  }
+  
+  /* Estilo del menú desplegable del usuario */
+  .user-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background-color: #3d5c78;
+    border: 1px solid #3d5c78; 
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    min-width: 107.1px;
+    max-height: 200px; /* Limita la altura máxima del menú */
+    overflow-y: auto;  /* Habilita el scroll vertical */
+  }
+  
+  /* Mostrar si se pasa el cursor sobre el menú de usuario o el menú desplegable */
+  .user-menu:hover .user-dropdown-menu,
+  .user-dropdown-menu:hover {
+    display: block;
+  }
+  
+  /* Estilo para los elementos del menú desplegable del usuario */
+  .user-menu-item {
+    padding: 10px;
+    text-align: left;
+    display: block;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .user-menu-item:hover {
+    background-color: #91aec7; /* Color de fondo al pasar el cursor */
+  }
+  
+  /* Ajustamos el margen superior para que el login no quede cubierto por el header */
+  .login-container {
+    display: flex;
+    margin-top: 120px; /* Ajuste según la altura del header */
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    background-color: #f8f9fa;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Aseguramos que el contenido del formulario no esté cubierto */
+  .form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 120px; /* Ajusta esto según la altura exacta del header */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 80px;
+  }
