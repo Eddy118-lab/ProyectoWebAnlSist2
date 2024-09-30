@@ -1,0 +1,41 @@
+/* Footer general */
+footer {
+  background-color: #333; /* Fondo oscuro para contraste */
+  color: #E1DCC9; /* Texto claro sobre fondo oscuro */
+  text-align: center;
+  padding: 20px 0;
+  font-size: 1.1em;
+  border-top: 3px solid #E1DCC9; /* Líneas de estilo clásico */
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  margin: 10px 0;
+  font-family: 'Montserrat', sans-serif; /* Fuente moderna */
+  line-height: 1.6;
+}
+
+/* Estilos para el texto de contacto */
+footer p a {
+  color: #E1DCC9; /* Texto del enlace en el mismo color, pero cambiable en hover */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer p a:hover {
+  color: #17395C; /* Color en hover para enlaces */
+}
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+  footer {
+    font-size: 1em;
+    padding: 15px 0;
+  }
+
+  footer p {
+    margin: 8px 0;
+  }
+}

@@ -1,0 +1,55 @@
+/* Estilo general del header */
+header {
+  background-color: #333; /* Color de fondo azul */
+  padding: 10px 0; /* Espaciado superior e inferior */
+  color: #E1DCC9;
+}
+
+/* Estilo del nav */
+nav {
+  display: flex; /* Flexbox para alinear elementos horizontalmente */
+  justify-content: center; /* Centrar los elementos */
+}
+
+/* Estilo de la lista */
+ul {
+  list-style: none; /* Quitar los puntos de la lista */
+  padding: 0; /* Quitar el padding */
+  margin: 0; /* Quitar el margin */
+  display: flex; /* Flexbox para alinear los items */
+}
+
+/* Estilo de cada item de la lista */
+li {
+  margin: 0 20px; /* Espacio entre los items */
+  color: aliceblue;
+}
+
+/* Estilo de los enlaces */
+a {
+  color: #EFB758; /* Cambiado a color deseado */
+  text-decoration: none; /* Quitar el subrayado */
+  font-size: 1.1em; /* Tamaño de fuente ligeramente mayor */
+  transition: color 0.3s ease; /* Efecto de transición para el hover */
+}
+
+/* Efecto hover en los enlaces */
+a:hover {
+  color: #E1DCC9; /* Color del texto en hover */
+}
+
+/* Estilo responsivo */
+@media (max-width: 768px) {
+  ul {
+    flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    align-items: center; /* Centrar items en columna */
+  }
+
+  li {
+    margin: 10px 0; /* Espacio vertical entre items */
+  }
+
+  a {
+    font-size: 1em; /* Tamaño de fuente más pequeño en móvil */
+  }
+}

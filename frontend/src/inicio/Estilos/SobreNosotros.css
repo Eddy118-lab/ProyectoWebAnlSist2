@@ -1,0 +1,152 @@
+/* Estilos generales */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: #333;
+  line-height: 1.6;
+  background-color: #E1DCC9;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.about-us {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Sección: Título principal */
+.about-us h2 {
+  font-size: 2.8em;
+  color: #C24229; /* Azul clásico */
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Párrafo introductorio */
+.about-us p {
+  font-size: 1.2em;
+  color: #17395C;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+
+/* Imagen de la introducción */
+.about-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 20px auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Sección de historia */
+.our-history h3,
+.our-mission-vision h3,
+.our-values h3 {
+  font-size: 2.2em;
+  color: #333;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.our-history p,
+.our-mission-vision p,
+.our-values ul {
+  list-style: none;
+  padding: 0;
+  display: flex; /* Cambiar a flex para el layout */
+  flex-direction: row; /* Alineación horizontal de elementos */
+  flex-wrap: wrap; /* Permitir el ajuste de elementos a la siguiente línea */
+}
+
+/* Secciones de misión y visión */
+.our-mission-vision {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.mission,
+.vision {
+  flex: 1;
+  padding: 20px;
+  background-color: #E1DCC9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mission h3,
+.vision h3 {
+  color: #C24229;
+  margin-bottom: 15px;
+}
+
+.mission p,
+.vision p {
+  color: #555;
+  line-height: 1.8;
+}
+
+/* Sección de valores */
+.our-values ul {
+  list-style: none;
+  padding: 0;
+}
+
+.our-values li {
+  flex: 1 1 calc(50% - 20px); /* Cada elemento ocupa el 50% del ancho menos el margen */
+  box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 15px; /* Espacio inferior entre filas */
+  background-color: #E1DCC9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.our-values li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.our-values li strong {
+  color: #C24229;
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .about-us h2 {
+    font-size: 2em;
+  }
+
+  .our-mission-vision {
+    flex-direction: column;
+  }
+
+  .mission,
+  .vision {
+    margin-bottom: 20px;
+  }
+
+  .about-image {
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+}
+
+.our-values {
+  display: flex; /* Usamos flexbox para organizar los elementos */
+  flex-wrap: wrap; /* Permite que los elementos se ajusten a la siguiente línea */
+  gap: 20px; /* Espacio entre los elementos */
+}

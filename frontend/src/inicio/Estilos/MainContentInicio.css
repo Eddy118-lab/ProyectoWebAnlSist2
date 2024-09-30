@@ -1,0 +1,166 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; /* Tipografía moderna */
+  background-color: #E1DCC9;
+  color: #17395c; /* Color de texto principal */
+}
+
+/* Estilo de la sección principal (Hero) */
+.hero-section {
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #C24229;
+  text-align: center;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3.5em;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.cta-button {
+  background-color: #EFB758;
+  color: #000;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: rgba(13, 45, 78, 0.734);
+}
+
+/* Sección de servicios */
+.services-section {
+  background-color: #E1DCC9;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.services-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.service-item {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.service-item i {
+  font-size: 3em;
+  color: #C24229;
+  margin-bottom: 20px;
+}
+
+.service-item h3 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.service-item p {
+  font-size: 1em;
+  color: #666;
+}
+
+/* Sección de misión y visión */
+.mission-section {
+  background-color: #f4f4f4;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.mission-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #C24229;
+}
+
+.mission-content p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #555;
+}
+
+/* Sección de valores */
+.values-section {
+  background-color: #fff;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.values-section h2 {
+  font-size: 2.5em;
+  margin-bottom: 40px;
+  color: #C24229;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.values-item {
+  background-color: #E1DCC9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px #E1DCC9;
+  text-align: center;
+}
+
+.values-item strong {
+  display: block;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.values-item p {
+  font-size: 1em;
+  color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero-content h1 {
+    font-size: 2.5em;
+  }
+
+  .cta-button {
+    font-size: 1em;
+    padding: 10px 20px;
+  }
+
+  .service-item, .values-item {
+    padding: 15px;
+  }
+}

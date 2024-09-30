@@ -23,7 +23,7 @@ function MainContent() {
           <p>Próximamente</p>
         </div>
         <div className="module-card">
-          <Link to="/cliente/gestion-clientes" className="btn-module">
+          <Link to="/Home/cliente/gestion-clientes" className="btn-module">
             <img src={cliente} alt="Gestión de Clientes" />
             <h3>Gestión de Clientes</h3>
           </Link>
@@ -40,10 +40,10 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
-          <Link to="/gestion-personal/colaborador" className="btn-module">
-            <img src={personal} alt="Gestión de Personal" />
-            <h3>Gestión de Personal</h3>
-          </Link>
+        <Link to="/gestion-personal/colaborador" className="btn-module">
+          <img src={personal} alt="Gestión de Personal" />
+          <h3>Gestión de Personal</h3>
+        </Link>
         </div>
         <div className="module-card">
           <Link to="/usuario/gestion-usuarios" className="btn-module">
@@ -53,7 +53,7 @@ function MainContent() {
         </div>
         <div className="module-card">
           <Link to="/compras" className="btn-module">
-            <img src={compra} alt="Gestión de Compras" />
+            <img src={compra} alt="Gestión de Compras" />  {/* Nueva tarjeta */}
             <h3>Gestión de Compras</h3>
           </Link>
         </div>

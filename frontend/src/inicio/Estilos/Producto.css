@@ -1,0 +1,115 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; /* Fuente moderna */
+  background-color: #E1DCC9;
+  color: #333;
+}
+
+/* Contenedor principal */
+.productos-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Títulos principales */
+.productos-container h2 {
+  font-size: 2.5em;
+  color: #C24229; /* Color destacado */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.productos-container p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #17395C;
+  text-align: justify;
+  margin-bottom: 40px;
+}
+
+/* Sección de lista de servicios */
+.services-list h3 {
+  font-size: 2em;
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.services-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.services-list li {
+  background-color: #E1DCC9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #17395C;
+}
+
+.services-list li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px #E1DCC9;
+}
+
+.services-list li strong {
+  font-size: 1.4em;
+  color: #C24229;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.services-list li p {
+  font-size: 1em;
+  color: #17395C;
+  margin: 0;
+}
+
+/* Sección ¿Por Qué Elegirnos? */
+.why-choose-us h3 {
+  font-size: 2em;
+  color: #C24229;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.why-choose-us p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  color: #17395C;
+  text-align: justify;
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 20px;
+  background-color: #E1DCC9;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .productos-container h2 {
+    font-size: 2em;
+  }
+
+  .services-list li {
+    padding: 15px;
+  }
+
+  .services-list li strong {
+    font-size: 1.2em;
+  }
+
+  .why-choose-us p {
+    font-size: 1.1em;
+  }
+}
