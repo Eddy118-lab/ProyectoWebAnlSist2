@@ -1,0 +1,126 @@
+/* Estilos para Usuario */
+
+/* Encabezado */
+.App-header {
+    background-color: #89a4b6;
+    height: 80px; /* Altura fija para el encabezado */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    position: fixed; /* Fijo en la parte superior */
+    width: 100%; /* Ocupa todo el ancho */
+    top: 0; /* En la parte superior */
+    left: 0; /* Alineado al borde izquierdo */
+    z-index: 1000; /* Asegura que esté encima del contenido */
+}
+
+/* Contenido Principal */
+.App-main {
+    padding: 20px;
+    margin: 0 25px; /* Ajusta los márgenes laterales */
+    margin-top: 100px; /* Ajusta según la nueva altura del encabezado */
+    margin-bottom: 60px; /* Ajusta el margen inferior para evitar espacio en blanco excesivo */
+    box-sizing: border-box;
+}
+
+/* Contenedor de Formulario */
+.form-container {
+    max-width: 800px; /* Ajusta el ancho máximo del formulario */
+    margin: 0 auto; /* Centra el formulario */
+    margin-top: 115px; /* Ajusta el valor según la altura de tu header */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 80px;
+}
+
+/* Grid para el Formulario */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 20px; /* Espacio entre columnas */
+}
+
+/* Estilos de Títulos de Sección */
+.section-title {
+    font-size: 24px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-bottom: 20px; /* Espacio debajo del título */
+    margin-top: 20px; /* Espacio encima del título, ajusta según sea necesario */
+    color: #333; /* Color del texto, ajusta según tu diseño */
+}
+
+/* Estilos de Botones */
+.btn {
+    background-color: #4CAF50; /* Color de fondo verde */
+    border: none; /* Sin borde */
+    color: white; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    text-align: center; /* Centra el texto */
+    text-decoration: none; /* Sin subrayado */
+    display: inline-block; /* Permite el espaciado */
+    font-size: 16px; /* Tamaño del texto */
+    margin: 4px 2px; /* Espaciado alrededor del botón */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s; /* Transición para hover */
+}
+
+.btn:hover {
+    background-color: #45a049; /* Color más oscuro al pasar el mouse */
+}
+
+/* Tabla para Mostrar Usuarios */
+.table-container {
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    margin-top: 20px; /* Espacio superior */
+}
+
+/* Tabla */
+.table {
+    width: 100%; /* Ocupa todo el ancho */
+    border-collapse: collapse; /* Colapsar bordes */
+}
+
+.table th {
+    background-color: #f4f4f4; /* Color de fondo de encabezados */
+    padding: 12px; /* Espaciado interno */
+    border-bottom: 1px solid #ddd; /* Borde inferior */
+    text-align: left; /* Alineación del texto */
+}
+
+.table td {
+    padding: 12px; /* Espaciado interno */
+    border-bottom: 1px solid #ddd; /* Borde inferior */
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Color de fondo para filas pares */
+}
+
+/* Contenedor para la Búsqueda y Botón Crear */
+.search-create-container {
+    margin-top: 115px; /* Ajusta este valor según la altura de tu encabezado */
+}
+
+/* Contenedor para Búsqueda y Botón */
+.search-create-wrapper {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-content: space-between; /* Espacia los elementos a los extremos */
+    margin-bottom: 20px; /* Espacio debajo del contenedor */
+}
+
+/* Contenedor del Buscador */
+.search-container {
+    flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+}
+
+/* Contenedor del Botón "Crear Usuario" */
+.create-btn-container {
+    margin-left: 20px; /* Espacio entre el buscador y el botón */
+}

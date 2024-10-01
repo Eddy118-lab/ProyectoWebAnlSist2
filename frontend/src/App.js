@@ -4,6 +4,10 @@ import Footer from './components/Footer';
 import Login from './components/Login.js';
 import Header from './components/Header.js';
 import MainContent from './components/MainContent.js';
+import CompCreateUsuario from './components/CreateUsuario.js';
+import CompEditUsuario from './components/EditUsuario.js';
+import CompShowUsuario from './components/ShowUsuario.js';
+import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
 import FooterInicio from './inicio/FooterInicio.js';
@@ -13,31 +17,6 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
-{/*import PrivateRoute from './ebenezer/privateroute';
-import CompShowUsuario from './ebenezer/ShowUsuario';
-import CompCreateUsuario from './ebenezer/CreateUsuario';
-import CompEditUsuario from './ebenezer/EditUsuario';
-import CompShowCliente from './ebenezer/ShowCliente';
-import CompCreateCliente from './ebenezer/CreateCliente.js';
-import CompEditCliente from './ebenezer/EditCliente';*/}
-
-{/*import CompShowProveedor from './ebenezer/ShowProveedor';
-import CompCreateProveedor from './ebenezer/CreateProveedor';
-import CompEditProveedor from './ebenezer/EditProveedor';
-import CompShowMaterial from './ebenezer/ShowMaterial';  
-import CompCreateMaterial from './ebenezer/CreateMaterial';
-import CompEditMaterial from './ebenezer/EditMaterial';
-import CompShowFacturaProveedor from './ebenezer/ShowFacturaProveedor';
-import CompCreateFacturaProveedor from './ebenezer/CreateFacturaProveedor';
-import CompEditFacturaProveedor from './ebenezer/EditFacturaProveedor';
-import CompShowDetalleFacturaProveedor from './ebenezer/ShowDetalleFacturaProveedor';
-import CompShowPagoProveedor from './ebenezer/ShowPagoProveedor';
-import CompShowColaborador from './ebenezer/ShowColaborador.js';
-import CompCreateColaborador from './ebenezer/CreateColaborador.js';
-import CompEditColaborador from './ebenezer/EditColaborador.js';
-import FlujoCompra from './ebenezer/FlujoCompra';  // Importa el nuevo componente de compras*/}
-
 
 function LogoutAndRedirect({ onLogout }) {
   const navigate = useNavigate();
@@ -105,6 +84,11 @@ function App() {
             
             <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
             <Route path="/Home" element={isAuthenticated ? <MainContent /> : <Navigate to="/inicio" />} />
+            
+            {/* Rutas del sistemas*/}
+            <Route path="/usuario/gestion-usuarios" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowUsuario /></PrivateRoute>} />
+            <Route path="/usuario/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateUsuario /></PrivateRoute>} />
+            <Route path="/usuario/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditUsuario /></PrivateRoute>} />
             
             {/* Si la ruta no coincide, cerrar sesión y redirigir a /inicio */}
             <Route path="*" element={<LogoutAndRedirect onLogout={handleLogout} />} />

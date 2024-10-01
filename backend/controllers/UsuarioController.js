@@ -45,7 +45,7 @@ export const createUsuario = async (req, res) => {
 // Actualizar un usuario
 export const updateUsuario = async (req, res) => {
     const { id } = req.params;
-    const { contrasenha, nombcomp, email, fechanaci, nit, dpi, direccion, telefono } = req.body;
+    const { contrasenha, nombcomp, nombusuar, email, fechanaci, nit, dpi, direccion, telefono } = req.body;
 
     try {
         const usuario = await Usuario.findByPk(id);
@@ -63,6 +63,7 @@ export const updateUsuario = async (req, res) => {
 
         // Actualizar otros campos
         usuario.nombcomp = nombcomp || usuario.nombcomp;
+        usuario.nombusuar = nombusuar || usuario.nombusuar;
         usuario.email = email || usuario.email;
         usuario.fechanaci = fechanaci || usuario.fechanaci;
         usuario.nit = nit || usuario.nit;

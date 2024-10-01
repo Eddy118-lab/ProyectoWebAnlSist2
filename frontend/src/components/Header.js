@@ -103,7 +103,7 @@ function Header({ onLogout }) {
         onMouseLeave={() => setIsNavOpen(false)}
       >
         <ul>
-          <li onClick={() => handleNavItemClick('/')}>Inicio</li>
+          <li onClick={() => handleNavItemClick('/Home')}>Inicio</li>
           <li onClick={() => handleNavItemClick('/inventario')}>Gestión de Inventario</li>
           <li onClick={() => handleNavItemClick('/ventas')}>Gestión de Ventas</li>
           <li onClick={() => handleNavItemClick('/proveedor/gestion-proveedores')}>Gestión de Proveedores</li>

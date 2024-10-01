@@ -8,25 +8,25 @@ import authenticateToken from '../middleware/authenticateToken.js';
 const router = express.Router();
 
 ///// CRUD DE USUARIO
-router.get('/usuarios', authenticateToken, getUsuarios);          
-router.get('/usuarios/:id', authenticateToken, getUsuarioById);    
-router.post('/usuarios', authenticateToken, createUsuario);        
-router.put('/usuarios/:id', authenticateToken, updateUsuario);     
-router.delete('/usuarios/:id', authenticateToken, deleteUsuario);
+router.get('/usuario', getUsuarios);          
+router.get('/usuario/:id', getUsuarioById);    
+router.post('/usuario', createUsuario);        
+router.put('/usuario/:id', updateUsuario);     
+router.delete('/usuario/:id', deleteUsuario);
 
 ///// CRUD DE CLIENTE
-router.get('/clientes', authenticateToken, getClientes);
-router.get('/clientes/:id', authenticateToken, getClienteById);
-router.post('/clientes', authenticateToken, createCliente);
-router.put('/clientes/:id', authenticateToken, updateCliente);
-router.delete('/clientes/:id', authenticateToken, deleteCliente);
+router.get('/cliente', getClientes);
+router.get('/cliente/:id', getClienteById);
+router.post('/cliente', createCliente);
+router.put('/cliente/:id', updateCliente);
+router.delete('/cliente/:id', deleteCliente);
 
 ///// CRUD DE TIPO CLIENTE
-router.get('/tipo-clientes', authenticateToken, getTipoClientes);
-router.get('/tipo-clientes/:id', authenticateToken, getTipoClienteById);
-router.post('/tipo-clientes', authenticateToken, createTipoCliente);
-router.put('/tipo-clientes/:id', authenticateToken, updateTipoCliente);
-router.delete('/tipo-clientes/:id', authenticateToken, deleteTipoCliente);
+router.get('/tipo-cliente', getTipoClientes);
+router.get('/tipo-cliente/:id', getTipoClienteById);
+router.post('/tipo-cliente', createTipoCliente);
+router.put('/tipo-cliente/:id', updateTipoCliente);
+router.delete('/tipo-cliente/:id', deleteTipoCliente);
 
 ///// RUTA LOGIN
 router.post('/login', login);
