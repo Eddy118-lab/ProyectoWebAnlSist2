@@ -27,7 +27,7 @@ function Header({ onLogout }) {
     '/gestion-personal/colaborador',
     '/usuario/gestion-usuarios',
     '/cliente/gestion-clientes',
-    '/compras',  // Aquí se incluye la ruta del nuevo módulo
+    '/compras',
     '/material/gestion-materiales',
     '/factura-proveedor/gestion-facturas-proveedores'
   ].includes(location.pathname);

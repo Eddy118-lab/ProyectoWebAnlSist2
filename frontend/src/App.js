@@ -7,6 +7,12 @@ import MainContent from './components/MainContent.js';
 import CompCreateUsuario from './components/CreateUsuario.js';
 import CompEditUsuario from './components/EditUsuario.js';
 import CompShowUsuario from './components/ShowUsuario.js';
+import CompCreateCliente from './components/CreateCliente.js';
+import CompEditCliente  from './components/EditCliente.js';
+import CompShowCliente  from './components/ShowCliente.js';
+import CompCreateTipoCliente from './components/CreateTipoCliente.js';
+import CompEditTipoCliente from './components/EditTipoCliente.js';
+import CompShowTipoCliente from './components/ShowTipoCliente.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -89,7 +95,13 @@ function App() {
             <Route path="/usuario/gestion-usuarios" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowUsuario /></PrivateRoute>} />
             <Route path="/usuario/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateUsuario /></PrivateRoute>} />
             <Route path="/usuario/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditUsuario /></PrivateRoute>} />
-            
+            <Route path="/cliente/gestion-clientes" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowCliente /></PrivateRoute>} />
+            <Route path="/cliente/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateCliente /></PrivateRoute>} />
+            <Route path="/cliente/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditCliente /></PrivateRoute>} />
+            <Route path="/cliente/tipo-cliente/gestion-tipos-clientes" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoCliente /></PrivateRoute>} />
+            <Route path="/cliente/tipo-cliente/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoCliente /></PrivateRoute>} />
+            <Route path="/cliente/tipo-cliente/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoCliente /></PrivateRoute>} />
+
             {/* Si la ruta no coincide, cerrar sesión y redirigir a /inicio */}
             <Route path="*" element={<LogoutAndRedirect onLogout={handleLogout} />} />
           </Routes>

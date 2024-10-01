@@ -23,7 +23,7 @@ function MainContent() {
           <p>Próximamente</p>
         </div>
         <div className="module-card">
-          <Link to="/Home/cliente/gestion-clientes" className="btn-module">
+          <Link to="/cliente/gestion-clientes" className="btn-module">
             <img src={cliente} alt="Gestión de Clientes" />
             <h3>Gestión de Clientes</h3>
           </Link>
