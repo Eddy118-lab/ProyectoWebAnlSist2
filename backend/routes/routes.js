@@ -42,11 +42,11 @@ router.delete('/conductor/:id', deleteConductor);
 
 
 ///// CRUD DE PROVEEDOR
-router.get('/proveedores', getProveedores);
-router.get('/proveedores/:id', getProveedorById);
-router.post('/proveedores', createProveedor);
-router.put('/proveedores/:id', updateProveedor);
-router.delete('/proveedores/:id', deleteProveedor);
+router.get('/proveedor', getProveedores);
+router.get('/proveedor/:id', getProveedorById);
+router.post('/proveedor', createProveedor);
+router.put('/proveedor/:id', updateProveedor);
+router.delete('/proveedor/:id', deleteProveedor);
 
 ///// CRUD DE TIPO PROVEEDOR
 router.get('/tipo-proveedor', getTipoProveedores);

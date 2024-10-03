@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Styles/StyleTipoProveedor.css'; // Importa el archivo CSS
+import './Styles/StyleProveedor.css'; // Importa el archivo CSS
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const URI = 'http://localhost:8000/api/tipo-proveedor';
@@ -84,7 +84,7 @@ const CompShowTipoProveedor = () => {
                         </div>
                         <div className="search-create-wrapper">
                             <div className="create-btn-container">
-                                <Link to="/tipo-proveedor/create" className="btn btn-primary">
+                                <Link to="/proveedor/tipo-proveedor/create" className="btn btn-primary">
                                     <i className="fa-solid fa-plus"></i>
                                 </Link>
                                 {/* Botón para volver a la gestión de proveedores */}
@@ -120,7 +120,7 @@ const CompShowTipoProveedor = () => {
                                     <tr key={tipoProveedor.id}>
                                         <td>{tipoProveedor.descripcion}</td>
                                         <td>
-                                            <Link to={`/tipo-proveedor/edit/${tipoProveedor.id}`} className='btn btn-warning btn-sm mr-2'>
+                                            <Link to={`/proveedor/tipo-proveedor/edit/${tipoProveedor.id}`} className='btn btn-warning btn-sm mr-2'>
                                                 <i className="fa-regular fa-pen-to-square"></i>
                                             </Link>
                                             <button onClick={() => deleteTipoProveedor(tipoProveedor.id)} className='btn btn-danger btn-sm'>
