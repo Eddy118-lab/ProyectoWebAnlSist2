@@ -24,7 +24,7 @@ function Header({ onLogout }) {
     '/inventario',
     '/ventas',
     '/proveedor/gestion-proveedores',
-    '/gestion-personal/colaborador',
+    '/conductor/gestion-conductores',
     '/usuario/gestion-usuarios',
     '/cliente/gestion-clientes',
     '/compras',
@@ -107,7 +107,7 @@ function Header({ onLogout }) {
           <li onClick={() => handleNavItemClick('/inventario')}>Gestión de Inventario</li>
           <li onClick={() => handleNavItemClick('/ventas')}>Gestión de Ventas</li>
           <li onClick={() => handleNavItemClick('/proveedor/gestion-proveedores')}>Gestión de Proveedores</li>
-          <li onClick={() => handleNavItemClick('/gestion-personal/colaborador')}>Gestión de Personal</li>
+          <li onClick={() => handleNavItemClick('/conductor/gestion-conductores')}>Gestión de Personal</li>
           <li onClick={() => handleNavItemClick('/usuario/gestion-usuarios')}>Gestión de Usuarios</li>
           <li onClick={() => handleNavItemClick('/cliente/gestion-clientes')}>Gestión de Clientes</li>
           <li onClick={() => handleNavItemClick('/compras')}>Gestión de Compras</li> {/* Nuevo módulo */}

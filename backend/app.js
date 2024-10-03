@@ -2,10 +2,17 @@ import express from "express";
 import cors from 'cors';
 import db from "./database/db.js";
 import mainRoutes from './routes/routes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Definir las rutas
 app.use('/api', mainRoutes);

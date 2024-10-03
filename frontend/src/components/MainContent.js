@@ -40,9 +40,9 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
-        <Link to="/gestion-personal/colaborador" className="btn-module">
+        <Link to="/conductor/gestion-conductores" className="btn-module">
           <img src={personal} alt="Gestión de Personal" />
-          <h3>Gestión de Personal</h3>
+          <h3>Gestión de Conductores</h3>
         </Link>
         </div>
         <div className="module-card">

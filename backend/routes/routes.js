@@ -3,23 +3,11 @@ import { getUsuarios, getUsuarioById, createUsuario, updateUsuario, deleteUsuari
 import {getTipoClientes, getTipoClienteById, createTipoCliente, updateTipoCliente, deleteTipoCliente } from '../controllers/TipoClienteController.js';
 import {getClientes, getClienteById, createCliente, updateCliente, deleteCliente} from '../controllers/ClienteController.js';
 import {getConductores, getConductorById, createConductor, updateConductor, deleteConductor} from '../controllers/ConductorController.js';
-import multer from 'multer';
 import { login } from '../controllers/LoginController.js';
+import upload from '../middleware/upload.js';
 import authenticateToken from '../middleware/authenticateToken.js';
 
 const router = express.Router();
-
-// Configuración de multer para manejar la carga de imágenes
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Directorio donde se guardarán las imágenes
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + '-' + file.originalname); // Asignar un nombre único a la imagen
-    }
-});
-
-const upload = multer({ storage });
 
 ///// CRUD DE USUARIO
 router.get('/usuario', getUsuarios);          
@@ -46,8 +34,8 @@ router.delete('/tipo-cliente/:id', deleteTipoCliente);
 ///// CRUD DE CONDUCTOR
 router.get('/conductor', getConductores);
 router.get('/conductor/:id', getConductorById);
-router.post('/conductor', upload.fields([{ name: 'front_imagen_url' }, { name: 'tras_imagen_url' }]), createConductor); 
-router.put('/conductor/:id', upload.fields([{ name: 'front_imagen_url' }, { name: 'tras_imagen_url' }]), updateConductor);
+router.post('/conductor', upload.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), createConductor); 
+router.put('/conductor/:id', upload.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), updateConductor);
 router.delete('/conductor/:id', deleteConductor);
 
 ///// RUTA LOGIN

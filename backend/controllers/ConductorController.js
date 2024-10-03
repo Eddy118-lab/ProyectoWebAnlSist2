@@ -1,6 +1,24 @@
 import Conductor from '../models/Conductor.js';
-import { unlink } from 'fs'; // Para eliminar archivos si es necesario
+import { unlink } from 'fs';
 import path from 'path';
+import multer from 'multer';
+
+// Configuración de multer para subir imágenes
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads'); // Directorio de almacenamiento
+    },
+    filename: (req, file, cb) => {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniqueSuffix + '-' + file.originalname); // Guarda con nombre único
+    }
+});
+
+// Configuración de multer con límite de 10MB por archivo
+const upload = multer({
+    storage,
+    limits: { fileSize: 10 * 1024 * 1024 }, // Límite de 10MB
+});
 
 // Obtener todos los conductores
 export const getConductores = async (req, res) => {
@@ -91,15 +109,15 @@ export const updateConductor = async (req, res) => {
         const front_imagen_url = req.files.front_imagen_url ? req.files.front_imagen_url[0].filename : conductor.front_imagen_url;
         const tras_imagen_url = req.files.tras_imagen_url ? req.files.tras_imagen_url[0].filename : conductor.tras_imagen_url;
 
-        // Si se están actualizando las imágenes, podrías eliminar las antiguas si es necesario
+        // Si se están actualizando las imágenes, eliminar las antiguas si es necesario
         if (req.files.front_imagen_url) {
-            const oldFrontImagePath = path.join(__dirname, '../uploads/', conductor.front_imagen_url);
+            const oldFrontImagePath = path.join('uploads', conductor.front_imagen_url);
             unlink(oldFrontImagePath, (err) => {
                 if (err) console.error('Error al eliminar la imagen frontal antigua:', err);
             });
         }
         if (req.files.tras_imagen_url) {
-            const oldTrasImagePath = path.join(__dirname, '../uploads/', conductor.tras_imagen_url);
+            const oldTrasImagePath = path.join('uploads', conductor.tras_imagen_url);
             unlink(oldTrasImagePath, (err) => {
                 if (err) console.error('Error al eliminar la imagen trasera antigua:', err);
             });
@@ -138,13 +156,13 @@ export const deleteConductor = async (req, res) => {
 
         // Eliminar las imágenes del servidor
         if (conductor.front_imagen_url) {
-            const frontImagePath = path.join(__dirname, '../uploads/', conductor.front_imagen_url);
+            const frontImagePath = path.join('uploads', conductor.front_imagen_url);
             unlink(frontImagePath, (err) => {
                 if (err) console.error('Error al eliminar la imagen frontal:', err);
             });
         }
         if (conductor.tras_imagen_url) {
-            const trasImagePath = path.join(__dirname, '../uploads', conductor.tras_imagen_url);
+            const trasImagePath = path.join('uploads', conductor.tras_imagen_url);
             unlink(trasImagePath, (err) => {
                 if (err) console.error('Error al eliminar la imagen trasera:', err);
             });

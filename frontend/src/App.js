@@ -13,6 +13,9 @@ import CompShowCliente  from './components/ShowCliente.js';
 import CompCreateTipoCliente from './components/CreateTipoCliente.js';
 import CompEditTipoCliente from './components/EditTipoCliente.js';
 import CompShowTipoCliente from './components/ShowTipoCliente.js';
+import CompCreateConductor  from './components/CreateConductor.js';
+import CompEditConductor  from './components/EditConductor.js';
+import CompShowConductor  from './components/ShowConductor.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -23,6 +26,8 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+/*import CompCreateConductor from './components';
+import CompEditConductor  from './components';*/
 
 function LogoutAndRedirect({ onLogout }) {
   const navigate = useNavigate();
@@ -101,6 +106,9 @@ function App() {
             <Route path="/cliente/tipo-cliente/gestion-tipos-clientes" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoCliente /></PrivateRoute>} />
             <Route path="/cliente/tipo-cliente/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoCliente /></PrivateRoute>} />
             <Route path="/cliente/tipo-cliente/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoCliente /></PrivateRoute>} />
+            <Route path="/conductor/gestion-conductores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowConductor /></PrivateRoute>} />
+            <Route path="/conductor/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateConductor /></PrivateRoute>} />
+            <Route path="/conductor/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditConductor /></PrivateRoute>} />
 
             {/* Si la ruta no coincide, cerrar sesión y redirigir a /inicio */}
             <Route path="*" element={<LogoutAndRedirect onLogout={handleLogout} />} />
