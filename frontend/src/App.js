@@ -16,6 +16,8 @@ import CompShowTipoCliente from './components/ShowTipoCliente.js';
 import CompCreateConductor  from './components/CreateConductor.js';
 import CompEditConductor  from './components/EditConductor.js';
 import CompShowConductor  from './components/ShowConductor.js';
+import CompShowProveedor  from './components/ShowProveedor.js';
+import CompShowTipoProveedor  from './components/ShowTipoProveedor.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -109,6 +111,8 @@ function App() {
             <Route path="/conductor/gestion-conductores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowConductor /></PrivateRoute>} />
             <Route path="/conductor/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateConductor /></PrivateRoute>} />
             <Route path="/conductor/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditConductor /></PrivateRoute>} />
+            <Route path="/proveedor/gestion-proveedores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowProveedor /></PrivateRoute>} />
+            <Route path="/proveedor/tipo-proveedor/gestion-tipos-proveedores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoProveedor /></PrivateRoute>} />
 
             {/* Si la ruta no coincide, cerrar sesión y redirigir a /inicio */}
             <Route path="*" element={<LogoutAndRedirect onLogout={handleLogout} />} />

@@ -1,0 +1,180 @@
+/* Estilos para Clientes */
+
+/* Encabezado */
+.App-header {
+    background-color: #89a4b6;
+    height: 80px; /* Altura fija para el encabezado */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    position: fixed; /* Fijo en la parte superior */
+    width: 100%; /* Ocupa todo el ancho */
+    top: 0; /* En la parte superior */
+    left: 0; /* Alineado al borde izquierdo */
+    z-index: 1000; /* Asegura que esté encima del contenido */
+}
+
+/* Menú de Usuario */
+.user-menu {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+/* Menú Lateral */
+.side-nav {
+    position: fixed;
+    top: 0;
+    left: -200px;
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: left 0.3s ease;
+    z-index: 999;
+}
+
+.side-nav.open {
+    left: 0;
+}
+
+/* Contenido Principal */
+.App-main {
+    padding: 20px;
+    margin: 0 25px; /* Ajusta los márgenes laterales */
+    margin-top: 100px; /* Ajusta según la nueva altura del encabezado */
+    margin-bottom: 60px; /* Ajusta el margen inferior para evitar espacio en blanco excesivo */
+    box-sizing: border-box;
+}
+
+/* Botones de Módulo */
+.module-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.module-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.module-card img {
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+/* Formularios */
+.form-container {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 115px; /* Ajusta el valor según la altura de tu header */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 80px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.direccion-centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.direccion-centered .form-control {
+    text-align: center;
+    width: 80%;
+}
+
+/* Contenedor de la tabla */
+.table-container {
+    overflow-x: auto;
+    margin-top: 20px;
+}
+
+/* Tabla */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    background-color: #f4f4f4;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Paginación */
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination-controls button {
+    margin: 0 10px;
+}
+
+/* Contenedor principal para el buscador y el botón */
+.search-create-container {
+    margin-top: 115px; /* Ajusta este valor según la altura de tu encabezado */
+}
+
+/* Contenedor para el buscador y el botón */
+.search-create-wrapper {
+    display: flex;
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-content: space-between; /* Espacia los elementos a los extremos */
+    margin-bottom: 20px; /* Espacio debajo del contenedor */
+}
+
+/* Contenedor del buscador */
+.search-container {
+    flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+}
+
+/* Contenedor del botón "Crear Cliente" */
+.create-btn-container {
+    margin-left: 20px; /* Espacio entre el buscador y el botón */
+}
+
+/* Estilo para el botón "Crear Cliente" */
+.create-btn-container .btn {
+    margin-top: 0; /* Alinea el botón con el buscador */
+}
+
+/* En tu archivo StyleCliente.css */
+.section-title {
+    font-size: 24px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-bottom: 20px; /* Espacio debajo del título */
+    margin-top: 20px; /* Espacio encima del título, ajusta según sea necesario */
+    color: #333; /* Color del texto, ajusta según tu diseño */
+}

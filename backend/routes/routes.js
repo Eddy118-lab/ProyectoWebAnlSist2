@@ -3,6 +3,8 @@ import { getUsuarios, getUsuarioById, createUsuario, updateUsuario, deleteUsuari
 import {getTipoClientes, getTipoClienteById, createTipoCliente, updateTipoCliente, deleteTipoCliente } from '../controllers/TipoClienteController.js';
 import {getClientes, getClienteById, createCliente, updateCliente, deleteCliente} from '../controllers/ClienteController.js';
 import {getConductores, getConductorById, createConductor, updateConductor, deleteConductor} from '../controllers/ConductorController.js';
+import {getProveedores, getProveedorById, createProveedor, updateProveedor, deleteProveedor} from '../controllers/ProveedorController.js';
+import {getTipoProveedores, getTipoProveedorById, createTipoProveedor, updateTipoProveedor, deleteTipoProveedor} from '../controllers/TipoProveedorController.js';
 import { login } from '../controllers/LoginController.js';
 import upload from '../middleware/upload.js';
 import authenticateToken from '../middleware/authenticateToken.js';
@@ -37,6 +39,21 @@ router.get('/conductor/:id', getConductorById);
 router.post('/conductor', upload.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), createConductor); 
 router.put('/conductor/:id', upload.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), updateConductor);
 router.delete('/conductor/:id', deleteConductor);
+
+
+///// CRUD DE PROVEEDOR
+router.get('/proveedores', getProveedores);
+router.get('/proveedores/:id', getProveedorById);
+router.post('/proveedores', createProveedor);
+router.put('/proveedores/:id', updateProveedor);
+router.delete('/proveedores/:id', deleteProveedor);
+
+///// CRUD DE TIPO PROVEEDOR
+router.get('/tipo-proveedor', getTipoProveedores);
+router.get('/tipo-proveedor/:id', getTipoProveedorById);
+router.post('/tipo-proveedor', createTipoProveedor);
+router.put('/tipo-proveedor/:id', updateTipoProveedor);
+router.delete('/tipo-proveedor/:id', deleteTipoProveedor);
 
 ///// RUTA LOGIN
 router.post('/login', login);
