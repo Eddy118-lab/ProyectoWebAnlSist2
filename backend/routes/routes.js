@@ -5,8 +5,10 @@ import {getClientes, getClienteById, createCliente, updateCliente, deleteCliente
 import {getConductores, getConductorById, createConductor, updateConductor, deleteConductor} from '../controllers/ConductorController.js';
 import {getProveedores, getProveedorById, createProveedor, updateProveedor, deleteProveedor} from '../controllers/ProveedorController.js';
 import {getTipoProveedores, getTipoProveedorById, createTipoProveedor, updateTipoProveedor, deleteTipoProveedor} from '../controllers/TipoProveedorController.js';
+import {getDimensiones, getDimensionById, createDimension, updateDimension, deleteDimension} from '../controllers/DimensionController.js';
+import {getPesos, getPesoById, createPeso, updatePeso, deletePeso} from '../controllers/PesoController.js';
 import { login } from '../controllers/LoginController.js';
-import upload from '../middleware/upload.js';
+import uploadConductor from '../middleware/uploadConductor.js';
 import authenticateToken from '../middleware/authenticateToken.js';
 
 const router = express.Router();
@@ -36,8 +38,8 @@ router.delete('/tipo-cliente/:id', deleteTipoCliente);
 ///// CRUD DE CONDUCTOR
 router.get('/conductor', getConductores);
 router.get('/conductor/:id', getConductorById);
-router.post('/conductor', upload.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), createConductor); 
-router.put('/conductor/:id', upload.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), updateConductor);
+router.post('/conductor', uploadConductor.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), createConductor); 
+router.put('/conductor/:id', uploadConductor.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), updateConductor);
 router.delete('/conductor/:id', deleteConductor);
 
 
@@ -54,6 +56,20 @@ router.get('/tipo-proveedor/:id', getTipoProveedorById);
 router.post('/tipo-proveedor', createTipoProveedor);
 router.put('/tipo-proveedor/:id', updateTipoProveedor);
 router.delete('/tipo-proveedor/:id', deleteTipoProveedor);
+
+///// CRUD DE DIMENSION
+router.get('/dimension', getDimensiones);
+router.get('/dimension/:id', getDimensionById);
+router.post('/dimension', createDimension);
+router.put('/dimension/:id', updateDimension);
+router.delete('/dimension/:id', deleteDimension);
+
+///// CRUD DE PESO
+router.get('/peso', getPesos);
+router.get('/peso/:id', getPesoById);
+router.post('/peso', createPeso);
+router.put('/peso/:id', updatePeso);
+router.delete('/peso/:id', deletePeso);
 
 ///// RUTA LOGIN
 router.post('/login', login);

@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import './Styles/StyleConductor.css';  // Asegúrate de tener un archivo de estilo si es necesario
 
 const URI_CONDUCTOR = 'http://localhost:8000/api/conductor/';
-const URI_IMG = 'http://localhost:8000/uploads/'; // Constante para la URL de las imágenes
+const URI_IMG = 'http://localhost:8000/uploadsConductor/'; // Constante para la URL de las imágenes
 
 const EditConductor = () => {
     const { id } = useParams();  // Obtener el ID del conductor de los parámetros de la URL

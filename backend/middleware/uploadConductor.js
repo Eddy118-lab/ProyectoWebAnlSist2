@@ -3,7 +3,7 @@ import multer from 'multer';
 // Configuración de multer para subir imágenes
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads'); // Directorio de almacenamiento
+        cb(null, 'uploadsConductor'); // Directorio de almacenamiento
     },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
@@ -12,9 +12,9 @@ const storage = multer.diskStorage({
 });
 
 // Configuración de multer con límite de 10MB por archivo
-const upload = multer({
+const uploadConductor = multer({
     storage,
     limits: { fileSize: 10 * 1024 * 1024 }, // Límite de 10MB
 });
 
-export default upload;
+export default uploadConductor;

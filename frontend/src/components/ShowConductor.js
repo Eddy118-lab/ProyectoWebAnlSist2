@@ -6,7 +6,7 @@ import SearchConductor from './SearchConductor.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const URI = 'http://localhost:8000/api/conductor';
-const URI_IMG = 'http://localhost:8000/uploads/'; // Constante para la URL de las imágenes
+const URI_IMG = 'http://localhost:8000/uploadsConductor/'; // Constante para la URL de las imágenes
 
 const CompShowConductor = () => {
     const [conductores, setConductores] = useState([]);

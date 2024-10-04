@@ -12,7 +12,7 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploadsConductor', express.static(path.join(__dirname, 'uploadsConductor')));
 
 // Definir las rutas
 app.use('/api', mainRoutes);
