@@ -1,5 +1,5 @@
 import { useState, useEffect  } from 'react';
-import { BrowserRouter, Route, Routes, Navigate, useNavigate, useLocation   } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate, useNavigate} from 'react-router-dom';
 import Footer from './components/Footer';
 import Login from './components/Login.js';
 import Header from './components/Header.js';
@@ -22,6 +22,19 @@ import CompShowProveedor  from './components/ShowProveedor.js';
 import CompCreateTipoProveedor from './components/CreateTipoProveedor.js';
 import CompEditTipoProveedor from './components/EditTipoProveedor.js';
 import CompShowTipoProveedor  from './components/ShowTipoProveedor.js';
+import CompCreateMaterial from './components/CreateMaterial.js';
+import CompEditMaterial from './components/EditMaterial.js';
+import CompShowMaterial from './components/ShowMaterial.js';
+import CompCreateDimension from './components/CreateDimension.js';
+import CompEditDimension from './components/EditDimension.js';
+import CompShowDimension from './components/ShowDimension.js';
+import CompCreatePeso from './components/CreatePeso.js';
+import CompEditPeso from './components/EditPeso.js';
+import CompShowPeso from './components/ShowPeso.js';
+import CompCreateTipoMaterial from './components/CreateTipoMaterial.js';
+import CompEditTipoMaterial from './components/EditTipoMaterial.js';
+import CompShowTipoMaterial from './components/ShowTipoMaterial.js';
+
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -115,7 +128,19 @@ function App() {
           <Route path="/proveedor/tipo-proveedor/gestion-tipos-proveedores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoProveedor /></PrivateRoute>} />
           <Route path="/proveedor/tipo-proveedor/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoProveedor /></PrivateRoute>} />
           <Route path="/proveedor/tipo-proveedor/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoProveedor /></PrivateRoute>} />
-
+          <Route path="/material/gestion-materiales" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowMaterial /></PrivateRoute>} />
+          <Route path="/material/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateMaterial /></PrivateRoute>} />
+          <Route path="/material/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditMaterial /></PrivateRoute>} />
+          <Route path="/material/dimension/gestion-dimensiones" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowDimension /></PrivateRoute>} />
+          <Route path="/material/dimension/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateDimension /></PrivateRoute>} />
+          <Route path="/material/dimension/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditDimension /></PrivateRoute>} />
+          <Route path="/material/peso/gestion-pesos" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowPeso /></PrivateRoute>} />
+          <Route path="/material/peso/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreatePeso /></PrivateRoute>} />
+          <Route path="/material/peso/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditPeso /></PrivateRoute>} />  
+          <Route path="/material/tipo-material/gestion-tipos-materiales" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoMaterial /></PrivateRoute>} />
+          <Route path="/material/tipo-material/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoMaterial /></PrivateRoute>} />
+          <Route path="/material/tipo-material/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoMaterial /></PrivateRoute>} />
+          
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>

@@ -7,8 +7,11 @@ import {getProveedores, getProveedorById, createProveedor, updateProveedor, dele
 import {getTipoProveedores, getTipoProveedorById, createTipoProveedor, updateTipoProveedor, deleteTipoProveedor} from '../controllers/TipoProveedorController.js';
 import {getDimensiones, getDimensionById, createDimension, updateDimension, deleteDimension} from '../controllers/DimensionController.js';
 import {getPesos, getPesoById, createPeso, updatePeso, deletePeso} from '../controllers/PesoController.js';
+import {getTipoMateriales, getTipoMaterialById, createTipoMaterial, updateTipoMaterial, deleteTipoMaterial} from '../controllers/TipoMaterialController.js'; 
+import {getMateriales, getMaterialById, createMaterial, updateMaterial, deleteMaterial} from '../controllers/MaterialController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
+import uploadMaterial from '../middleware/uploadMaterial.js';
 import authenticateToken from '../middleware/authenticateToken.js';
 
 const router = express.Router();
@@ -34,14 +37,12 @@ router.post('/tipo-cliente', createTipoCliente);
 router.put('/tipo-cliente/:id', updateTipoCliente);
 router.delete('/tipo-cliente/:id', deleteTipoCliente);
 
-
 ///// CRUD DE CONDUCTOR
 router.get('/conductor', getConductores);
 router.get('/conductor/:id', getConductorById);
 router.post('/conductor', uploadConductor.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), createConductor); 
 router.put('/conductor/:id', uploadConductor.fields([{ name: 'front_imagen_url', maxCount: 1 }, { name: 'tras_imagen_url', maxCount: 1 }]), updateConductor);
 router.delete('/conductor/:id', deleteConductor);
-
 
 ///// CRUD DE PROVEEDOR
 router.get('/proveedor', getProveedores);
@@ -70,6 +71,20 @@ router.get('/peso/:id', getPesoById);
 router.post('/peso', createPeso);
 router.put('/peso/:id', updatePeso);
 router.delete('/peso/:id', deletePeso);
+
+///// CRUD DE TIPO MATERIAL
+router.get('/tipo-material', getTipoMateriales);
+router.get('/tipo-material/:id', getTipoMaterialById);
+router.post('/tipo-material', createTipoMaterial);
+router.put('/tipo-material/:id', updateTipoMaterial);
+router.delete('/tipo-material/:id', deleteTipoMaterial);
+
+///// CRUD DE MATERIAL
+router.get('/material', getMateriales);
+router.get('/material/:id', getMaterialById);
+router.post('/material', uploadMaterial.single('imagen_url'), createMaterial);
+router.put('/material/:id', uploadMaterial.single('imagen_url'), updateMaterial);
+router.delete('/material/:id', deleteMaterial);
 
 ///// RUTA LOGIN
 router.post('/login', login);

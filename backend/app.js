@@ -13,6 +13,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 app.use('/uploadsConductor', express.static(path.join(__dirname, 'uploadsConductor')));
+app.use('/uploadsMaterial', express.static(path.join(__dirname, 'uploadsMaterial')));
 
 // Definir las rutas
 app.use('/api', mainRoutes);
