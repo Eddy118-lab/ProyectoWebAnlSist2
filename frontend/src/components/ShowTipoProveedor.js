@@ -7,7 +7,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 const URI = 'http://localhost:8000/api/tipo-proveedor';
 
 const CompShowTipoProveedor = () => {
-    const [tiposProveedores, setTiposProveedores] = useState([]);
     const [filteredTiposProveedores, setFilteredTiposProveedores] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [tiposProveedoresPerPage] = useState(4);
@@ -26,7 +25,6 @@ const CompShowTipoProveedor = () => {
         setLoading(true);
         try {
             const res = await axios.get(URI);
-            setTiposProveedores(res.data);
             setFilteredTiposProveedores(res.data);
         } catch (error) {
             setError('Error al obtener los datos');

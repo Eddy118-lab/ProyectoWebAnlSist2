@@ -3,7 +3,7 @@ import sequelize from '../database/db.js';
 import FacturaProveedor from './FacturaProveedor.js';
 import Inventario from './Inventario.js';
 
-const DetallFactProvee = sequelize.define('DetallFactProvee', {
+const DetallFactProveedor = sequelize.define('DetallFactProveedor', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -59,7 +59,7 @@ const DetallFactProvee = sequelize.define('DetallFactProvee', {
 });
 
 // Define relationships
-DetallFactProvee.belongsTo(FacturaProveedor, { foreignKey: 'factura_proveedor_id' });
-DetallFactProvee.belongsTo(Inventario, { foreignKey: 'inventario_id' });
+DetallFactProveedor.belongsTo(FacturaProveedor, { foreignKey: 'factura_proveedor_id', as: 'facturaProveedor' });
+DetallFactProveedor.belongsTo(Inventario, { foreignKey: 'inventario_id', as: 'inventario' });
 
-export default DetallFactProvee;
+export default DetallFactProveedor;

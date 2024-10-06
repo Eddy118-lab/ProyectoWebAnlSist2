@@ -2,10 +2,10 @@ import PagoProveedor from '../models/PagoProveedor.js';
 import FacturaProveedor from '../models/FacturaProveedor.js';
 import TipoPagoProveedor from '../models/TipoPagoProveedor.js';
 
-// Get all pagos grouped by FacturaProveedor
+// Get all Pagos grouped by FacturaProveedor
 export const getPagosProveedoresGroupedByFactura = async (req, res) => {
     try {
-        const pagos = await PagoProveedor.findAll({
+        const pagosProveedores = await PagoProveedor.findAll({
             include: [
                 {
                     model: FacturaProveedor,
@@ -23,7 +23,7 @@ export const getPagosProveedoresGroupedByFactura = async (req, res) => {
         });
 
         // Grouping the pagos by factura_proveedor_id
-        const groupedPagos = pagos.reduce((acc, pago) => {
+        const groupedPagos = pagosProveedores.reduce((acc, pago) => {
             const facturaId = pago.factura_proveedor_id;
             if (!acc[facturaId]) {
                 acc[facturaId] = {
@@ -45,7 +45,7 @@ export const getPagosProveedoresGroupedByFactura = async (req, res) => {
 export const getPagoProveedorById = async (req, res) => {
     try {
         const { id } = req.params;
-        const pago = await PagoProveedor.findByPk(id, {
+        const pagoProveedor = await PagoProveedor.findByPk(id, {
             include: [
                 {
                     model: FacturaProveedor,
@@ -61,9 +61,9 @@ export const getPagoProveedorById = async (req, res) => {
             attributes: ['id', 'fecha', 'monto']
         });
 
-        if (!pago) return res.status(404).json({ message: 'Pago no encontrado' });
+        if (!pagoProveedor) return res.status(404).json({ message: 'Pago no encontrado' });
 
-        res.json(pago);
+        res.json(pagoProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -74,14 +74,14 @@ export const createPagoProveedor = async (req, res) => {
     try {
         const { fecha, monto, factura_proveedor_id, tipo_pago_id } = req.body;
 
-        const newPago = await PagoProveedor.create({
+        const newPagoProveedor = await PagoProveedor.create({
             fecha,
             monto,
             factura_proveedor_id,
             tipo_pago_id
         });
 
-        res.status(201).json(newPago);
+        res.status(201).json(newPagoProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -93,16 +93,16 @@ export const updatePagoProveedor = async (req, res) => {
         const { id } = req.params;
         const { fecha, monto, factura_proveedor_id, tipo_pago_id } = req.body;
 
-        const pago = await PagoProveedor.findByPk(id);
-        if (!pago) return res.status(404).json({ message: 'Pago no encontrado' });
+        const pagoProveedor = await PagoProveedor.findByPk(id);
+        if (!pagoProveedor) return res.status(404).json({ message: 'Pago no encontrado' });
 
-        pago.fecha = fecha;
-        pago.monto = monto;
-        pago.factura_proveedor_id = factura_proveedor_id;
-        pago.tipo_pago_id = tipo_pago_id;
+        pagoProveedor.fecha = fecha;
+        pagoProveedor.monto = monto;
+        pagoProveedor.factura_proveedor_id = factura_proveedor_id;
+        pagoProveedor.tipo_pago_id = tipo_pago_id;
 
-        await pago.save();
-        res.json(pago);
+        await pagoProveedor.save();
+        res.json(pagoProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -113,10 +113,10 @@ export const deletePagoProveedor = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const pago = await PagoProveedor.findByPk(id);
-        if (!pago) return res.status(404).json({ message: 'Pago no encontrado' });
+        const pagoProveedor = await PagoProveedor.findByPk(id);
+        if (!pagoProveedor) return res.status(404).json({ message: 'Pago no encontrado' });
 
-        await pago.destroy();
+        await pagoProveedor.destroy();
         res.json({ message: 'Pago eliminado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: error.message });

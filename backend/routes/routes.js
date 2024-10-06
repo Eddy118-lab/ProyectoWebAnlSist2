@@ -120,7 +120,7 @@ router.put('/pago-proveedor/:id', updatePagoProveedor);
 router.delete('/pago-proveedor/:id', deletePagoProveedor);
 
 /////CRUD DE DETALLE FACTURA PROVEEDOR
-router.get('/detalle-factura-proveedor/grouped', getDetallesFactProveedoresGroupedByFactura);
+router.get('/detalle-factura-proveedor', getDetallesFactProveedoresGroupedByFactura);
 router.get('/detalle-factura-proveedor/:id', getDetalleFactProveedorById);
 router.post('/detalle-factura-proveedor', createDetalleFactProveedor);
 router.put('/detalle-factura-proveedor/:id', updateDetalleFactProveedor);

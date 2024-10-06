@@ -4,10 +4,10 @@ import Proveedor from '../models/Proveedor.js';
 // Get all Facturas Proveedores
 export const getFacturasProveedores = async (req, res) => {
     try {
-        const facturas = await FacturaProveedor.findAll({
-            include: [{ model: Proveedor, as: 'proveedor' }]
+        const facturasProveedores = await FacturaProveedor.findAll({
+            include: [{ model: Proveedor, as: 'proveedor' }] // Use the defined alias here
         });
-        res.json(facturas);
+        res.json(facturasProveedores);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -17,14 +17,14 @@ export const getFacturasProveedores = async (req, res) => {
 export const getFacturaProveedorById = async (req, res) => {
     try {
         const { id } = req.params;
-        const factura = await FacturaProveedor.findOne({
+        const facturaProveedor = await FacturaProveedor.findOne({
             where: { id },
-            include: [{ model: Proveedor, as: 'proveedor' }]
+            include: [{ model: Proveedor, as: 'proveedor' }] // Use the defined alias here
         });
 
-        if (!factura) return res.status(404).json({ message: 'Factura no encontrada' });
+        if (!facturaProveedor) return res.status(404).json({ message: 'Factura de Proveedor no encontrada' });
 
-        res.json(factura);
+        res.json(facturaProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -35,13 +35,13 @@ export const createFacturaProveedor = async (req, res) => {
     try {
         const { fecha, monto, proveedor_id } = req.body;
 
-        const newFactura = await FacturaProveedor.create({
+        const newFacturaProveedor = await FacturaProveedor.create({
             fecha,
             monto,
             proveedor_id
         });
 
-        res.status(201).json(newFactura);
+        res.status(201).json(newFacturaProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -53,15 +53,15 @@ export const updateFacturaProveedor = async (req, res) => {
         const { id } = req.params;
         const { fecha, monto, proveedor_id } = req.body;
 
-        const factura = await FacturaProveedor.findByPk(id);
-        if (!factura) return res.status(404).json({ message: 'Factura no encontrada' });
+        const facturaProveedor = await FacturaProveedor.findByPk(id);
+        if (!facturaProveedor) return res.status(404).json({ message: 'Factura de Proveedor no encontrada' });
 
-        factura.fecha = fecha;
-        factura.monto = monto;
-        factura.proveedor_id = proveedor_id;
+        facturaProveedor.fecha = fecha;
+        facturaProveedor.monto = monto;
+        facturaProveedor.proveedor_id = proveedor_id;
 
-        await factura.save();
-        res.json(factura);
+        await facturaProveedor.save();
+        res.json(facturaProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -72,11 +72,11 @@ export const deleteFacturaProveedor = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const factura = await FacturaProveedor.findByPk(id);
-        if (!factura) return res.status(404).json({ message: 'Factura no encontrada' });
+        const facturaProveedor = await FacturaProveedor.findByPk(id);
+        if (!facturaProveedor) return res.status(404).json({ message: 'Factura de Proveedor no encontrada' });
 
-        await factura.destroy();
-        res.json({ message: 'Factura eliminada exitosamente' });
+        await facturaProveedor.destroy();
+        res.json({ message: 'Factura de Proveedor eliminada exitosamente' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

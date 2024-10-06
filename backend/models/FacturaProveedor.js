@@ -33,7 +33,10 @@ const FacturaProveedor = sequelize.define('FacturaProveedor', {
     timestamps: false
 });
 
-// Define relationship with Proveedor
-FacturaProveedor.belongsTo(Proveedor, { foreignKey: 'proveedor_id' });
+// Define relationship with Proveedor with an alias
+FacturaProveedor.belongsTo(Proveedor, {
+    foreignKey: 'proveedor_id',
+    as: 'proveedor' // This alias must match in the controller
+});
 
 export default FacturaProveedor;

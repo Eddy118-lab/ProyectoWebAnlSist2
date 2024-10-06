@@ -1,36 +1,45 @@
-import DetallFactProvee from '../models/DetallFactProvee.js';
+import DetallFactProveedor from '../models/DetallFactProveedor.js';
 import FacturaProveedor from '../models/FacturaProveedor.js';
 import Inventario from '../models/Inventario.js';
 
 // Get all Detalles grouped by FacturaProveedor
 export const getDetallesFactProveedoresGroupedByFactura = async (req, res) => {
     try {
-        const detalles = await DetallFactProvee.findAll({
+        const detallesFactProveedor = await DetallFactProveedor.findAll({
             include: [
                 {
                     model: FacturaProveedor,
-                    as: 'factura_proveedor',
+                    as: 'facturaProveedor', // Asegúrate de que el alias coincida
                     attributes: ['id', 'fecha', 'monto'],
                 },
                 {
                     model: Inventario,
                     as: 'inventario',
-                    attributes: ['id', 'precio_unitario', 'cantidad', 'fecha_ingreso'], // Add other relevant fields if needed
+                    attributes: ['id', 'precio_unitario', 'cantidad', 'fecha_ingreso'], // Añadir otros campos relevantes si es necesario
                 }
             ],
             attributes: ['id', 'cantidad', 'precio_unitario', 'subtotal', 'descuento', 'total'],
-            order: [['factura_proveedor_id', 'ASC']]  // Group by factura_proveedor_id
+            order: [['factura_proveedor_id', 'ASC']]  // Agrupar por factura_proveedor_id
         });
 
-        // Grouping the details by factura_proveedor_id
-        const groupedDetalles = detalles.reduce((acc, detalle) => {
-            const facturaId = detalle.factura_proveedor_id;
+        // Agrupando los detalles por facturaProveedor_id
+        const groupedDetalles = detallesFactProveedor.reduce((acc, detalle) => {
+            const facturaId = detalle.facturaProveedor.id; // Ajustado para usar el objeto
+            const inventarioId = detalle.inventario.id; // Obtener el id del inventario
+
             if (!acc[facturaId]) {
                 acc[facturaId] = {
-                    factura: detalle.factura_proveedor,
+                    factura: detalle.facturaProveedor,
+                    inventarios: [],
                     detalles: []
                 };
             }
+
+            // Agregar inventario si no existe
+            if (!acc[facturaId].inventarios.some(inv => inv.id === inventarioId)) {
+                acc[facturaId].inventarios.push(detalle.inventario);
+            }
+
             acc[facturaId].detalles.push(detalle);
             return acc;
         }, {});
@@ -41,15 +50,16 @@ export const getDetallesFactProveedoresGroupedByFactura = async (req, res) => {
     }
 };
 
-// Get a single DetallFactProvee by ID
+
+// Get a single DetallFactProveedor by ID
 export const getDetalleFactProveedorById = async (req, res) => {
     try {
         const { id } = req.params;
-        const detalle = await DetallFactProvee.findByPk(id, {
+        const detalleFactProveedor = await DetallFactProveedor.findByPk(id, {
             include: [
                 {
                     model: FacturaProveedor,
-                    as: 'factura_proveedor',
+                    as: 'facturaProveedor',
                     attributes: ['id', 'fecha', 'monto'],
                 },
                 {
@@ -61,20 +71,20 @@ export const getDetalleFactProveedorById = async (req, res) => {
             attributes: ['id', 'cantidad', 'precio_unitario', 'subtotal', 'descuento', 'total']
         });
 
-        if (!detalle) return res.status(404).json({ message: 'Detalle no encontrado' });
+        if (!detalleFactProveedor) return res.status(404).json({ message: 'Detalle no encontrado' });
 
-        res.json(detalle);
+        res.json(detalleFactProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-// Create a new DetallFactProvee
+// Create a new DetallFactProveedor
 export const createDetalleFactProveedor = async (req, res) => {
     try {
         const { cantidad, precio_unitario, subtotal, descuento, total, factura_proveedor_id, inventario_id } = req.body;
 
-        const newDetalle = await DetallFactProvee.create({
+        const newDetalleFactProveedor = await DetallFactProveedor.create({
             cantidad,
             precio_unitario,
             subtotal,
@@ -84,45 +94,45 @@ export const createDetalleFactProveedor = async (req, res) => {
             inventario_id
         });
 
-        res.status(201).json(newDetalle);
+        res.status(201).json(newDetalleFactProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-// Update an existing DetallFactProvee
+// Update an existing DetallFactProveedor
 export const updateDetalleFactProveedor = async (req, res) => {
     try {
         const { id } = req.params;
         const { cantidad, precio_unitario, subtotal, descuento, total, factura_proveedor_id, inventario_id } = req.body;
 
-        const detalle = await DetallFactProvee.findByPk(id);
-        if (!detalle) return res.status(404).json({ message: 'Detalle no encontrado' });
+        const detalleFactProveedor = await DetallFactProveedor.findByPk(id);
+        if (!detalleFactProveedor) return res.status(404).json({ message: 'Detalle no encontrado' });
 
-        detalle.cantidad = cantidad;
-        detalle.precio_unitario = precio_unitario;
-        detalle.subtotal = subtotal;
-        detalle.descuento = descuento;
-        detalle.total = total;
-        detalle.factura_proveedor_id = factura_proveedor_id;
-        detalle.inventario_id = inventario_id;
+        detalleFactProveedor.cantidad = cantidad;
+        detalleFactProveedor.precio_unitario = precio_unitario;
+        detalleFactProveedor.subtotal = subtotal;
+        detalleFactProveedor.descuento = descuento;
+        detalleFactProveedor.total = total;
+        detalleFactProveedor.factura_proveedor_id = factura_proveedor_id;
+        detalleFactProveedor.inventario_id = inventario_id;
 
-        await detalle.save();
-        res.json(detalle);
+        await detalleFactProveedor.save();
+        res.json(detalleFactProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 };
 
-// Delete a DetallFactProvee
+// Delete a DetallFactProveedor
 export const deleteDetalleFactProveedor = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const detalle = await DetallFactProvee.findByPk(id);
-        if (!detalle) return res.status(404).json({ message: 'Detalle no encontrado' });
+        const detalleFactProveedor = await DetallFactProveedor.findByPk(id);
+        if (!detalleFactProveedor) return res.status(404).json({ message: 'Detalle no encontrado' });
 
-        await detalle.destroy();
+        await detalleFactProveedor.destroy();
         res.json({ message: 'Detalle eliminado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -3,8 +3,8 @@ import TipoPagoProveedor from '../models/TipoPagoProveedor.js';
 // Get all TipoPagoProveedor
 export const getTiposPagoProveedor = async (req, res) => {
     try {
-        const tiposPago = await TipoPagoProveedor.findAll();
-        res.json(tiposPago);
+        const tiposPagoProveedores = await TipoPagoProveedor.findAll();
+        res.json(tiposPagoProveedores);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -14,11 +14,11 @@ export const getTiposPagoProveedor = async (req, res) => {
 export const getTipoPagoProveedorById = async (req, res) => {
     try {
         const { id } = req.params;
-        const tipoPago = await TipoPagoProveedor.findByPk(id);
+        const tipoPagoProveedor = await TipoPagoProveedor.findByPk(id);
 
-        if (!tipoPago) return res.status(404).json({ message: 'Tipo de pago no encontrado' });
+        if (!tipoPagoProveedor) return res.status(404).json({ message: 'Tipo de pago no encontrado' });
 
-        res.json(tipoPago);
+        res.json(tipoPagoProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -29,11 +29,11 @@ export const createTipoPagoProveedor = async (req, res) => {
     try {
         const { descripcion } = req.body;
 
-        const newTipoPago = await TipoPagoProveedor.create({
+        const newTipoPagoProveedor = await TipoPagoProveedor.create({
             descripcion
         });
 
-        res.status(201).json(newTipoPago);
+        res.status(201).json(newTipoPagoProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -45,13 +45,13 @@ export const updateTipoPagoProveedor = async (req, res) => {
         const { id } = req.params;
         const { descripcion } = req.body;
 
-        const tipoPago = await TipoPagoProveedor.findByPk(id);
-        if (!tipoPago) return res.status(404).json({ message: 'Tipo de pago no encontrado' });
+        const tipoPagoProveedor = await TipoPagoProveedor.findByPk(id);
+        if (!tipoPagoProveedor) return res.status(404).json({ message: 'Tipo de pago no encontrado' });
 
-        tipoPago.descripcion = descripcion;
+        tipoPagoProveedor.descripcion = descripcion;
 
-        await tipoPago.save();
-        res.json(tipoPago);
+        await tipoPagoProveedor.save();
+        res.json(tipoPagoProveedor);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -62,10 +62,10 @@ export const deleteTipoPagoProveedor = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const tipoPago = await TipoPagoProveedor.findByPk(id);
-        if (!tipoPago) return res.status(404).json({ message: 'Tipo de pago no encontrado' });
+        const tipoPagoProveedor = await TipoPagoProveedor.findByPk(id);
+        if (!tipoPagoProveedor) return res.status(404).json({ message: 'Tipo de pago no encontrado' });
 
-        await tipoPago.destroy();
+        await tipoPagoProveedor.destroy();
         res.json({ message: 'Tipo de pago eliminado exitosamente' });
     } catch (error) {
         res.status(500).json({ message: error.message });
