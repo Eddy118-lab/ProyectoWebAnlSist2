@@ -1,5 +1,5 @@
 import express from 'express';
-import { getUsuarios, getUsuarioById, createUsuario, updateUsuario, deleteUsuario } from '../controllers/UsuarioController.js';
+import {getUsuarios, getUsuarioById, createUsuario, updateUsuario, deleteUsuario } from '../controllers/UsuarioController.js';
 import {getTipoClientes, getTipoClienteById, createTipoCliente, updateTipoCliente, deleteTipoCliente } from '../controllers/TipoClienteController.js';
 import {getClientes, getClienteById, createCliente, updateCliente, deleteCliente} from '../controllers/ClienteController.js';
 import {getConductores, getConductorById, createConductor, updateConductor, deleteConductor} from '../controllers/ConductorController.js';
@@ -9,6 +9,11 @@ import {getDimensiones, getDimensionById, createDimension, updateDimension, dele
 import {getPesos, getPesoById, createPeso, updatePeso, deletePeso} from '../controllers/PesoController.js';
 import {getTipoMateriales, getTipoMaterialById, createTipoMaterial, updateTipoMaterial, deleteTipoMaterial} from '../controllers/TipoMaterialController.js'; 
 import {getMateriales, getMaterialById, createMaterial, updateMaterial, deleteMaterial} from '../controllers/MaterialController.js';
+import {getInventarios, getInventarioById, createInventario, updateInventario, deleteInventario } from '../controllers/InventarioController.js';
+import {getFacturasProveedores, getFacturaProveedorById, createFacturaProveedor, updateFacturaProveedor, deleteFacturaProveedor} from '../controllers/FacturaProveedorController.js';
+import {getTiposPagoProveedor, getTipoPagoProveedorById, createTipoPagoProveedor, updateTipoPagoProveedor, deleteTipoPagoProveedor} from '../controllers/TipoPagoProveedorController.js';
+import {getDetallesFactProveedoresGroupedByFactura, getDetalleFactProveedorById, createDetalleFactProveedor, updateDetalleFactProveedor, deleteDetalleFactProveedor} from '../controllers/DetallFactProveeController.js';
+import {getPagosProveedoresGroupedByFactura, getPagoProveedorById, createPagoProveedor, updatePagoProveedor, deletePagoProveedor} from '../controllers/PagoProveedorController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -85,6 +90,41 @@ router.get('/material/:id', getMaterialById);
 router.post('/material', uploadMaterial.single('imagen_url'), createMaterial);
 router.put('/material/:id', uploadMaterial.single('imagen_url'), updateMaterial);
 router.delete('/material/:id', deleteMaterial);
+
+///// CRUD DE INVENTARIO
+router.get('/inventario', getInventarios);
+router.get('/inventario/:id', getInventarioById);
+router.post('/inventario', createInventario);
+router.put('/inventario/:id', updateInventario);
+router.delete('/inventario/:id', deleteInventario);
+
+/////CRUD DE FACTURA
+router.get('/factura-proveedor', getFacturasProveedores);
+router.get('/factura-proveedor/:id', getFacturaProveedorById);
+router.post('/factura-proveedor', createFacturaProveedor);
+router.put('/factura-proveedor/:id', updateFacturaProveedor);
+router.delete('/factura-proveedor/:id', deleteFacturaProveedor);
+
+/////CRUD DE TIPO PAGO PROVEEDOR
+router.get('/tipo-pago-proveedor', getTiposPagoProveedor);
+router.get('/tipo-pago-proveedor/:id', getTipoPagoProveedorById);
+router.post('/tipo-pago-proveedor', createTipoPagoProveedor);
+router.put('/tipo-pago-proveedor/:id', updateTipoPagoProveedor);
+router.delete('/tipo-pago-proveedor/:id', deleteTipoPagoProveedor);
+
+/////CRUD DE PAGO PROVEEDOR
+router.get('/pago-proveedor', getPagosProveedoresGroupedByFactura); // Obtener pagos agrupados por factura
+router.get('/pago-proveedor/:id', getPagoProveedorById);
+router.post('/pago-proveedor', createPagoProveedor);
+router.put('/pago-proveedor/:id', updatePagoProveedor);
+router.delete('/pago-proveedor/:id', deletePagoProveedor);
+
+/////CRUD DE DETALLE FACTURA PROVEEDOR
+router.get('/detalle-factura-proveedor/grouped', getDetallesFactProveedoresGroupedByFactura);
+router.get('/detalle-factura-proveedor/:id', getDetalleFactProveedorById);
+router.post('/detalle-factura-proveedor', createDetalleFactProveedor);
+router.put('/detalle-factura-proveedor/:id', updateDetalleFactProveedor);
+router.delete('/detalle-factura-proveedor/:id', deleteDetalleFactProveedor);
 
 ///// RUTA LOGIN
 router.post('/login', login);

@@ -34,7 +34,8 @@ import CompShowPeso from './components/ShowPeso.js';
 import CompCreateTipoMaterial from './components/CreateTipoMaterial.js';
 import CompEditTipoMaterial from './components/EditTipoMaterial.js';
 import CompShowTipoMaterial from './components/ShowTipoMaterial.js';
-
+import CompCreateInventario from './components/CreateInventario.js';
+import CompShowInventario from './components/ShowInventario.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -140,7 +141,9 @@ function App() {
           <Route path="/material/tipo-material/gestion-tipos-materiales" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoMaterial /></PrivateRoute>} />
           <Route path="/material/tipo-material/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoMaterial /></PrivateRoute>} />
           <Route path="/material/tipo-material/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoMaterial /></PrivateRoute>} />
-          
+          <Route path="/inventario/gestion-inventarios" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowInventario /></PrivateRoute>} />
+          <Route path="/inventario/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateInventario /></PrivateRoute>} />
+
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>

@@ -21,7 +21,7 @@ function Header({ onLogout }) {
   }, []);
 
   const isInModule = [
-    '/inventario',
+    '/inventario/gestion-inventarios',
     '/ventas',
     '/proveedor/gestion-proveedores',
     '/conductor/gestion-conductores',
@@ -104,7 +104,7 @@ function Header({ onLogout }) {
       >
         <ul>
           <li onClick={() => handleNavItemClick('/Home')}>Inicio</li>
-          <li onClick={() => handleNavItemClick('/inventario')}>Gestión de Inventario</li>
+          <li onClick={() => handleNavItemClick('/inventario/gestion-inventarios')}>Gestión de Inventario</li>
           <li onClick={() => handleNavItemClick('/ventas')}>Gestión de Ventas</li>
           <li onClick={() => handleNavItemClick('/proveedor/gestion-proveedores')}>Gestión de Proveedores</li>
           <li onClick={() => handleNavItemClick('/conductor/gestion-conductores')}>Gestión de Personal</li>

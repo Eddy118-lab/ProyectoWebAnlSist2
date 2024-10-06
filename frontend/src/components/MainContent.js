@@ -18,9 +18,10 @@ function MainContent() {
 
       <div className="module-buttons">
         <div className="module-card">
-          <img src={inventario} alt="Gestión de Inventario" />
-          <h3>Gestión de Inventario</h3>
-          <p>Próximamente</p>
+          <Link to="/inventario/gestion-inventarios" className="btn-module">
+            <img src={inventario} alt="Gestión de Inventario" />
+            <h3>Gestión de Inventario</h3>
+          </Link>
         </div>
         <div className="module-card">
           <Link to="/cliente/gestion-clientes" className="btn-module">
@@ -40,10 +41,10 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
-        <Link to="/conductor/gestion-conductores" className="btn-module">
-          <img src={personal} alt="Gestión de Personal" />
-          <h3>Gestión de Conductores</h3>
-        </Link>
+          <Link to="/conductor/gestion-conductores" className="btn-module">
+            <img src={personal} alt="Gestión de Personal" />
+            <h3>Gestión de Conductores</h3>
+          </Link>
         </div>
         <div className="module-card">
           <Link to="/usuario/gestion-usuarios" className="btn-module">
