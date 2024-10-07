@@ -37,6 +37,7 @@
 /* Estilo del icono del perfil del usuario */
 .profile-icon {
   height: 30px;
+  padding-right: 45px;
   cursor: pointer;
 }
 
@@ -51,7 +52,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   z-index: 1000;
   min-width: 107.1px;
-  
+  padding-right: 20px;
   max-height: 200px; /* Limita la altura máxima del menú */
   overflow-y: auto;  /* Habilita el scroll vertical */
 }
@@ -114,7 +115,7 @@
 }
 
 .user-name {
-  margin-right: 10px;
+  margin-right: 25px;
   font-weight: bold;
   color: #333;
 }

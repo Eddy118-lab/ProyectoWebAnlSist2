@@ -1,126 +1,301 @@
-/* Estilos para Usuario */
-
-/* Encabezado */
-.App-header {
-    background-color: #89a4b6;
-    height: 80px; /* Altura fija para el encabezado */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    font-size: calc(10px + 2vmin);
-    color: white;
-    position: fixed; /* Fijo en la parte superior */
-    width: 100%; /* Ocupa todo el ancho */
-    top: 0; /* En la parte superior */
-    left: 0; /* Alineado al borde izquierdo */
-    z-index: 1000; /* Asegura que esté encima del contenido */
-}
-
-/* Contenido Principal */
-.App-main {
+/* Contenedor Principal */
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
     padding: 20px;
-    margin: 0 25px; /* Ajusta los márgenes laterales */
-    margin-top: 100px; /* Ajusta según la nueva altura del encabezado */
-    margin-bottom: 60px; /* Ajusta el margen inferior para evitar espacio en blanco excesivo */
-    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
-/* Contenedor de Formulario */
-.form-container {
-    max-width: 800px; /* Ajusta el ancho máximo del formulario */
-    margin: 0 auto; /* Centra el formulario */
-    margin-top: 115px; /* Ajusta el valor según la altura de tu header */
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 80px;
-}
-
-/* Grid para el Formulario */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas */
-    gap: 20px; /* Espacio entre columnas */
-}
-
-/* Estilos de Títulos de Sección */
-.section-title {
-    font-size: 24px; /* Ajusta el tamaño del texto */
-    font-weight: bold;
-    margin-bottom: 20px; /* Espacio debajo del título */
-    margin-top: 20px; /* Espacio encima del título, ajusta según sea necesario */
-    color: #333; /* Color del texto, ajusta según tu diseño */
-}
-
-/* Estilos de Botones */
-.btn {
-    background-color: #4CAF50; /* Color de fondo verde */
-    border: none; /* Sin borde */
-    color: white; /* Color del texto */
-    padding: 10px 20px; /* Espaciado interno */
-    text-align: center; /* Centra el texto */
-    text-decoration: none; /* Sin subrayado */
-    display: inline-block; /* Permite el espaciado */
-    font-size: 16px; /* Tamaño del texto */
-    margin: 4px 2px; /* Espaciado alrededor del botón */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    border-radius: 5px; /* Bordes redondeados */
-    transition: background-color 0.3s; /* Transición para hover */
-}
-
-.btn:hover {
-    background-color: #45a049; /* Color más oscuro al pasar el mouse */
-}
-
-/* Tabla para Mostrar Usuarios */
+/* Contenedor de la Tabla */
 .table-container {
-    overflow-x: auto; /* Permite el desplazamiento horizontal */
-    margin-top: 20px; /* Espacio superior */
+    margin-top: 10px;
+    overflow-x: auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px;
+    border: none; /* Eliminado el borde del contenedor */
+    position: relative;
 }
 
 /* Tabla */
 .table {
-    width: 100%; /* Ocupa todo el ancho */
-    border-collapse: collapse; /* Colapsar bordes */
+    width: 100%;
+    border-collapse: collapse; /* Evita los espacios entre bordes de las celdas */
+    margin: 0;
+    font-size: 1.1rem;
+    border: none; /* Eliminado cualquier borde de la tabla */
 }
 
-.table th {
-    background-color: #f4f4f4; /* Color de fondo de encabezados */
-    padding: 12px; /* Espaciado interno */
-    border-bottom: 1px solid #ddd; /* Borde inferior */
-    text-align: left; /* Alineación del texto */
+.table thead th {
+    background-color: #363636;
+    color: #fff;
+    padding: 16px;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 3px solid #ddd;
+    position: relative;
+    cursor: pointer;
+    border: none; /* Elimina bordes entre las celdas de encabezado */
 }
 
-.table td {
-    padding: 12px; /* Espaciado interno */
-    border-bottom: 1px solid #ddd; /* Borde inferior */
+.table tbody td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #eee; /* Solo deja un borde suave en las celdas */
+    color: #333;
+    font-size: 1.05rem;
+    border: none; /* Elimina cualquier borde residual */
 }
 
-.table tr:nth-child(even) {
-    background-color: #f2f2f2; /* Color de fondo para filas pares */
+/* Alterna el color de las filas */
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
-/* Contenedor para la Búsqueda y Botón Crear */
-.search-create-container {
-    margin-top: 115px; /* Ajusta este valor según la altura de tu encabezado */
+/* Flechas de Ordenamiento */
+.table th span.sort-arrow {
+    margin-left: 8px;
+    font-size: 14px;
 }
 
-/* Contenedor para Búsqueda y Botón */
-.search-create-wrapper {
-    display: flex;
-    align-items: center; /* Alinea verticalmente los elementos */
-    justify-content: space-between; /* Espacia los elementos a los extremos */
-    margin-bottom: 20px; /* Espacio debajo del contenedor */
+/* Estilo de los Botones */
+.btn {
+    padding: 10px 20px;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-/* Contenedor del Buscador */
-.search-container {
-    flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+.btn:hover {
+    background-color: #0056b3;
 }
 
-/* Contenedor del Botón "Crear Usuario" */
+/* Botón Editar */
+.btn-warning {
+    background-color: #f7dc6f;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.btn-warning:hover {
+    background-color: #f2c464;
+}
+
+/* Botón Eliminar */
+.btn-danger {
+    background-color: #ff3737;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.btn-danger:hover {
+    background-color: #e33131;
+}
+
+/* Ajuste de la separación entre los campos del formulario */
+.form-group {
+    margin-bottom: 10px; /* Aumenta la separación entre los campos */
+    padding-right: 20px;
+}
+
+/* Cambiar color de botones */
+.btn-primary {
+    background-color: #28a745; /* Cambiar color del botón Actualizar (verde) */
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Cambiar color al hacer hover */
+}
+
+.btn-secondary {
+    background-color: #17a2b8; /* Cambiar color del botón Cancelar (azul claro) */
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #138496; /* Cambiar color al hacer hover */
+}
+
+/* Ajuste de los mensajes de éxito y error */
+.alert {
+    margin-top: 20px; /* Añadir margen para separar el mensaje del formulario */
+}
+
+
+/* Botón Crear Usuario */
+.create-btn-container .btn {
+    background-color: #0056b3;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 0;
+}
+
+.create-btn-container .btn:hover {
+    background-color: #2b3877;
+}
+
 .create-btn-container {
-    margin-left: 20px; /* Espacio entre el buscador y el botón */
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 0;
+}
+/* Formulario de Búsqueda */
+.search-container input {
+    width: 80%;
+    max-width: 800px;
+    padding: 15px;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+}
+
+.search-create-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+}
+
+.actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Ajusta el estilo del título y el buscador */
+.user-management-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-management-title {
+    font-size: 2.5rem;
+    margin-top: 90px;
+    margin-bottom: -80px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Paginación */
+.pagination-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    gap: 8px;
+}
+
+.pagination li {
+    display: inline;
+}
+
+.pagination .page-link {
+    padding: 10px 14px;
+    color: #007BFF;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #f0f0f0;
+}
+
+.pagination .active .page-link {
+    background-color: #007BFF;
+    color: white;
+    border-color: #007BFF;
+}
+
+/* Contenedor del formulario usando Grid */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas para que los campos se coloquen lado a lado */
+    gap: 20px; /* Espacio entre los campos en medio (horizontal y vertical) */
+}
+
+/* Estilos para móviles */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* En pantallas pequeñas, una columna */
+    }
+
+    .search-create-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-create-wrapper {
+        flex-direction: column;
+    }
+
+    .create-btn-container {
+        margin-top: 10px;
+        margin-left: 0;
+    }
+
+    .table th, .table td {
+        padding: 10px 12px;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .pagination {
+        flex-wrap: wrap;
+    }
+
+    .pagination .page-link {
+        padding: 8px;
+    }
+}
+
+/* Centrar los botones */
+.form-buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 10px; /* Espacio entre los botones */
+    margin-top: 20px; /* Añadir margen superior */
+    margin-left: 200px;
+}
+
+/* Cambiar color de botones */
+.btn-primary {
+    background-color: #28a745; /* Verde */
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+}
+
+.btn-secondary {
+    background-color: #17a2b8; /* Azul claro */
+    color: #fff;
+}
+
+.btn-secondary:hover {
+    background-color: #138496;
+}
+
+.telefono-centered {
+    padding-right: 20px; /* Añadir el padding derecho igual que en las demás clases */
+    margin-bottom: 10px;  /* Añadir margen inferior igual que en .form-group */
 }

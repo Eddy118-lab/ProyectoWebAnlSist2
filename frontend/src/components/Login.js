@@ -67,13 +67,13 @@ const Login = ({ onLoginSuccess, onClose }) => {
                     </div>
                     <div className="form-group">
                         <label>Contraseña</label>
-                        <input
+                        <input  
                             type="password"
-                            className="form-control"
+                            className="form-control fa-solid fa-eye"
                             value={contrasenha}
                             onChange={(e) => setContrasenha(e.target.value)}
                             required
-                        />
+                            />
                     </div>
                     {error && <div className="login-error">{error}</div>}
                     <div className="button-container">

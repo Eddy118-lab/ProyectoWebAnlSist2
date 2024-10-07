@@ -38,6 +38,8 @@ import CompCreateInventario from './components/CreateInventario.js';
 import CompShowInventario from './components/ShowInventario.js';
 import CompShowFacturaProveedor from './components/ShowFacturaProveedor.js';
 import CompShowDetallFactProveedor from './components/ShowDetallFactProveedor.js';
+import CompShowPagoProveedor from './components/ShowPagoProveedor.js';
+import CompraManager from './components/CompraManager.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -147,7 +149,8 @@ function App() {
           <Route path="/inventario/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateInventario /></PrivateRoute>} />
           <Route path="/factura-proveedor/gestion-facturas-proveedores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowFacturaProveedor /></PrivateRoute>} />
           <Route path="/factura-proveedor/detalle-factura-proveedor/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowDetallFactProveedor /></PrivateRoute>} />
-
+          <Route path="/factura-proveedor/pago-proveedor/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowPagoProveedor /></PrivateRoute>} />
+          <Route path="/compras" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompraManager /></PrivateRoute>} />
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>

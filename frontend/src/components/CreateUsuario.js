@@ -164,7 +164,7 @@ const CompCreateUsuario = () => {
                         />
                     </div>
 
-                    <div className='telefono-centered'>
+                    <div className='form-group'>
                         <label>Teléfono</label>
                         <input
                             type='text'
@@ -174,6 +174,7 @@ const CompCreateUsuario = () => {
                             required
                         />
                     </div>
+
                 </div>
 
                 <div className='form-buttons'>

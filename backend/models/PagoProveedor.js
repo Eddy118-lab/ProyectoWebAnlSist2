@@ -44,7 +44,7 @@ const PagoProveedor = sequelize.define('PagoProveedor', {
 });
 
 // Define relationships
-PagoProveedor.belongsTo(FacturaProveedor, { foreignKey: 'factura_proveedor_id' });
-PagoProveedor.belongsTo(TipoPagoProveedor, { foreignKey: 'tipo_pago_id' });
+PagoProveedor.belongsTo(FacturaProveedor, { foreignKey: 'factura_proveedor_id', as: 'factura_proveedor' });
+PagoProveedor.belongsTo(TipoPagoProveedor, { foreignKey: 'tipo_pago_id', as: 'tipo_pago_proveedor' });
 
 export default PagoProveedor;

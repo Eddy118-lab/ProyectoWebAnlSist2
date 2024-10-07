@@ -2,7 +2,7 @@ import PagoProveedor from '../models/PagoProveedor.js';
 import FacturaProveedor from '../models/FacturaProveedor.js';
 import TipoPagoProveedor from '../models/TipoPagoProveedor.js';
 
-// Get all Pagos grouped by FacturaProveedor
+// Obtener todos los pagos agrupados por factura_proveedor
 export const getPagosProveedoresGroupedByFactura = async (req, res) => {
     try {
         const pagosProveedores = await PagoProveedor.findAll({
@@ -19,10 +19,10 @@ export const getPagosProveedoresGroupedByFactura = async (req, res) => {
                 }
             ],
             attributes: ['id', 'fecha', 'monto'],
-            order: [['factura_proveedor_id', 'ASC']]  // Group by factura_proveedor_id
+            order: [['factura_proveedor_id', 'ASC']]  // Agrupar por factura_proveedor_id
         });
 
-        // Grouping the pagos by factura_proveedor_id
+        // Agrupando los pagos por factura_proveedor_id
         const groupedPagos = pagosProveedores.reduce((acc, pago) => {
             const facturaId = pago.factura_proveedor_id;
             if (!acc[facturaId]) {
@@ -41,7 +41,7 @@ export const getPagosProveedoresGroupedByFactura = async (req, res) => {
     }
 };
 
-// Get a single PagoProveedor by ID
+// Obtener un solo pago por ID
 export const getPagoProveedorById = async (req, res) => {
     try {
         const { id } = req.params;
@@ -69,7 +69,7 @@ export const getPagoProveedorById = async (req, res) => {
     }
 };
 
-// Create a new PagoProveedor
+// Crear un nuevo pago
 export const createPagoProveedor = async (req, res) => {
     try {
         const { fecha, monto, factura_proveedor_id, tipo_pago_id } = req.body;
@@ -87,7 +87,7 @@ export const createPagoProveedor = async (req, res) => {
     }
 };
 
-// Update an existing PagoProveedor
+// Actualizar un pago existente
 export const updatePagoProveedor = async (req, res) => {
     try {
         const { id } = req.params;
@@ -108,7 +108,7 @@ export const updatePagoProveedor = async (req, res) => {
     }
 };
 
-// Delete a PagoProveedor
+// Eliminar un pago
 export const deletePagoProveedor = async (req, res) => {
     try {
         const { id } = req.params;

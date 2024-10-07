@@ -74,7 +74,9 @@ const ShowFacturaProveedor = () => {
                                 <Link to={`/factura-proveedor/detalle-factura-proveedor/${factura.id}`} className='btn btn-warning btn-sm mr-2'>
                                     Detalle
                                 </Link>
-                                <button onClick={() => window.location.href = `/factura-proveedor/pago-proveedor/${factura.id}`}>Pagos</button>
+                                <Link to={`/factura-proveedor/pago-proveedor/${factura.id}`} className='btn btn-warning btn-sm mr-2'>
+                                    Pago
+                                </Link>
                             </td>
                         </tr>
                     ))}
