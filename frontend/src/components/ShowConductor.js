@@ -13,11 +13,12 @@ const CompShowConductor = () => {
     const [filteredConductores, setFilteredConductores] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [conductoresPerPage] = useState(4);
-    const [loading, setLoading] = useState(true); 
-    const [error, setError] = useState(null); 
-
-    const [sortOrder, setSortOrder] = useState('asc'); 
-    const [sortField, setSortField] = useState('primer_nom'); 
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [sortField, setSortField] = useState('primer_nom');
+    const [selectedImage, setSelectedImage] = useState(null); // Estado para la imagen seleccionada
+    const [isModalOpen, setIsModalOpen] = useState(false); // Estado para controlar el modal
 
     useEffect(() => {
         getConductores();
@@ -85,13 +86,23 @@ const CompShowConductor = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const totalPages = Math.ceil(filteredConductores.length / conductoresPerPage);
 
+    const openModal = (imageUrl) => {
+        setSelectedImage(imageUrl);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedImage(null);
+    };
+
     return (
         <div className="container">
             <div className="row">
                 <div className="col">
                     <div className="search-create-container">
                         <div className='user-management-header'>
-                            <h2 className='user-management-title'>Gestión de Conductores</h2>
+                            <h2 className='user-management-title-conductor'>Gestión de Conductores</h2>
                         </div>
                         <div className="search-create-wrapper">
                             <div className="search-container">
@@ -154,23 +165,28 @@ const CompShowConductor = () => {
                                                 src={`${URI_IMG}${conductor.front_imagen_url}`}
                                                 alt={`Licencia Frontal de ${conductor.primer_nom}`}
                                                 className="image-thumbnail"
-                                                style={{ width: '100px', height: 'auto' }} 
+                                                style={{ width: '100px', height: 'auto', cursor: 'pointer' }} // Cambia a puntero al pasar el ratón
+                                                onClick={() => openModal(`${URI_IMG}${conductor.front_imagen_url}`)} // Abre el modal al hacer clic
                                             />
                                             <img
                                                 src={`${URI_IMG}${conductor.tras_imagen_url}`}
                                                 alt={`Licencia Trasera de ${conductor.primer_nom}`}
                                                 className="image-thumbnail"
-                                                style={{ width: '100px', height: 'auto' }} 
+                                                style={{ width: '100px', height: 'auto', cursor: 'pointer' }} // Cambia a puntero al pasar el ratón
+                                                onClick={() => openModal(`${URI_IMG}${conductor.tras_imagen_url}`)} // Abre el modal al hacer clic
                                             />
                                         </td>
                                         <td>
-                                            <Link to={`/conductor/edit/${conductor.id}`} className='btn btn-warning btn-sm mr-2'>
-                                                <i className="fa-regular fa-pen-to-square"></i>
-                                            </Link>
-                                            <button onClick={() => deleteConductor(conductor.id)} className='btn btn-danger btn-sm'>
-                                                <i className="fa-regular fa-trash-can"></i>
-                                            </button>
+                                            <div className="action-buttons"> {/* Contenedor para los botones */}
+                                                <Link to={`/conductor/edit/${conductor.id}`} className='btn btn-warning btn-sm'>
+                                                    <i className="fa-regular fa-pen-to-square"></i>
+                                                </Link>
+                                                <button onClick={() => deleteConductor(conductor.id)} className='btn btn-danger btn-sm'>
+                                                    <i className="fa-regular fa-trash-can"></i>
+                                                </button>
+                                            </div>
                                         </td>
+
                                     </tr>
                                 ))
                             )}
@@ -191,6 +207,16 @@ const CompShowConductor = () => {
                     </nav>
                 </div>
             </div>
+
+            {/* Modal para imagen */}
+            {isModalOpen && (
+                <div className="modal-overlay" onClick={closeModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <span className="close-button" onClick={closeModal}>&times;</span>
+                        <img src={selectedImage} alt="Imagen ampliada" style={{ width: '100%', height: 'auto' }} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

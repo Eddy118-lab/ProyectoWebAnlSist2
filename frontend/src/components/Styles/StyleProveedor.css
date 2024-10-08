@@ -15,6 +15,7 @@
     top: 0; /* En la parte superior */
     left: 0; /* Alineado al borde izquierdo */
     z-index: 1000; /* Asegura que esté encima del contenido */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
 /* Menú de Usuario */
@@ -112,22 +113,58 @@
 .table {
     width: 100%;
     border-collapse: collapse;
+    font-size: 14px; /* Ajusta el tamaño de la fuente */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Añade sombra a la tabla */
 }
 
 .table th {
-    background-color: #f4f4f4;
+    background-color: #333; /* Fondo oscuro para el encabezado */
+    color: white; /* Texto blanco */
     padding: 12px;
-    border-bottom: 1px solid #ddd;
     text-align: left;
+    font-weight: bold;
 }
 
 .table td {
     padding: 12px;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; /* Borde inferior para separar filas */
 }
 
 .table tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; /* Fila alterna en gris claro */
+}
+
+.table tr:hover {
+    background-color: #e0e0e0; /* Color de fondo cuando se pasa el mouse */
+}
+
+/* Botones de acción */
+.table td .btn-edit {
+    background-color: #ffc107; /* Color amarillo para editar */
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.table td .btn-edit:hover {
+    background-color: #e0a800; /* Efecto hover */
+}
+
+.table td .btn-delete {
+    background-color: #dc3545; /* Color rojo para eliminar */
+    color: white;
+    border: none;
+    padding: 8px;
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.table td .btn-delete:hover {
+    background-color: #c82333; /* Efecto hover */
 }
 
 /* Paginación */
@@ -145,6 +182,20 @@
 /* Contenedor principal para el buscador y el botón */
 .search-create-container {
     margin-top: 115px; /* Ajusta este valor según la altura de tu encabezado */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 70px;
+}
+
+/* Título centrado */
+.user-management-title-proveedor {
+    text-align: center;
+    font-size: 36px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-top: 10px; /* Espacio encima del título */
+    margin-bottom: -50px;
+    color: #333; /* Color del texto */
 }
 
 /* Contenedor para el buscador y el botón */
@@ -153,6 +204,8 @@
     align-items: center; /* Alinea verticalmente los elementos */
     justify-content: space-between; /* Espacia los elementos a los extremos */
     margin-bottom: 20px; /* Espacio debajo del contenedor */
+    width: 100%; /* Asegura que el contenedor ocupe todo el ancho */
+    max-width: 900px; /* Limita el ancho máximo */
 }
 
 /* Contenedor del buscador */
@@ -162,19 +215,23 @@
 
 /* Contenedor del botón "Crear Cliente" */
 .create-btn-container {
+    display: flex;
+    align-items: center;
     margin-left: 20px; /* Espacio entre el buscador y el botón */
 }
 
 /* Estilo para el botón "Crear Cliente" */
 .create-btn-container .btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer;
     margin-top: 0; /* Alinea el botón con el buscador */
+    transition: background-color 0.3s ease;
 }
 
-/* En tu archivo StyleCliente.css */
-.section-title {
-    font-size: 24px; /* Ajusta el tamaño del texto */
-    font-weight: bold;
-    margin-bottom: 20px; /* Espacio debajo del título */
-    margin-top: 20px; /* Espacio encima del título, ajusta según sea necesario */
-    color: #333; /* Color del texto, ajusta según tu diseño */
+.create-btn-container .btn:hover {
+    background-color: #0056b3; /* Efecto hover para el botón */
 }

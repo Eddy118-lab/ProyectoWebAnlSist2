@@ -89,7 +89,7 @@ const CompShowProveedor = () => {
                 <div className="col">
                     <div className="search-create-container">
                         <div className='user-management-header'>
-                            <h2 className='user-management-title'>Gestión de Proveedores</h2>
+                            <h2 className='user-management-title-proveedor'>Gestión de Proveedores</h2>
                         </div>
                         <div className="search-create-wrapper">
                             <div className="search-container">

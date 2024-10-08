@@ -14,7 +14,6 @@ import {getFacturasProveedores, getFacturaProveedorById, createFacturaProveedor,
 import {getTiposPagoProveedor, getTipoPagoProveedorById, createTipoPagoProveedor, updateTipoPagoProveedor, deleteTipoPagoProveedor} from '../controllers/TipoPagoProveedorController.js';
 import {getDetallesFactProveedoresGroupedByFactura, getDetalleFactProveedorById, createDetalleFactProveedor, updateDetalleFactProveedor, deleteDetalleFactProveedor} from '../controllers/DetallFactProveeController.js';
 import {getPagosProveedoresGroupedByFactura, getPagoProveedorById, createPagoProveedor, updatePagoProveedor, deletePagoProveedor} from '../controllers/PagoProveedorController.js';
-import PurchaseController from '../controllers/ComprasController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -127,10 +126,6 @@ router.post('/detalle-factura-proveedor', createDetalleFactProveedor);
 router.put('/detalle-factura-proveedor/:id', updateDetalleFactProveedor);
 router.delete('/detalle-factura-proveedor/:id', deleteDetalleFactProveedor);
 
-///// RUTAS DE COMPRAS
-router.post('/compras', PurchaseController.createPurchase);
-router.get('/compras/detalles', PurchaseController.getPurchaseDetails);
-router.get('/compras/:facturaId/pagos', PurchaseController.getPayments);
 
 ///// RUTA LOGIN
 router.post('/login', login);

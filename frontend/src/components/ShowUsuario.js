@@ -91,19 +91,21 @@ const CompShowUsuario = () => {
             <div className='user-management-header'>
                 <h2 className='user-management-title'>Gestión de Usuarios</h2>
             </div>
+
+            {/* Contenedor del buscador */}
+            <div className='search-container'>
+                <SearchUsuario usuarios={usuarios} onSearch={handleSearch} />
+            </div>
+
+            {/* Contenedor del botón Crear Usuario */}
+            <div className='create-btn-container'>
+                <Link to="/usuario/create" className='btn btn-primary'>
+                    <i className="fa-solid fa-plus"></i> Crear Usuario
+                </Link>
+            </div>
+
+            {/* Contenedor de la tabla */}
             <div className="table-container">
-                <div className='search-create-wrapper'>
-                    <div className='search-create-container'>
-                        <div className='search-container'>
-                            <SearchUsuario usuarios={usuarios} onSearch={handleSearch} />
-                        </div>
-                        <div className='create-btn-container'>
-                            <Link to="/usuario/create" className='btn btn-primary'>
-                                <i className="fa-solid fa-plus"></i> Crear Usuario
-                            </Link>
-                        </div>
-                    </div>
-                </div>
                 <table className='table'>
                     <thead>
                         <tr>
@@ -144,6 +146,8 @@ const CompShowUsuario = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* Paginación */}
             <nav className='pagination-center'>
                 <ul className='pagination'>
                     {[...Array(totalPages)].map((_, index) => (

@@ -2,6 +2,7 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode'; // Asegúrate de haber instalado esta librería
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { EyeIcon, EyeOffIcon } from "lucide-react";
 import './Styles/Login.css'; // Asegúrate de importar el CSS actualizado
 
 const Login = ({ onLoginSuccess, onClose }) => {
@@ -10,6 +11,12 @@ const Login = ({ onLoginSuccess, onClose }) => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+
+    const [isVisible, setIsVisible] = useState(false);
+
+    const handleClick = () => {
+        setIsVisible(!isVisible);
+    }
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -65,15 +72,35 @@ const Login = ({ onLoginSuccess, onClose }) => {
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="relative form-group">
                         <label>Contraseña</label>
-                        <input  
-                            type="password"
-                            className="form-control fa-solid fa-eye"
-                            value={contrasenha}
-                            onChange={(e) => setContrasenha(e.target.value)}
-                            required
+                        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                            <input
+                                type={isVisible ? "text" : "password"}
+                                className="form-control"
+                                value={contrasenha}
+                                onChange={(e) => setContrasenha(e.target.value)}
+                                required
+                                style={{ paddingRight: '40px' }} // Espacio a la derecha para el botón
                             />
+                            <button
+                                type="button"
+                                onClick={handleClick}
+                                style={{
+                                    position: 'absolute',
+                                    right: '-30px',
+                                    background: 'none',
+                                    border: 'none',
+                                    padding: '0',
+                                    cursor: 'pointer',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    marginBottom: '10px',
+                                }}
+                            >
+                                {isVisible ? <EyeOffIcon /> : <EyeIcon />}
+                            </button>
+                        </div>
                     </div>
                     {error && <div className="login-error">{error}</div>}
                     <div className="button-container">

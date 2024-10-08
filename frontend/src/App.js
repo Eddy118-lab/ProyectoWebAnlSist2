@@ -39,7 +39,9 @@ import CompShowInventario from './components/ShowInventario.js';
 import CompShowFacturaProveedor from './components/ShowFacturaProveedor.js';
 import CompShowDetallFactProveedor from './components/ShowDetallFactProveedor.js';
 import CompShowPagoProveedor from './components/ShowPagoProveedor.js';
-import CompraManager from './components/CompraManager.js';
+import CompListaMateriales from './components/ListaMateriales.js';
+import CompDetalleMateriales from './components/DetalleMateriales.js';
+import { DetallesProvider } from './components/DetallesContext'; 
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -75,6 +77,7 @@ function App() {
 
   return (
     <div className="App">
+      <DetallesProvider>
       <BrowserRouter>
         {isAuthenticated && <Header onLogout={handleLogout} />}
         <div className="App-content">
@@ -150,13 +153,16 @@ function App() {
           <Route path="/factura-proveedor/gestion-facturas-proveedores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowFacturaProveedor /></PrivateRoute>} />
           <Route path="/factura-proveedor/detalle-factura-proveedor/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowDetallFactProveedor /></PrivateRoute>} />
           <Route path="/factura-proveedor/pago-proveedor/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowPagoProveedor /></PrivateRoute>} />
-          <Route path="/compras" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompraManager /></PrivateRoute>} />
+          <Route path="/compra/gestion-compras/catalogo" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompListaMateriales /></PrivateRoute>} />
+          <Route path="/compra/gestion-compras/detalle/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleMateriales /></PrivateRoute>} />
+          <Route path="/compra/gestion-compras/resumen" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleMateriales /></PrivateRoute>} />
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>
         </div>
         {isAuthenticated && <Footer onLogout={handleLogout} />}
       </BrowserRouter>
+      </DetallesProvider>
     </div>
   );
 }

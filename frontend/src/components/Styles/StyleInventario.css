@@ -131,6 +131,10 @@
 }
 
 /* Paginación */
+.pagination{
+    margin-top: 20px;
+}
+
 .pagination-controls {
     display: flex;
     justify-content: center;
@@ -142,27 +146,23 @@
     margin: 0 10px;
 }
 
-/* Contenedor principal para el buscador y el botón */
-.search-create-container {
-    margin-top: 115px; /* Ajusta este valor según la altura de tu encabezado */
-}
-
-/* Contenedor para el buscador y el botón */
 .search-create-wrapper {
     display: flex;
-    align-items: center; /* Alinea verticalmente los elementos */
-    justify-content: space-between; /* Espacia los elementos a los extremos */
-    margin-bottom: 20px; /* Espacio debajo del contenedor */
+    align-items: center; 
+    justify-content: space-between; 
 }
+
 
 /* Contenedor del buscador */
 .search-container {
     flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+    margin-right: 70px;
 }
 
 /* Contenedor del botón "Crear Cliente" */
 .create-btn-container {
     margin-left: 20px; /* Espacio entre el buscador y el botón */
+    margin-bottom: -50px;
 }
 
 /* Estilo para el botón "Crear Cliente" */
@@ -170,11 +170,39 @@
     margin-top: 0; /* Alinea el botón con el buscador */
 }
 
-/* En tu archivo StyleCliente.css */
-.section-title {
-    font-size: 24px; /* Ajusta el tamaño del texto */
+.user-management-title-Inventa{
+    font-size: 36px; /* Ajusta el tamaño del texto */
     font-weight: bold;
-    margin-bottom: 20px; /* Espacio debajo del título */
-    margin-top: 20px; /* Espacio encima del título, ajusta según sea necesario */
+    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
     color: #333; /* Color del texto, ajusta según tu diseño */
+    margin-bottom: -100px;
+    margin-top: -50px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
 }

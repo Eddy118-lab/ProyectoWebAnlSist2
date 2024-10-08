@@ -88,27 +88,25 @@ const CompShowCliente = () => {
             <div className="row">
                 <div className="col">
                     <div className="search-create-container">
-                        {/* Mensaje de Gestión de Clientes */}
                         <div className='user-management-header'>
                             <h2 className='user-management-title-cliente'>Gestión de Clientes</h2>
                         </div>
-                        {/* Buscador colocado aquí, debajo del título */}
                         <div className="search-create-wrapper">
                             <div className="search-container">
                                 <SearchCliente clientes={clientes} onSearch={handleSearch} />
                             </div>
-                           </div>
+                            <div className="create-btn-container">
+                                <Link to="/cliente/create" className="btn btn-primary">
+                                    <i className="fa-solid fa-plus"></i>
+                                </Link>
+                            </div>
+                        </div>
                     </div>
 
                     {loading && <p>Cargando...</p>}
                     {error && <p className='text-danger'>{error}</p>}
 
                     <div className="table-container">
-                        <div className="create-btn-container">
-                            <Link to="/cliente/create" className="btn btn-primary">
-                                <i className="fa-solid fa-plus"></i>
-                            </Link>
-                        </div>
                         <table className="table table-hover">
                             <thead className="table-primary">
                                 <tr>
@@ -161,7 +159,6 @@ const CompShowCliente = () => {
                             </tbody>
                         </table>
                     </div>
-
 
                     {/* Paginación */}
                     <nav className='d-flex justify-content-center'>

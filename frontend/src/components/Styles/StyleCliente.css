@@ -1,4 +1,22 @@
 /* Estilos para Clientes */
+
+/* Encabezado */
+.App-header {
+    background-color: #89a4b6;
+    height: 80px; /* Altura fija para el encabezado */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    position: fixed; /* Fijo en la parte superior */
+    width: 100%; /* Ocupa todo el ancho */
+    top: 0; /* En la parte superior */
+    left: 0; /* Alineado al borde izquierdo */
+    z-index: 1000; /* Asegura que esté encima del contenido */
+}
+
 /* Menú de Usuario */
 .user-menu {
     display: flex;
@@ -88,7 +106,6 @@
 .table-container {
     overflow-x: auto;
     margin-top: 20px;
-    padding-bottom: 10px;
 }
 
 /* Tabla */
@@ -114,63 +131,38 @@
 }
 
 /* Paginación */
+.pagination{
+    margin-top: 20px;
+}
+
 .pagination-controls {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 30px; /* Espacio entre la tabla y la paginación */
-    margin-bottom: 20px; /* Espacio entre la paginación y la parte inferior */
+    margin-top: 20px;
 }
 
 .pagination-controls button {
     margin: 0 10px;
 }
 
-/* Contenedor principal para el buscador y el botón */
-.search-create-container {
-    margin-top: 20px; /* Espacio reducido entre el título y el buscador */
-    text-align: center;
-}
-
-/* Contenedor para el buscador y el botón */
 .search-create-wrapper {
     display: flex;
-    justify-content: center; /* Centra el buscador horizontalmente */
-    align-items: center; /* Alinea verticalmente los elementos */
-    margin-bottom: 20px; /* Espacio debajo del contenedor */
+    align-items: center; 
+    justify-content: space-between; 
 }
+
 
 /* Contenedor del buscador */
 .search-container {
-    flex: 1;
-    max-width: 400px;
-    margin: 0 auto;
+    flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+    margin-right: 70px;
 }
 
-.section-title {
-    font-size: 36px; /* Ajusta el tamaño del texto */
-    font-weight: bold;
-    margin-bottom: 20px; /* Espacio debajo del título */
-    margin-top: 20px; /* Espacio encima del título, ajusta según sea necesario */
-    color: #333; /* Color del texto, ajusta según tu diseño */
-    text-align: center;
-}
-
-.user-management-title-cliente {
-    font-size: 36px; /* Aumenta el tamaño del texto */
-    font-weight: bold;
-    margin-bottom: 20px; /* Espacio debajo del título */
-    color: #333; /* Color del texto */
-    text-align: center; /* Centra el texto horizontalmente */
-}
-
-
-/* Contenedor para el botón "Crear Cliente" */
+/* Contenedor del botón "Crear Cliente" */
 .create-btn-container {
-    display: flex;
-    justify-content: flex-end; /* Alinea el botón a la derecha */
-    margin-bottom: 15px; /* Espacio entre el botón y la tabla */
-    position: relative;
+    margin-left: 20px; /* Espacio entre el buscador y el botón */
+    margin-bottom: -50px;
 }
 
 /* Estilo para el botón "Crear Cliente" */
@@ -178,6 +170,39 @@
     margin-top: 0; /* Alinea el botón con el buscador */
 }
 
-.form-control {
-    width: 100%; /* Asegura que el campo de entrada ocupe todo el ancho del contenedor */
+.user-management-title-cliente{
+    font-size: 36px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
+    color: #333; /* Color del texto, ajusta según tu diseño */
+    margin-bottom: -100px;
+    margin-top: -50px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
 }

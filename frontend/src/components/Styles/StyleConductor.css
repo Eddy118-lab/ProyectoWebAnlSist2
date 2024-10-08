@@ -144,7 +144,7 @@
 
 /* Contenedor principal para el buscador y el botón */
 .search-create-container {
-    margin-top: 115px; /* Ajusta este valor según la altura de tu encabezado */
+    margin-top: 50px; /* Ajusta este valor según la altura de tu encabezado */
 }
 
 /* Contenedor para el buscador y el botón */
@@ -175,13 +175,62 @@
     font-size: 24px; /* Ajusta el tamaño del texto */
     font-weight: bold;
     margin-bottom: 20px; /* Espacio debajo del título */
-    margin-top: 20px; /* Espacio encima del título, ajusta según sea necesario */
+    margin-top: -20px; /* Espacio encima del título, ajusta según sea necesario */
     color: #333; /* Color del texto, ajusta según tu diseño */
 }
+
 
 .thumbnail {
     width: 100px;  /* Tamaño de la miniatura */
     height: auto;
     margin-top: 10px;
     display: block;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+/* Contenedor de los botones de acciones en la tabla */
+.action-buttons {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones */
+}
+
+/* Opción alternativa, si prefieres aplicar el margen directamente a los botones */
+.table .btn {
+    margin-right: 10px; /* Espacio a la derecha de cada botón */
+}
+
+.user-management-title-conductor{
+    font-size: 36px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
+    color: #333; /* Color del texto, ajusta según tu diseño */
+    margin-bottom: -100px;
+    margin-top: -50px;
 }

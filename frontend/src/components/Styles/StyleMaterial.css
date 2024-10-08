@@ -1,31 +1,91 @@
 .material-management-header {
-    margin-top: 20px; /* Añade un espacio en la parte superior */
-    display: flex; /* Cambié a "flex" en lugar de "80%" para corregir el diseño */
-    justify-content: space-between;
-    align-items: center;
+    margin-top: 30px;
+    text-align: center;
 }
 
 .material-management-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
+    margin-top: 100px;
+}
+
+.create-btn-container {
+    display: flex;
+    justify-content: center;
+}
+
+.material-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.material-card {
+    flex: 1 1 30%; /* Mantiene 3 elementos por fila */
+    max-width: 30%; /* Limita el ancho a un 30% */
+    margin: 15px;
 }
 
 .card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
+    background-color: #f5f5f5;
+    border-radius: 8px;
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .card-img-top {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
     border-bottom: 1px solid #ddd;
 }
 
 .card-body {
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding: 15px;
+}
+
+.btn {
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+}
+
+.btn-primary:hover {
+    background-color: #45A049;
+    border-color: #45A049;
+}
+
+.btn-warning {
+    background-color: #FFA726;
+    border-color: #FFA726;
+}
+
+.btn-warning:hover {
+    background-color: #FB8C00;
+    border-color: #FB8C00;
+}
+
+.btn-danger {
+    background-color: #E57373;
+    border-color: #E57373;
+}
+
+.btn-danger:hover {
+    background-color: #EF5350;
+    border-color: #EF5350;
+}
+
+.d-flex .btn {
+    margin-right: 10px; /* Espacio entre los botones */
+}
+
+.d-flex .btn:last-child {
+    margin-right: 0; /* Asegura que el último botón no tenga margen derecho extra */
 }

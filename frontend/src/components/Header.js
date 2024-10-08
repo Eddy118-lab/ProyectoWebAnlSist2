@@ -27,7 +27,7 @@ function Header({ onLogout }) {
     '/conductor/gestion-conductores',
     '/usuario/gestion-usuarios',
     '/cliente/gestion-clientes',
-    '/compras',
+    '/compra/gestion-compras/catalogo',
     '/material/gestion-materiales',
     '/factura-proveedor/gestion-facturas-proveedores'
   ].includes(location.pathname);
@@ -107,10 +107,10 @@ function Header({ onLogout }) {
           <li onClick={() => handleNavItemClick('/inventario/gestion-inventarios')}>Gestión de Inventario</li>
           <li onClick={() => handleNavItemClick('/ventas')}>Gestión de Ventas</li>
           <li onClick={() => handleNavItemClick('/proveedor/gestion-proveedores')}>Gestión de Proveedores</li>
-          <li onClick={() => handleNavItemClick('/conductor/gestion-conductores')}>Gestión de Personal</li>
+          <li onClick={() => handleNavItemClick('/conductor/gestion-conductores')}>Gestión de Conductores</li>
           <li onClick={() => handleNavItemClick('/usuario/gestion-usuarios')}>Gestión de Usuarios</li>
           <li onClick={() => handleNavItemClick('/cliente/gestion-clientes')}>Gestión de Clientes</li>
-          <li onClick={() => handleNavItemClick('/compras')}>Gestión de Compras</li> {/* Nuevo módulo */}
+          <li onClick={() => handleNavItemClick('/compra/gestion-compras/catalogo')}>Gestión de Compras</li> {/* Nuevo módulo */}
           <li onClick={() => handleNavItemClick('/material/gestion-materiales')}>Gestión de Materiales</li>
           <li onClick={() => handleNavItemClick('/factura-proveedor/gestion-facturas-proveedores')}>Gestión de Facturas de Proveedores</li>
         </ul>

@@ -1,9 +1,10 @@
 import './Estilos/contacto.css';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
 
 function Contacto() {
   const form = useRef();
+  const [messageSent, setMessageSent] = useState(false); // Estado para controlar el mensaje enviado
 
   const sendEmail = (e) => {
     e.preventDefault();
@@ -13,6 +14,8 @@ function Contacto() {
       .then(
         () => {
           console.log('SUCCESS!');
+          setMessageSent(true); // Mostrar el mensaje de éxito
+          form.current.reset(); // Limpiar el formulario
         },
         (error) => {
           console.log('FAILED...', error.text);
@@ -49,6 +52,13 @@ function Contacto() {
           </label>
           <button type="submit">Enviar</button>
         </form>
+
+        {messageSent && (
+          <div className="message-sent">
+            <p>¡Tu mensaje ha sido enviado con éxito!</p>
+            <button onClick={() => setMessageSent(false)}>Cerrar</button>
+          </div>
+        )}
       </div>
     </main>
   );

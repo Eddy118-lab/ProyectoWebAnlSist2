@@ -53,7 +53,7 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
-          <Link to="/compras" className="btn-module">
+          <Link to="/compra/gestion-compras/catalogo" className="btn-module">
             <img src={compra} alt="Gestión de Compras" />  {/* Nueva tarjeta */}
             <h3>Gestión de Compras</h3>
           </Link>

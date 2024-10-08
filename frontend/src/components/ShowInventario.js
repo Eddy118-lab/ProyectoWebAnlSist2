@@ -99,15 +99,14 @@ const CompShowInventario = () => {
     return (
         <div className="container mt-5">
             <div className="user-management-header">
-                <h2 className="user-management-title">Gestión de Inventario</h2>
+                <h2 className="user-management-title-Inventari">Gestión de Inventario</h2>
                 <div className="search-create-container">
                     <SearchInventario onSearch={handleSearch} />
                     <Link to="/inventario/create" className="btn btn-primary mb-3">
-                        <i className="fa-solid fa-plus"></i> Crear Inventario
+                        <i className="fa-solid fa-plus"></i>
                     </Link>
                 </div>
             </div>
-
             {loading ? (
                 <p>Cargando inventarios...</p>
             ) : error ? (

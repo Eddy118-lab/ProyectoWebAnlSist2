@@ -1,11 +1,11 @@
 .contact-box {
   border: 1px solid #E1DCC9;
-  padding: 25px; /* Espacio interno del box */
-  border-radius: 8px; /* Bordes redondeados */
-  max-width: 500px; /* Ancho del box */
-  margin: 30px auto; /* Centrado del box */
-  background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  padding: 25px;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 30px auto;
+  background-color: rgb(234, 234, 234);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .contact-box h3 {
@@ -23,21 +23,21 @@
 .contact-box input,
 .contact-box textarea {
   width: 100%;
-  padding: 12px; /* Espaciado interno dentro del input/textarea */
+  padding: 12px;
   margin-top: 6px;
   margin-bottom: 20px;
   border: 1px solid #E1DCC9;
   border-radius: 6px;
   font-size: 1em;
-  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
-  background-color: #F9F9F9; /* Color de fondo más claro para diferenciar del contenedor */
+  box-sizing: border-box;
+  background-color: #F9F9F9;
 }
 
 .contact-box input:focus,
 .contact-box textarea:focus {
-  border-color: #C24229; /* Color del borde al hacer foco */
-  outline: none; /* Remover el borde azul por defecto */
-  background-color: #FFFFFF; /* Fondo blanco al escribir */
+  border-color: #C24229;
+  outline: none;
+  background-color: #FFFFFF;
 }
 
 .contact-box button {
@@ -54,4 +54,29 @@
 .contact-box button:hover {
   background-color: #EFB758;
   color: #C24229;
+}
+
+/* Estilos para el mensaje emergente */
+.message-sent {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  color: #155724;
+  text-align: center;
+}
+
+.message-sent button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #155724;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.message-sent button:hover {
+  background-color: #196f3d;
 }
