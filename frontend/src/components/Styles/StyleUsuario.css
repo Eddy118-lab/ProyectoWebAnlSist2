@@ -8,14 +8,15 @@
 
 /* Contenedor de la Tabla */
 .table-container {
-    margin-top: 10px;
+    margin-top: 40px; /* Aumentar este valor para crear más espacio entre el botón y la tabla */
     overflow-x: auto;
     background-color: #fff;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    border: none; /* Eliminado el borde del contenedor */
+    border: none;
     position: relative;
+    z-index: 1; /* Mantener la tabla en su capa habitual */
 }
 
 /* Tabla */
@@ -139,10 +140,14 @@
     background-color: #2b3877;
 }
 
+/* Botón Crear Usuario */
 .create-btn-container {
     display: flex;
     justify-content: flex-end;
-    margin-left: 0;
+    margin-top: 10px; /* Aumenta el margen superior si es necesario */
+    margin-bottom: 50px; /* Aumentar el margen inferior para mayor espacio */
+    position: relative; /* Asegura que el botón no se superponga a otros elementos */
+    z-index: 20; /* Eleva el botón por encima de otros elementos */
 }
 
 /* Formulario de Búsqueda */
@@ -154,6 +159,7 @@
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-top: 60px;
+    margin-right: 200px;
 }
 
 .search-create-container {
@@ -219,6 +225,15 @@
     background-color: #007BFF;
     color: white;
     border-color: #007BFF;
+}
+
+.user-management-title-Usuarios{
+    font-size: 36px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
+    color: #333; /* Color del texto, ajusta según tu diseño */
+    margin-bottom: -100px;
+    margin-top: -50px;
 }
 
 /* Contenedor del formulario usando Grid */

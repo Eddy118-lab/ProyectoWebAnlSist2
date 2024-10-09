@@ -176,10 +176,10 @@ const CreateConductor = () => {
 
                 {/* Botones en una fila separada */}
                 <div className="form-buttons">
-                    <button type="submit" className="btn btn-primary">
+                    <button type="submit" className="btn btn-primary-CC">
                         Guardar
                     </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                    <button type="button" className="btn btn-secondary-CC" onClick={handleCancel}>
                         Cancelar
                     </button>
                 </div>

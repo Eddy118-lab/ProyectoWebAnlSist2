@@ -29,26 +29,13 @@ const CompShowMaterial = () => {
         }
     };
 
-    const deleteMaterial = async (id) => {
-        try {
-            const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar este material?');
-            if (isConfirmed) {
-                await axios.delete(`${URI}/${id}`);
-                getMateriales();
-            }
-        } catch (error) {
-            console.error("Error al eliminar el material:", error);
-            setError('Error al eliminar el material');
-        }
-    };
-
     return (
         <div className="container">
             <div className="material-management-header text-center">
                 <h2 className="material-management-title">Gestión de Materiales</h2>
                 <div className="create-btn-container my-3">
                     <Link to="/material/create" className="btn btn-primary">
-                        <i className="fa-solid fa-plus"></i> Añadir Material
+                        <i className="fa-solid fa-plus"></i>
                     </Link>
                 </div>
             </div>
@@ -79,9 +66,6 @@ const CompShowMaterial = () => {
                                         <Link to={`/material/edit/${material.id}`} className="btn btn-warning btn-sm">
                                             <i className="fa-regular fa-pen-to-square"></i> Editar
                                         </Link>
-                                        <button onClick={() => deleteMaterial(material.id)} className="btn btn-danger btn-sm">
-                                            <i className="fa-regular fa-trash-can"></i> Eliminar
-                                        </button>
                                     </div>
                                 </div>
                             </div>

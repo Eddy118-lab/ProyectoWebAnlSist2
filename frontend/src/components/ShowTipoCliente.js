@@ -67,7 +67,7 @@ const CompShowTipoCliente = () => {
                         <h2 className='user-management-title'>Gestión de Tipos de Clientes</h2>
 
                         <div className="search-create-wrapper">
-                            <div className="search-container">
+                            <div className="search-container-STC">
                                 <input
                                     type="text"
                                     placeholder="Buscar por descripción"
@@ -75,12 +75,14 @@ const CompShowTipoCliente = () => {
                                     onChange={(e) => handleSearch(e.target.value)}
                                 />
                             </div>
-                            <div className="create-btn-container">
+                            <div className="create-btn-container-showTC">
                                 <Link to="/cliente/tipo-cliente/create" className="btn btn-primary">
-                                    <i className="fa-solid fa-plus"></i> Agregar
+                                    <i className="fa-solid fa-plus"></i>
                                 </Link>
+                                </div>
+                                <div className="create-btn-container-Regresar">
                                 <Link to="/cliente/gestion-clientes" className="btn btn-secondary ml-2">
-                                    Regresar a Gestión de Clientes
+                                    Regresar
                                 </Link>
                             </div>
                         </div>

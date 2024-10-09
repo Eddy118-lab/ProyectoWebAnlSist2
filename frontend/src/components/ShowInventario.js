@@ -39,20 +39,6 @@ const CompShowInventario = () => {
         }
     };
 
-    // Función para eliminar un inventario
-    const deleteInventario = async (id) => {
-        const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar este inventario?');
-        if (!isConfirmed) return;
-
-        try {
-            await axios.delete(`${URI}/${id}`);
-            getInventarios(); // Actualiza la lista de inventarios después de la eliminación
-        } catch (err) {
-            setError('Error al eliminar el inventario');
-            console.error('Error al eliminar el inventario:', err);
-        }
-    };
-
     // Función para manejar la búsqueda
     const handleSearch = (query) => {
         const filtered = inventarios.filter(inventario =>
@@ -98,72 +84,74 @@ const CompShowInventario = () => {
 
     return (
         <div className="container mt-5">
-            <div className="user-management-header">
-                <h2 className="user-management-title-Inventari">Gestión de Inventario</h2>
-                <div className="search-create-container">
-                    <SearchInventario onSearch={handleSearch} />
-                    <Link to="/inventario/create" className="btn btn-primary mb-3">
-                        <i className="fa-solid fa-plus"></i>
-                    </Link>
-                </div>
-            </div>
-            {loading ? (
-                <p>Cargando inventarios...</p>
-            ) : error ? (
-                <p className="text-danger">{error}</p>
-            ) : (
-                <div className="table-container">
-                    <table className="table table-hover">
-                        <thead className="table-primary">
-                            <tr>
-                                <th onClick={() => sortInventarios('cantidad')} style={{ cursor: 'pointer' }}>
-                                    Cantidad {getSortIcon('cantidad')}
-                                </th>
-                                <th onClick={() => sortInventarios('precio_unitario')} style={{ cursor: 'pointer' }}>
-                                    Precio Unitario {getSortIcon('precio_unitario')}
-                                </th>
-                                <th onClick={() => sortInventarios('fecha_ingreso')} style={{ cursor: 'pointer' }}>
-                                    Fecha Ingreso {getSortIcon('fecha_ingreso')}
-                                </th>
-                                <th onClick={() => sortInventarios('stock_min')} style={{ cursor: 'pointer' }}>
-                                    Stock Mínimo {getSortIcon('stock_min')}
-                                </th>
-                                <th onClick={() => sortInventarios('stock_max')} style={{ cursor: 'pointer' }}>
-                                    Stock Máximo {getSortIcon('stock_max')}
-                                </th>
-                                <th onClick={() => sortInventarios('material.nombre')} style={{ cursor: 'pointer' }}>
-                                    Material {getSortIcon('material.nombre')}
-                                </th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {currentInventarios.length === 0 ? (
-                                <tr>
-                                    <td colSpan="7" className="text-center">No hay inventarios disponibles</td>
-                                </tr>
-                            ) : (
-                                currentInventarios.map((inventario) => (
-                                    <tr key={inventario.id}>
-                                        <td>{inventario.cantidad}</td>
-                                        <td>Q.{inventario.precio_unitario}</td>
-                                        <td>{formatDate(inventario.fecha_ingreso)}</td>
-                                        <td>{inventario.stock_min}</td>
-                                        <td>{inventario.stock_max}</td>
-                                        <td>{inventario.material ? inventario.material.nombre : 'N/A'}</td>
-                                        <td>
-                                            <Link to={`/inventario/edit/${inventario.id}`} className="btn btn-warning btn-sm mr-2">
-                                                <i className="fa-regular fa-pen-to-square"></i>
-                                            </Link>
-                                            <button onClick={() => deleteInventario(inventario.id)} className="btn btn-danger btn-sm">
-                                                <i className="fa-regular fa-trash-can"></i>
-                                            </button>
-                                        </td>
+            <div className="row">
+                <div className="col">
+                    <div className="search-create-container">
+                        <div className='user-management-header'>
+                            <h2 className='user-management-title-cliente'>Gestión de Inventario</h2>
+                        </div>
+                        <div className="search-create-wrapper">
+                            <div className="search-container">
+                                <SearchInventario onSearch={handleSearch} />
+                            </div>
+                            <div className="create-btn-container">
+                                <Link to="/inventario/create" className="btn btn-primary">
+                                    <i className="fa-solid fa-plus"></i>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+
+                    {loading ? (
+                        <p>Cargando inventarios...</p>
+                    ) : error ? (
+                        <p className="text-danger">{error}</p>
+                    ) : (
+                        <div className="table-container">
+                            <table className="table table-hover">
+                                <thead className="table-primary">
+                                    <tr>
+                                        <th onClick={() => sortInventarios('cantidad')} style={{ cursor: 'pointer' }}>
+                                            Cantidad {getSortIcon('cantidad')}
+                                        </th>
+                                        <th onClick={() => sortInventarios('precio_unitario')} style={{ cursor: 'pointer' }}>
+                                            Precio Unitario {getSortIcon('precio_unitario')}
+                                        </th>
+                                        <th onClick={() => sortInventarios('fecha_ingreso')} style={{ cursor: 'pointer' }}>
+                                            Fecha Ingreso {getSortIcon('fecha_ingreso')}
+                                        </th>
+                                        <th onClick={() => sortInventarios('stock_min')} style={{ cursor: 'pointer' }}>
+                                            Stock Mínimo {getSortIcon('stock_min')}
+                                        </th>
+                                        <th onClick={() => sortInventarios('stock_max')} style={{ cursor: 'pointer' }}>
+                                            Stock Máximo {getSortIcon('stock_max')}
+                                        </th>
+                                        <th onClick={() => sortInventarios('material.nombre')} style={{ cursor: 'pointer' }}>
+                                            Material {getSortIcon('material.nombre')}
+                                        </th>
                                     </tr>
-                                ))
-                            )}
-                        </tbody>
-                    </table>
+                                </thead>
+                                <tbody>
+                                    {currentInventarios.length === 0 ? (
+                                        <tr>
+                                            <td colSpan="6" className="text-center">No hay inventarios disponibles</td>
+                                        </tr>
+                                    ) : (
+                                        currentInventarios.map((inventario) => (
+                                            <tr key={inventario.id}>
+                                                <td>{inventario.cantidad}</td>
+                                                <td>Q.{inventario.precio_unitario}</td>
+                                                <td>{formatDate(inventario.fecha_ingreso)}</td>
+                                                <td>{inventario.stock_min}</td>
+                                                <td>{inventario.stock_max}</td>
+                                                <td>{inventario.material ? inventario.material.nombre : 'N/A'}</td>
+                                            </tr>
+                                        ))
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
 
                     {/* Paginación */}
                     <nav className="d-flex justify-content-center">
@@ -178,7 +166,7 @@ const CompShowInventario = () => {
                         </ul>
                     </nav>
                 </div>
-            )}
+            </div>
         </div>
     );
 };

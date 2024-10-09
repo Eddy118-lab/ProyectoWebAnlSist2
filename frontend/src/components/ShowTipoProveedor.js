@@ -80,20 +80,16 @@ const CompShowTipoProveedor = () => {
                         <div className='user-management-header'>
                             <h2 className='user-management-title'>Gestión de Tipos de Proveedores</h2>
                         </div>
-                        <div className="search-create-wrapper">
-                            <div className="create-btn-container">
+                        <div className="create-btn-container-showTP">
                                 <Link to="/proveedor/tipo-proveedor/create" className="btn btn-primary">
                                     <i className="fa-solid fa-plus"></i>
                                 </Link>
-                                {/* Botón para volver a la gestión de proveedores */}
-                                <button 
-                                    className="btn btn-secondary ml-2"
-                                    onClick={() => navigate('/proveedor/gestion-proveedores')}
-                                >
-                                    Gestión de Proveedores
-                                </button>
+                                </div>
+                                <div className="create-btn-container-RegresarP">
+                                <Link to="/proveedor/gestion-proveedores" className="btn btn-secondary ml-2">
+                                    Regresar
+                                </Link>
                             </div>
-                        </div>
                     </div>
 
                     {loading && <p>Cargando...</p>}

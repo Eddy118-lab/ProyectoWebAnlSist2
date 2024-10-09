@@ -42,11 +42,8 @@ const CompShowPagoProveedor = () => {
 
     // Función para formatear la fecha a "dd-mm-yyyy"
     const formatFecha = (fecha) => {
-        const date = new Date(fecha);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses son 0-indexed
-        const year = date.getFullYear();
-        return `${day}-${month}-${year}`;
+        const parts = fecha.split('-'); // Suponiendo que la fecha está en formato YYYY-MM-DD
+        return `${parts[2]}-${parts[1]}-${parts[0]}`; // Convertir a DD-MM-YYYY
     };
 
     return (
@@ -88,12 +85,20 @@ const CompShowPagoProveedor = () => {
                         </div>
                     )}
     
-                    <button
-                        className="btn btn-secondary"
-                        onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')}
-                    >
-                        Volver a Facturas
-                    </button>
+                    <div className='action-buttons'>
+                        <button
+                            className="btn btn-secondary"
+                            onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')}
+                        >
+                            Volver a Facturas
+                        </button>
+                        <button
+                            className="btn btn-primary ms-2"
+                            onClick={() => navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores')}
+                        >
+                            Gestionar Tipos de Pagos
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

@@ -156,14 +156,35 @@
 /* Contenedor del buscador */
 .search-container {
     flex: 1; /* Permite que el buscador ocupe el espacio disponible */
-    margin-right: 70px;
+    margin-right: 0px;
+    margin-top: -20px;
+}
+
+.search-container-STC{
+    flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+    margin-right: 0px;
+    margin-top: 135px;
 }
 
 /* Contenedor del botón "Crear Cliente" */
 .create-btn-container {
-    margin-left: 20px; /* Espacio entre el buscador y el botón */
-    margin-bottom: -50px;
+    margin-left:0px; /* Espacio entre el buscador y el botón */
+    display: flex;
 }
+.create-btn-container-showTC{
+    margin-top: 100px;
+    margin-right: 100px;
+    display: flex;
+}
+.create-btn-container-2 {
+    margin-top: 100px;
+    margin-left: 200px;
+    display: flex;
+}
+.btn-primary{
+    margin-left: 100px;
+}
+
 
 /* Estilo para el botón "Crear Cliente" */
 .create-btn-container .btn {
@@ -171,6 +192,15 @@
 }
 
 .user-management-title-cliente{
+    font-size: 36px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
+    color: #333; /* Color del texto, ajusta según tu diseño */
+    margin-bottom: -100px;
+    margin-top: -50px;
+}
+
+.user-management-title{
     font-size: 36px; /* Ajusta el tamaño del texto */
     font-weight: bold;
     margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */

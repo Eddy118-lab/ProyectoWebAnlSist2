@@ -39,6 +39,9 @@ import CompShowInventario from './components/ShowInventario.js';
 import CompShowFacturaProveedor from './components/ShowFacturaProveedor.js';
 import CompShowDetallFactProveedor from './components/ShowDetallFactProveedor.js';
 import CompShowPagoProveedor from './components/ShowPagoProveedor.js';
+import CompCreateTipoPagoProveedor from './components/CreateTipoPagoProveedor.js';
+import CompShowTipoPagoProveedor from './components/ShowTipoPagoProveedor.js';
+import CompEditTipoPagoProveedor from './components/EditTipoPagoProveedor.js';
 import CompListaMateriales from './components/ListaMateriales.js';
 import CompDetalleMateriales from './components/DetalleMateriales.js';
 import { DetallesProvider } from './components/DetallesContext'; 
@@ -155,6 +158,9 @@ function App() {
           <Route path="/factura-proveedor/gestion-facturas-proveedores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowFacturaProveedor /></PrivateRoute>} />
           <Route path="/factura-proveedor/detalle-factura-proveedor/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowDetallFactProveedor /></PrivateRoute>} />
           <Route path="/factura-proveedor/pago-proveedor/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowPagoProveedor /></PrivateRoute>} />
+          <Route path="/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoPagoProveedor /></PrivateRoute>} />
+          <Route path="/factura-proveedor/tipo-pago-proveedor/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoPagoProveedor /></PrivateRoute>} />
+          <Route path="/factura-proveedor/tipo-pago-proveedor/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoPagoProveedor /></PrivateRoute>} />
           <Route path="/compra/gestion-compras/catalogo" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompListaMateriales /></PrivateRoute>} />
           <Route path="/compra/gestion-compras/detalle/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleMateriales /></PrivateRoute>} />
           <Route path="/compra/gestion-compras/resumen" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompResumenMateriales /></PrivateRoute>} />

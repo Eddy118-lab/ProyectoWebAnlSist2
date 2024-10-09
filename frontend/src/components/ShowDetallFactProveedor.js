@@ -5,16 +5,18 @@ import './Styles/StyleProveedor.css'; // Importa el archivo CSS
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const URI = 'http://localhost:8000/api/detalle-factura-proveedor'; // Cambia esto si es necesario
-
+const URI_MATERIALES = 'http://localhost:8000/api/material';
 const CompShowDetallFactProveedor = () => {
     const [detalles, setDetalles] = useState([]);
+    const [materiales, setMateriales] = useState([]); 
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState(null);   
     const navigate = useNavigate();
     const { id } = useParams();
 
     useEffect(() => {
         getDetalles();
+        getMateriales(); // Llamar a la función para obtener los materiales
     }, []);
 
     const getDetalles = async () => {
@@ -29,6 +31,16 @@ const CompShowDetallFactProveedor = () => {
             setLoading(false);
         }
     };
+    
+    const getMateriales = async () => {
+        try {
+            const res = await axios.get(URI_MATERIALES);
+            setMateriales(res.data); // Almacenar los materiales en el estado
+        } catch (error) {
+            setError('Error al obtener los materiales');
+            console.error('Error al obtener los materiales:', error);
+        }
+    };
 
     if (loading) return <p>Cargando...</p>;
     if (error) return <p className='text-danger'>{error}</p>;
@@ -38,6 +50,14 @@ const CompShowDetallFactProveedor = () => {
     if (!grupo) {
         return <p>No se encontró la agrupación</p>;
     }
+
+
+    // Función para obtener el nombre del material a partir del ID
+    const getMaterialName = (id) => {
+        const material = materiales.find(material => material.id === id);
+        return material ? material.nombre : 'Material no encontrado';
+    };
+
 
     return (
         <div className="container">
@@ -72,7 +92,7 @@ const CompShowDetallFactProveedor = () => {
                                             <td>Q. {detalle.subtotal}</td>
                                             <td>Q. {detalle.descuento}</td>
                                             <td>Q. {detalle.total}</td>
-                                            <td>{detalle.inventario ? detalle.inventario.id : 'No disponible'}</td>
+                                           <td>{detalle.inventario ? getMaterialName(detalle.inventario.id) : 'No disponible'}</td> {/* Mostrar el nombre del material */}
                                         </tr>
                                     ))
                                 ) : (

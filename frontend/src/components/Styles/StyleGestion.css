@@ -131,6 +131,10 @@
 }
 
 /* Paginación */
+.pagination{
+    margin-top: 20px;
+}
+
 .pagination-controls {
     display: flex;
     justify-content: center;
@@ -142,49 +146,54 @@
     margin: 0 10px;
 }
 
-/* Contenedor principal para el buscador y el botón */
-.search-create-container {
-    margin-top: 50px; /* Ajusta este valor según la altura de tu encabezado */
-}
-
-/* Contenedor para el buscador y el botón */
 .search-create-wrapper {
     display: flex;
-    align-items: center; /* Alinea verticalmente los elementos */
-    justify-content: space-between; /* Espacia los elementos a los extremos */
-    margin-bottom: 20px; /* Espacio debajo del contenedor */
+    align-items: center; 
+    justify-content: space-between; 
 }
+
 
 /* Contenedor del buscador */
 .search-container {
     flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+    margin-right: 0px;
+    margin-top: -20px;
 }
 
-/* Contenedor del botón "Crear Cliente" */
-.create-btn-container {
-    margin-left: 20px; /* Espacio entre el buscador y el botón */
+.search-container-STC{
+    flex: 1;
+    margin-right: 0px;
+    margin-top: 135px;
 }
+
+.create-btn-container {
+    margin-left: 10px; 
+    display: flex;
+}
+
+.create-btn-container-showTC{
+    margin-top: 45px;
+}
+
+.create-btn-container-Regresar{
+    margin-top: 45px;
+}
+
+
 
 /* Estilo para el botón "Crear Cliente" */
 .create-btn-container .btn {
     margin-top: 0; /* Alinea el botón con el buscador */
 }
 
-/* En tu archivo StyleCliente.css */
-.section-title {
-    font-size: 24px; /* Ajusta el tamaño del texto */
+
+.user-management-title{
+    font-size: 36px; /* Ajusta el tamaño del texto */
     font-weight: bold;
-    margin-bottom: 20px; /* Espacio debajo del título */
-    margin-top: -20px; /* Espacio encima del título, ajusta según sea necesario */
+    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
     color: #333; /* Color del texto, ajusta según tu diseño */
-}
-
-
-.thumbnail {
-    width: 100px;  /* Tamaño de la miniatura */
-    height: auto;
-    margin-top: 10px;
-    display: block;
+    margin-bottom: -100px;
+    margin-top: -50px;
 }
 
 .modal-overlay {
@@ -213,36 +222,4 @@
     color: white;
     font-size: 30px;
     cursor: pointer;
-}
-
-/* Contenedor de los botones de acciones en la tabla */
-.action-buttons {
-    display: flex;
-    gap: 10px; /* Espacio entre los botones */
-}
-
-/* Opción alternativa, si prefieres aplicar el margen directamente a los botones */
-.table .btn {
-    margin-right: 10px; /* Espacio a la derecha de cada botón */
-}
-
-.user-management-title-conductor{
-    font-size: 36px; /* Ajusta el tamaño del texto */
-    font-weight: bold;
-    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
-    color: #333; /* Color del texto, ajusta según tu diseño */
-    margin-bottom: -100px;
-    margin-top: -50px;
-}
-
-.btn-primary-CC{
-    margin-top: 100px;
-    justify-content: center;
-    height: 50px;
-}
-
-.btn-secondary-CC{
-    margin-top: 100px;
-    justify-content: center;
-    height: 50px;
 }

@@ -35,9 +35,29 @@ const CompCreateInventario = () => {
         fetchMateriales();
     }, []);
 
+    // Función para verificar si el material ya tiene un inventario registrado
+    const checkMaterialExists = async (materialId) => {
+        try {
+            const res = await axios.get(URI_INVENTARIO);
+            return res.data.some(inventario => inventario.material_id === parseInt(materialId));
+        } catch (error) {
+            console.error("Error al verificar material:", error);
+            setErrorMessage("Error al verificar el material.");
+            return false;
+        }
+    };
+
     // Manejo del envío del formulario
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Verifica si el material ya tiene un inventario registrado
+        const materialExists = await checkMaterialExists(materialId);
+
+        if (materialExists) {
+            setErrorMessage("Ya existe un inventario registrado para este material.");
+            return;
+        }
 
         const newInventario = {
             cantidad,

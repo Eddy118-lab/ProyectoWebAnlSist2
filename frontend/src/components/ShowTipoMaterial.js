@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './Styles/StyleGestion.css';
 
 const URI = 'http://localhost:8000/api/tipo-material'; // Reemplaza con la URL correcta de tu API
 
@@ -76,17 +77,15 @@ const CompShowTipoMaterial = () => {
                             <h2 className='user-management-title'>Gestión de Tipos de Material</h2>
                         </div>
                         <div className="search-create-wrapper">
-                            <div className="create-btn-container">
+                        <div className="create-btn-container-showTC">
                                 <Link to="/material/tipo-material/create" className="btn btn-primary">
                                     <i className="fa-solid fa-plus"></i>
                                 </Link>
-                                {/* Botón para volver a la gestión de materiales */}
-                                <button 
-                                    className="btn btn-secondary ml-2"
-                                    onClick={() => navigate('/material/gestion-materiales')}
-                                >
-                                    Gestión de Materiales
-                                </button>
+                                </div>
+                                <div className="create-btn-container-Regresar">
+                                <Link to="/material/gestion-materiales" className="btn btn-secondary ml-2">
+                                    Regresar
+                                </Link>
                             </div>
                         </div>
                     </div>

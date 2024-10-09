@@ -197,6 +197,14 @@
     margin-bottom: -50px;
     color: #333; /* Color del texto */
 }
+.user-management-title{
+    font-size: 36px; /* Ajusta el tamaño del texto */
+    font-weight: bold;
+    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
+    color: #333; /* Color del texto, ajusta según tu diseño */
+    margin-bottom: -100px;
+    margin-top: -50px;
+}
 
 /* Contenedor para el buscador y el botón */
 .search-create-wrapper {
@@ -234,4 +242,24 @@
 
 .create-btn-container .btn:hover {
     background-color: #0056b3; /* Efecto hover para el botón */
+}
+
+.create-btn-container {
+    margin-left:0px; /* Espacio entre el buscador y el botón */
+    display: flex;
+}
+
+.create-btn-container-showTP{
+    margin-top: 35px;
+    margin-right: 100px;
+    display: flex;
+}
+
+.create-btn-container-RegresarP{
+    margin-top: -43px;
+    margin-left: 200px;
+    display: flex;
+}
+.create-btn-container .btn {
+    margin-top: 0; 
 }
