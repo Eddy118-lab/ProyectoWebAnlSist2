@@ -42,6 +42,8 @@ import CompShowPagoProveedor from './components/ShowPagoProveedor.js';
 import CompListaMateriales from './components/ListaMateriales.js';
 import CompDetalleMateriales from './components/DetalleMateriales.js';
 import { DetallesProvider } from './components/DetallesContext'; 
+import CompResumenMateriales from './components/ResumenMateriales.js';
+import CompExito from './components/MensajeExito.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -155,7 +157,9 @@ function App() {
           <Route path="/factura-proveedor/pago-proveedor/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowPagoProveedor /></PrivateRoute>} />
           <Route path="/compra/gestion-compras/catalogo" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompListaMateriales /></PrivateRoute>} />
           <Route path="/compra/gestion-compras/detalle/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleMateriales /></PrivateRoute>} />
-          <Route path="/compra/gestion-compras/resumen" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleMateriales /></PrivateRoute>} />
+          <Route path="/compra/gestion-compras/resumen" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompResumenMateriales /></PrivateRoute>} />
+          <Route path="/compra/gestion-compras/exito" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompExito /></PrivateRoute>} />
+          
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>

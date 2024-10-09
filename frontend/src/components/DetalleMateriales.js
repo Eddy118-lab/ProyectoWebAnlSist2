@@ -5,6 +5,7 @@ import { useDetalles } from '../components/DetallesContext.js'; // Import the co
 
 // Ruta para obtener el precio unitario del inventario
 const INVENTORY_ROUTE = 'http://localhost:8000/api/inventario';
+const MATERIAL_ROUTE = 'http://localhost:8000/api/material'; // Ruta para obtener el proveedor del material
 
 const CompDetalleMateriales = () => {
   const { id } = useParams(); // ID del material desde la URL
@@ -17,23 +18,31 @@ const CompDetalleMateriales = () => {
   const [descuento, setDescuento] = useState(detalles[id]?.descuento || 0);
   const [total, setTotal] = useState(detalles[id]?.total || 0);
   const [inventarioId, setInventarioId] = useState(detalles[id]?.inventarioId || null);
+  const [proveedorId, setProveedorId] = useState(detalles[id]?.proveedorId || null); // Estado para el ID del proveedor
 
-  // Obtener el precio unitario desde el inventario
+  // Obtener el precio unitario desde el inventario y el ID del proveedor desde el material
   useEffect(() => {
-    if (!precioUnitario) {
-      const fetchPrecioUnitario = async () => {
-        try {
-          const response = await axios.get(`${INVENTORY_ROUTE}/${id}`);
-          const inventario = response.data;
-          setPrecioUnitario(inventario.precio_unitario);
-          setInventarioId(inventario.id);
-        } catch (error) {
-          console.error('Error fetching inventario:', error);
-        }
-      };
-      fetchPrecioUnitario();
+    const fetchData = async () => {
+      try {
+        // Obtener datos del inventario
+        const inventarioResponse = await axios.get(`${INVENTORY_ROUTE}/${id}`);
+        const inventario = inventarioResponse.data;
+        setPrecioUnitario(inventario.precio_unitario);
+        setInventarioId(inventario.id);
+
+        // Obtener datos del material (incluyendo proveedor_id)
+        const materialResponse = await axios.get(`${MATERIAL_ROUTE}/${id}`);
+        const material = materialResponse.data;
+        setProveedorId(material.proveedor_id); // Guardar el ID del proveedor
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    if (!precioUnitario || !proveedorId) {
+      fetchData();
     }
-  }, [id, precioUnitario]);
+  }, [id, precioUnitario, proveedorId]);
 
   // Actualizar subtotal y total cuando cambian cantidad o descuento
   useEffect(() => {
@@ -61,6 +70,7 @@ const CompDetalleMateriales = () => {
         descuento,
         total,
         inventarioId,
+        proveedorId, // Guardar el ID del proveedor
       },
     }));
     navigate(path);
@@ -70,7 +80,7 @@ const CompDetalleMateriales = () => {
     <div>
       <h1>Detalle del Material</h1>
       <p>ID del material seleccionado: {id}</p>
-
+    
       <div>
         <label>Cantidad: </label>
         <input
@@ -111,6 +121,11 @@ const CompDetalleMateriales = () => {
       <div>
         <label>Inventario ID: </label>
         <input type="text" value={inventarioId} disabled />
+      </div>
+
+      <div>
+        <label>Proveedor ID: </label>
+        <input type="text" value={proveedorId} disabled />
       </div>
 
       <button onClick={() => handleSaveAndNavigate('/compra/gestion-compras/catalogo')}>Regresar al Catálogo</button>

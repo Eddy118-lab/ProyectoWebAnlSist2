@@ -59,30 +59,27 @@ export const createInventario = async (req, res) => {
 };
 
 // Actualizar un inventario
+// Actualizar un inventario
 export const updateInventario = async (req, res) => {
     try {
-        const { id } = req.params;
-        const { precio_unitario, cantidad, fecha_ingreso, stock_min, stock_max, material_id } = req.body;
-
-        const inventario = await Inventario.findByPk(id);
-        if (!inventario) {
-            return res.status(404).json({ message: 'Inventario no encontrado.' });
-        }
-
-        inventario.precio_unitario = precio_unitario;
-        inventario.cantidad = cantidad;
-        inventario.fecha_ingreso = fecha_ingreso;
-        inventario.stock_min = stock_min;
-        inventario.stock_max = stock_max;
-        inventario.material_id = material_id;
-        await inventario.save();
-
-        return res.status(200).json(inventario);
+      const { id } = req.params;
+      const { cantidad, fecha_ingreso } = req.body;
+  
+      const inventario = await Inventario.findByPk(id);
+      if (!inventario) {
+        return res.status(404).json({ message: 'Inventario no encontrado.' });
+      }
+  
+      inventario.cantidad = cantidad;
+      inventario.fecha_ingreso = fecha_ingreso;
+      await inventario.save({ fields: ['cantidad', 'fecha_ingreso'] });
+  
+      return res.status(200).json(inventario);
     } catch (error) {
-        console.error('Error al actualizar el inventario:', error);
-        return res.status(500).json({ message: 'Error al actualizar el inventario.' });
+      console.error('Error al actualizar el inventario:', error);
+      return res.status(500).json({ message: 'Error al actualizar el inventario.' });
     }
-};
+  };
 
 // Eliminar un inventario
 export const deleteInventario = async (req, res) => {
