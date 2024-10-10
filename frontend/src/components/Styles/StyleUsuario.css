@@ -144,12 +144,23 @@
 .create-btn-container {
     display: flex;
     justify-content: flex-end;
-    margin-top: 10px; /* Aumenta el margen superior si es necesario */
-    margin-bottom: 50px; /* Aumentar el margen inferior para mayor espacio */
-    position: relative; /* Asegura que el botón no se superponga a otros elementos */
-    z-index: 20; /* Eleva el botón por encima de otros elementos */
+    margin-top: -500px; /* Aumenta el margen superior si es necesario */
+    margin-bottom: 0px; /* Aumentar el margen inferior para mayor espacio */
+    position: absolute; /* Asegura que el botón no se superponga a otros elementos */
 }
 
+.user-management-title-U{
+    font-size: 36px; 
+    font-weight: bold;
+    margin-top: 0px;
+    color: #333; 
+    margin-bottom: 0px;
+}
+.search-container-U{
+    flex: 1; /* Permite que el buscador ocupe el espacio disponible */
+    margin-right: 0px;
+    margin-top: -135px;
+}
 /* Formulario de Búsqueda */
 .search-container input {
     width: 80%;
@@ -162,12 +173,6 @@
     margin-right: 200px;
 }
 
-.search-create-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
 
 .actions {
     display: flex;
@@ -227,15 +232,6 @@
     border-color: #007BFF;
 }
 
-.user-management-title-Usuarios{
-    font-size: 36px; /* Ajusta el tamaño del texto */
-    font-weight: bold;
-    margin-top: 0px; /* Espacio encima del título, ajusta según sea necesario */
-    color: #333; /* Color del texto, ajusta según tu diseño */
-    margin-bottom: -100px;
-    margin-top: -50px;
-}
-
 /* Contenedor del formulario usando Grid */
 .form-grid {
     display: grid;
@@ -258,10 +254,6 @@
         flex-direction: column;
     }
 
-    .create-btn-container {
-        margin-top: 10px;
-        margin-left: 0;
-    }
 
     .table th, .table td {
         padding: 10px 12px;

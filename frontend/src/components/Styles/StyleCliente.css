@@ -157,7 +157,7 @@
 .search-container {
     flex: 1; /* Permite que el buscador ocupe el espacio disponible */
     margin-right: 0px;
-    margin-top: -20px;
+    margin-top: -40px;
 }
 
 .search-container-STC{

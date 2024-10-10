@@ -87,14 +87,14 @@ const CompShowUsuario = () => {
     };
 
     return (
-        <div className='container'>
+        <div className='search-create-container'>
             <div className='user-management-header'>
-                <h2 className='user-management-title-Usuarios'>Gestión de Usuarios</h2>
+                <h2 className='user-management-title-U'>Gestión de Usuarios</h2>
             </div>
 
             {/* Contenedor del buscador y el botón Crear Usuario */}
             <div className='search-create-container'>
-                <div className='search-container'>
+                <div className='search-container-U'>
                     <SearchUsuario usuarios={usuarios} onSearch={handleSearch} />
                 </div>
                 <div className='create-btn-container'>

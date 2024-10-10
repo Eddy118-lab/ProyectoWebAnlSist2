@@ -92,121 +92,108 @@ const EditUsuario = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Usuario</h2>
-            <form onSubmit={handleSubmit} className="form-grid">
-                <div className='form-group'>
-                    <label>Nombre Completo</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        value={nombcomp}
-                        onChange={(e) => setNombreComp(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Nombre de Usuario</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        value={nombusuar}
-                        onChange={(e) => setNombreUsuar(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Email</label>
-                    <input
-                        type='email'
-                        className='form-control'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Fecha de Nacimiento</label>
-                    <input
-                        type='date'
-                        className='form-control'
-                        value={fechanaci}
-                        onChange={(e) => setFechaNaci(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>NIT</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        value={nit}
-                        onChange={(e) => setNit(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>DPI</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        value={dpi}
-                        onChange={(e) => setDpi(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Dirección</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        value={direccion}
-                        onChange={(e) => setDireccion(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Teléfono</label>
-                    <input
-                        type='text'
-                        className='form-control'
-                        value={telefono}
-                        onChange={(e) => setTelefono(e.target.value)}
-                        required
-                    />
-                </div>
-                {/* Campo de contraseña solo si deseas actualizarla */}
-                <div className='form-group'>
-                    <label>Contraseña (Dejar en blanco si no deseas cambiarla)</label>
-                    <input
-                        type='password'
-                        className='form-control'
-                        value={contrasenha}
-                        onChange={(e) => setContrasenha(e.target.value)}
-                    />
-                </div>
-                <div className='form-group'>
-                    <label>Confirmar Contraseña</label>
-                    <input
-                        type='password'
-                        className='form-control'
-                        value={confContrasenha}
-                        onChange={(e) => setConfContrasenha(e.target.value)}
-                    />
-                </div>
-
-                {/* Botones ocupando el ancho completo */}
-                <div className="form-buttons">
-                    <button type='submit' className='btn btn-primary'>Actualizar</button>
-                    <button type='button' onClick={handleCancel} className='btn btn-secondary'>Cancelar</button>
-                </div>
-            </form>
-
-            {/* Mostrar mensajes de éxito o error */}
-            {successMessage && <div className="alert alert-success mt-2">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger mt-2">{errorMessage}</div>}
-        </div>
-    );
+            <div className='form-container'>
+                <h2 className='form-title'>Editar Usuario</h2>
+                <form onSubmit={handleSubmit} className="form-grid">
+                    <div className='form-group'>
+                        <label>Nombre Completo</label>
+                        <input
+                            type='text'
+                            value={nombcomp}
+                            onChange={(e) => setNombreComp(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Nombre de Usuario</label>
+                        <input
+                            type='text'
+                            value={nombusuar}
+                            onChange={(e) => setNombreUsuar(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Email</label>
+                        <input
+                            type='email'
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Fecha de Nacimiento</label>
+                        <input
+                            type='date'
+                            value={fechanaci}
+                            onChange={(e) => setFechaNaci(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>NIT</label>
+                        <input
+                            type='text'
+                            value={nit}
+                            onChange={(e) => setNit(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>DPI</label>
+                        <input
+                            type='text'
+                            value={dpi}
+                            onChange={(e) => setDpi(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Dirección</label>
+                        <input
+                            type='text'
+                            value={direccion}
+                            onChange={(e) => setDireccion(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Teléfono</label>
+                        <input
+                            type='text'
+                            value={telefono}
+                            onChange={(e) => setTelefono(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Contraseña (Dejar en blanco si no deseas cambiarla)</label>
+                        <input
+                            type='password'
+                            value={contrasenha}
+                            onChange={(e) => setContrasenha(e.target.value)}
+                        />
+                    </div>
+                    <div className='form-group'>
+                        <label>Confirmar Contraseña</label>
+                        <input
+                            type='password'
+                            value={confContrasenha}
+                            onChange={(e) => setConfContrasenha(e.target.value)}
+                        />
+                    </div>
+        
+                    <div className="form-buttons">
+                        <button type='submit' className='btn btn-primary'>Actualizar</button>
+                        <button type='button' onClick={handleCancel} className='btn btn-secondary'>Cancelar</button>
+                    </div>
+                </form>
+        
+                {successMessage && <div className="alert alert-success mt-2">{successMessage}</div>}
+                {errorMessage && <div className="alert alert-danger mt-2">{errorMessage}</div>}
+            </div>
+        );
 };
 
 export default EditUsuario;
