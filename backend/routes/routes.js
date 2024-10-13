@@ -14,6 +14,8 @@ import {getFacturasProveedores, getFacturaProveedorById, createFacturaProveedor,
 import {getTiposPagoProveedor, getTipoPagoProveedorById, createTipoPagoProveedor, updateTipoPagoProveedor, deleteTipoPagoProveedor} from '../controllers/TipoPagoProveedorController.js';
 import {getDetallesFactProveedoresGroupedByFactura, getDetalleFactProveedorById, createDetalleFactProveedor, updateDetalleFactProveedor, deleteDetalleFactProveedor} from '../controllers/DetallFactProveeController.js';
 import {getPagosProveedoresGroupedByFactura, getPagoProveedorById, createPagoProveedor, updatePagoProveedor, deletePagoProveedor} from '../controllers/PagoProveedorController.js';
+import {getTipoMarcas, getTipoMarcaById, createTipoMarca, updateTipoMarca, deleteTipoMarca} from '../controllers/TipoMarcaController.js';
+import {getVehiculos, getVehiculoById, createVehiculo, updateVehiculo, deleteVehiculo} from '../controllers/VehiculoController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -126,6 +128,19 @@ router.post('/detalle-factura-proveedor', createDetalleFactProveedor);
 router.put('/detalle-factura-proveedor/:id', updateDetalleFactProveedor);
 router.delete('/detalle-factura-proveedor/:id', deleteDetalleFactProveedor);
 
+// CRUD DE TIPO MARCAR
+router.get('/tipo-marca', getTipoMarcas);
+router.get('/tipo-marca/:id', getTipoMarcaById);
+router.post('/tipo-marca', createTipoMarca);
+router.put('/tipo-marca/:id', updateTipoMarca);
+router.delete('/tipo-marca/:id', deleteTipoMarca);
+
+// CRUD DE VEHICULO
+router.get('/vehiculo', getVehiculos);
+router.get('/vehiculo/:id', getVehiculoById);
+router.post('/vehiculo', createVehiculo);
+router.put('/vehiculo/:id', updateVehiculo);
+router.delete('/vehiculo/:id', deleteVehiculo);
 
 ///// RUTA LOGIN
 router.post('/login', login);

@@ -8,6 +8,7 @@ import usuario2 from './pictures/user.png';
 import compra from './pictures/buys.png';
 import materiales from './pictures/materials.png';
 import FactProv from './pictures/supplierbilling.png';
+import camion from './pictures/truck.png';
 import './Styles/MainContent.css'; // Asegúrate de que esta ruta sea correcta
 
 function MainContent() {
@@ -47,6 +48,12 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
+          <Link to="/vehiculo/gestion-vehiculo" className="btn-module">
+            <img src={camion} alt="Gestión de Vehículos" />
+            <h3>Gestión de Vehículos</h3>
+          </Link>
+        </div>
+        <div className="module-card">
           <Link to="/usuario/gestion-usuarios" className="btn-module">
             <img src={usuario2} alt="Gestión de Usuarios" />
             <h3>Gestión de Usuarios</h3>
@@ -66,8 +73,8 @@ function MainContent() {
         </div>
         <div className="module-card">
           <Link to="/factura-proveedor/gestion-facturas-proveedores" className="btn-module">
-            <img src={FactProv} alt="Gestión de Facturas de Provedores" />
-            <h3>Gestión de Facturas de Provedores</h3>
+            <img src={FactProv} alt="Gestión de Facturas de Proveedores" />
+            <h3>Gestión de Facturas de Proveedores</h3>
           </Link>
         </div>
       </div>

@@ -19,7 +19,8 @@ const CompResumenMateriales = () => {
   const [totalCompra, setTotalCompra] = useState(0);
   const [materiales, setMateriales] = useState({}); // Para almacenar los nombres de los materiales y sus proveedores
   const [proveedores, setProveedores] = useState({}); // Para almacenar los proveedores y sus facturas
-  const [tiposPago, setTiposPago] = useState([]);
+  const [tiposPago, setTiposPago] = useState([]); // Almacenar tipos de pago
+  const [tipoPagoSeleccionado, setTipoPagoSeleccionado] = useState(''); // Estado para el tipo de pago seleccionado
   const navigate = useNavigate();
 
   // Función para obtener la fecha local en formato yyyy-mm-dd
@@ -71,18 +72,12 @@ const CompResumenMateriales = () => {
     setProveedores(detallesPorProveedor);
   }, [detalles, materiales]);
 
-  // Manejar la cancelación de la compra
-  const handleCancel = () => {
-    setDetalles({}); // Limpiar los detalles
-    navigate('/compra/gestion-compras/catalogo'); // Regresar al catálogo
-  };
-
   // Obtener los tipos de pago
   useEffect(() => {
     const fetchTiposPago = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/tipo-pago-proveedor');
-        setTiposPago(response.data);
+        setTiposPago(response.data); // Almacenar los tipos de pago
       } catch (error) {
         console.error('Error fetching tipos de pago:', error);
       }
@@ -91,9 +86,20 @@ const CompResumenMateriales = () => {
     fetchTiposPago();
   }, []);
 
+  // Manejar la cancelación de la compra
+  const handleCancel = () => {
+    setDetalles({}); // Limpiar los detalles
+    navigate('/compra/gestion-compras/catalogo'); // Regresar al catálogo
+  };
+
   // Manejar la aceptación de la compra
   const handleAccept = async () => {
     try {
+      if (!tipoPagoSeleccionado) {
+        alert('Debe seleccionar un tipo de pago.');
+        return;
+      }
+
       // Crear facturas para cada proveedor
       const facturasPromises = Object.keys(proveedores).map(async proveedorId => {
         const detallesProveedor = proveedores[proveedorId];
@@ -133,7 +139,7 @@ const CompResumenMateriales = () => {
         await axios.post(PAGO_ROUTE, {
           fecha: getLocalDate(), // Usar fecha local
           monto: totalProveedor,
-          tipo_pago_id: tiposPago[0].id, // Relacionar con el ID del tipo de pago
+          tipo_pago_id: tipoPagoSeleccionado, // Relacionar con el ID del tipo de pago seleccionado
           factura_proveedor_id: facturaId, // Relacionar con el ID de la factura
         });
       });
@@ -169,6 +175,23 @@ const CompResumenMateriales = () => {
         ))}
         <h2>Total de la Compra: {totalCompra}</h2>
       </div>
+
+      {/* Menú desplegable de tipos de pago */}
+      <label>
+        Tipo de Pago:
+        <select
+          value={tipoPagoSeleccionado}
+          onChange={(e) => setTipoPagoSeleccionado(e.target.value)}
+          required
+        >
+          <option value="">Seleccione un método de pago</option>
+          {tiposPago.map((tipoPago) => (
+            <option key={tipoPago.id} value={tipoPago.id}>
+              {tipoPago.descripcion}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <button onClick={handleAccept}>Aceptar Compra</button>
       <button onClick={handleCancel}>Cancelar Compra</button>
