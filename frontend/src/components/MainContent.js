@@ -48,7 +48,7 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
-          <Link to="/vehiculo/gestion-vehiculo" className="btn-module">
+          <Link to="/vehiculo/gestion-vehiculos" className="btn-module">
             <img src={camion} alt="Gestión de Vehículos" />
             <h3>Gestión de Vehículos</h3>
           </Link>

@@ -47,6 +47,9 @@ import CompDetalleMateriales from './components/DetalleMateriales.js';
 import { DetallesProvider } from './components/DetallesContext'; 
 import CompResumenMateriales from './components/ResumenMateriales.js';
 import CompExito from './components/MensajeExito.js';
+import CompCreateVehiculo from './components/CreateVehiculo.js';
+import CompEditVehiculo from './components/EditVehiculo.js';
+import CompShowVehiculo from './components/ShowVehiculo.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -57,6 +60,7 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('authToken'));
@@ -165,7 +169,9 @@ function App() {
           <Route path="/compra/gestion-compras/detalle/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleMateriales /></PrivateRoute>} />
           <Route path="/compra/gestion-compras/resumen" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompResumenMateriales /></PrivateRoute>} />
           <Route path="/compra/gestion-compras/exito" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompExito /></PrivateRoute>} />
-          
+          <Route path="/vehiculo/gestion-vehiculos" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowVehiculo /></PrivateRoute>} />
+          <Route path="/vehiculo/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateVehiculo /></PrivateRoute>} />
+          <Route path="/vehiculo/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>
