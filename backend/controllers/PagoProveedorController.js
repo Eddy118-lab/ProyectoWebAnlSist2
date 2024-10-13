@@ -24,7 +24,7 @@ export const getPagosProveedoresGroupedByFactura = async (req, res) => {
 
         // Agrupando los pagos por factura_proveedor_id
         const groupedPagos = pagosProveedores.reduce((acc, pago) => {
-            const facturaId = pago.factura_proveedor_id;
+            const facturaId = pago.factura_proveedor.id;
             if (!acc[facturaId]) {
                 acc[facturaId] = {
                     factura: pago.factura_proveedor,

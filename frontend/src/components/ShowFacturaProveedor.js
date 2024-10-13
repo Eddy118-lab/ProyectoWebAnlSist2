@@ -5,6 +5,12 @@ import './Styles/StyleFacturaProveedor.css';
 
 const URI_FACTURA_PROVEEDOR = 'http://localhost:8000/api/factura-proveedor/';
 
+// Función para formatear la fecha de yyyy-mm-dd a dd-mm-yyyy
+const formatDate = (dateString) => {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+};
+
 const ShowFacturaProveedor = () => {
     const [facturas, setFacturas] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
@@ -52,18 +58,15 @@ const ShowFacturaProveedor = () => {
         try {
             console.log('Preparando la impresión de la factura:', factura.id);
 
-            // Abrir la ventana de impresión
             const printWindow = window.open('', '_blank');
             if (!printWindow) {
                 throw new Error('No se pudo abrir la ventana de impresión.');
             }
 
-            // Formatear el monto de la factura
             const monto = typeof factura.monto === 'number'
                 ? `Q.${factura.monto.toFixed(2)}`
                 : factura.monto || 'Monto no disponible';
 
-            // Generar el contenido HTML de la factura
             printWindow.document.write(`
                 <html>
                 <head>
@@ -97,7 +100,7 @@ const ShowFacturaProveedor = () => {
                         <div class="factura-header">
                             <h1>Transportes Eben-Ezer</h1>
                             <h1>Factura #${factura.id}</h1>
-                            <p>Fecha: ${new Date(factura.fecha).toLocaleDateString()}</p>
+                            <p>Fecha: ${formatDate(factura.fecha)}</p>
                         </div>
                         <div class="factura-info">
                             <div>
@@ -122,7 +125,6 @@ const ShowFacturaProveedor = () => {
                 </html>
             `);
 
-            // Finalizar y ejecutar la impresión
             printWindow.document.close();
             printWindow.focus();
         } catch (error) {
@@ -165,7 +167,7 @@ const ShowFacturaProveedor = () => {
                         {currentFacturas.map(factura => (
                             <tr key={factura.id}>
                                 <td>{factura.id}</td>
-                                <td>{new Date(factura.fecha).toLocaleDateString()}</td>
+                                <td>{formatDate(factura.fecha)}</td>
                                 <td>Q.{typeof factura.monto === 'number' ? factura.monto.toFixed(2) : factura.monto}</td>
                                 <td>{factura.proveedor?.nombre || 'Proveedor no disponible'}</td>
                                 <td>
