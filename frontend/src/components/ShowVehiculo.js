@@ -81,14 +81,24 @@ const CompShowVehiculo = () => {
                 <h2 className='vehiculo-management-title'>Gestión de Vehículos</h2>
             </div>
 
-            {/* Contenedor del buscador y el botón Crear Vehículo */}
+            {/* Contenedor del buscador y los botones */}
             <div className='search-create-container'>
                 <div className='search-container'>
                     <SearchVehiculo vehiculos={vehiculos} onSearch={handleSearch} />
                 </div>
+
+                {/* Botones de Crear Vehículo, Combustible y Reparación */}
                 <div className='create-btn-container'>
                     <Link to="/vehiculo/create" className='btn btn-primary'>
                         <i className="fa-solid fa-plus"></i>
+                    </Link>
+                    {/* Botón para gestión de combustibles */}
+                    <Link to="/vehiculo/combustible/gestion-combustibles" className='btn btn-secondary'>
+                        Gestión de Combustibles
+                    </Link>
+                    {/* Botón para gestión de reparaciones */}
+                    <Link to="/vehiculo/reparacion/gestion-reparaciones" className='btn btn-secondary'>
+                        Gestión de Reparaciones
                     </Link>
                 </div>
             </div>

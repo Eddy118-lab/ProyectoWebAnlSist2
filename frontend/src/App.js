@@ -172,6 +172,8 @@ function App() {
           <Route path="/vehiculo/gestion-vehiculos" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowVehiculo /></PrivateRoute>} />
           <Route path="/vehiculo/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateVehiculo /></PrivateRoute>} />
           <Route path="/vehiculo/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
+          <Route path="/vehiculo/combustible/gestion-combustibles" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
+          <Route path="/vehiculo/reparacion/gestion-reparaciones" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>

@@ -16,6 +16,8 @@ import {getDetallesFactProveedoresGroupedByFactura, getDetalleFactProveedorById,
 import {getPagosProveedoresGroupedByFactura, getPagoProveedorById, createPagoProveedor, updatePagoProveedor, deletePagoProveedor} from '../controllers/PagoProveedorController.js';
 import {getTipoMarcas, getTipoMarcaById, createTipoMarca, updateTipoMarca, deleteTipoMarca} from '../controllers/TipoMarcaController.js';
 import {getVehiculos, getVehiculoById, createVehiculo, updateVehiculo, deleteVehiculo} from '../controllers/VehiculoController.js';
+import {getReparaciones, getReparacionById, createReparacion, updateReparacion, deleteReparacion} from '../controllers/ReparacionController.js'; 
+import {getCombustibles, getCombustibleById, createCombustible, updateCombustible, deleteCombustible} from '../controllers/CombustibleController.js'; 
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -141,6 +143,20 @@ router.get('/vehiculo/:id', getVehiculoById);
 router.post('/vehiculo', createVehiculo);
 router.put('/vehiculo/:id', updateVehiculo);
 router.delete('/vehiculo/:id', deleteVehiculo);
+
+// CRUD DE COMBUSTIBLE
+router.get('/combustible', getCombustibles); 
+router.get('/combustible/:id', getCombustibleById); 
+router.post('/combustible', createCombustible); 
+router.put('/combustible/:id', updateCombustible);
+router.delete('/combustible/:id', deleteCombustible);
+
+// CRUD DE REPARACION 
+router.get('/reparacion', getReparaciones); 
+router.get('/reparacion/:id', getReparacionById); 
+router.post('/reparacion', createReparacion); 
+router.put('/reparacion/:id', updateReparacion); 
+router.delete('/reparacion/:id', deleteReparacion); 
 
 ///// RUTA LOGIN
 router.post('/login', login);
