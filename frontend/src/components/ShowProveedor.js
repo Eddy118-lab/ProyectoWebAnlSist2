@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Styles/StyleProveedor.css'; // Importa el archivo CSS
-import SearchProveedor from './SearchProveedor.js'; // Asegúrate de crear el componente de búsqueda si lo necesitas
+import SearchProveedor from './SearchProveedor.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './Styles/StyleShowProveedor.css';  // Puedes añadir los estilos adicionales si es necesario.
 
 const URI = 'http://localhost:8000/api/proveedor';
 
@@ -84,30 +85,24 @@ const CompShowProveedor = () => {
     const totalPages = Math.ceil(filteredProveedores.length / proveedoresPerPage);
 
     return (
-        <div className="container">
+        <div className="container mt-5">
             <div className="row">
-                <div className="col">
-                    <div className="search-create-container">
-                        <div className='user-management-header'>
-                            <h2 className='user-management-title-proveedor'>Gestión de Proveedores</h2>
-                        </div>
-                        <div className="search-create-wrapper">
-                            <div className="search-container">
-                                <SearchProveedor proveedores={proveedores} onSearch={handleSearch} />
-                            </div>
-                            <div className="create-btn-container">
-                                <Link to="/proveedor/create" className="btn btn-primary">
-                                    <i className="fa-solid fa-plus"></i>
-                                </Link>
-                            </div>
-                        </div>
+                <div className="col-lg-12">
+                    <div className="mb-4">
+                        <h2 className="text-primary" style={{ marginTop: '60px' }}>Gestión de Proveedores</h2>
+                        <Link to="/proveedor/create" className="btn btn-primary mb-3">
+                            <i className="fa-solid fa-plus"></i>
+                        </Link>
+                    </div>
+                    <div className="mb-3">
+                        <SearchProveedor proveedores={proveedores} onSearch={handleSearch} />
                     </div>
 
                     {loading && <p>Cargando...</p>}
-                    {error && <p className='text-danger'>{error}</p>}
+                    {error && <p className="text-danger">{error}</p>}
 
-                    <table className='table table-hover'>
-                        <thead className='table-primary'>
+                    <table className="table table-hover">
+                        <thead className="table-dark">
                             <tr>
                                 <th onClick={() => sortProveedores('nombre')} style={{ cursor: 'pointer' }}>
                                     Nombre {getSortIcon('nombre')}
@@ -145,10 +140,10 @@ const CompShowProveedor = () => {
                                         <td>{proveedor.direccion}</td>
                                         <td>{proveedor.tipoProveedor ? proveedor.tipoProveedor.descripcion : 'N/A'}</td>
                                         <td>
-                                            <Link to={`/proveedor/edit/${proveedor.id}`} className='btn btn-warning btn-sm mr-2'>
+                                            <Link to={`/proveedor/edit/${proveedor.id}`} className="btn btn-warning btn-sm mr-2">
                                                 <i className="fa-regular fa-pen-to-square"></i>
                                             </Link>
-                                            <button onClick={() => deleteProveedor(proveedor.id)} className='btn btn-danger btn-sm'>
+                                            <button onClick={() => deleteProveedor(proveedor.id)} className="btn btn-danger btn-sm">
                                                 <i className="fa-regular fa-trash-can"></i>
                                             </button>
                                         </td>
@@ -159,11 +154,11 @@ const CompShowProveedor = () => {
                     </table>
 
                     {/* Paginación */}
-                    <nav className='d-flex justify-content-center'>
-                        <ul className='pagination'>
+                    <nav className="d-flex justify-content-center">
+                        <ul className="pagination">
                             {[...Array(totalPages).keys()].map(number => (
                                 <li key={number + 1} className={`page-item ${number + 1 === currentPage ? 'active' : ''}`}>
-                                    <button onClick={() => paginate(number + 1)} className='page-link'>
+                                    <button onClick={() => paginate(number + 1)} className="page-link">
                                         {number + 1}
                                     </button>
                                 </li>

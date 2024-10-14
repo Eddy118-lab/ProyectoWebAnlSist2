@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Styles/StyleGestion.css';
 
 const URI = 'http://localhost:8000/api/peso'; // Reemplaza con la URL correcta de tu API
 

@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode'; // Asegúrate de haber instalado esta li
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import './Styles/Login.css'; // Asegúrate de importar el CSS actualizado
+import './Styles/Login.css';
 
 const Login = ({ onLoginSuccess, onClose }) => {
     const [email, setEmail] = useState('');

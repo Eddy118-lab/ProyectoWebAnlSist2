@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Styles/StyleCliente.css';  // Importa el archivo CSS
+import './Styles/StyleEditTipoCliente.css'
 
 const URI_TIPO_CLIENTE = 'http://localhost:8000/api/tipo-cliente/';
 
@@ -56,19 +56,19 @@ const CompEditTipoCliente = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Tipo de Cliente</h2>
+        <div className='form-container-Edit-Tipo-Cliente'>
+            <h2 className='form-title-Edit-Tipo-Cliente'>Editar Tipo de Cliente</h2>
             
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success-Edit-Tipo-Cliente">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger-Edit-Tipo-Cliente">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className='form-grid'>
-                <div className='form-column'>
-                    <div className='form-group'>
+            <form onSubmit={handleSubmit} className='form-grid-Edit-Tipo-Cliente'>
+                <div className='form-column-Edit-Tipo-Cliente'>
+                    <div className='form-group-Edit-Tipo-Cliente'>
                         <label>Descripción</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Tipo-Cliente'
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
@@ -76,9 +76,9 @@ const CompEditTipoCliente = () => {
                     </div>
                 </div>
 
-                <div className='form-buttons'>
-                    <button type='submit' className='btn btn-primary'>Actualizar</button>
-                    <button type='button' className='btn btn-secondary' onClick={handleCancel}>Cancelar</button>
+                <div className='form-buttons-Edit-Tipo-Cliente'>
+                    <button type='submit' className='btn btn-primary-Edit-Tipo-Cliente'>Actualizar</button>
+                    <button type='button' className='btn btn-secondary-Edit-Tipo-Cliente' onClick={handleCancel}>Cancelar</button>
                 </div>
             </form>
         </div>

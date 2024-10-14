@@ -1,0 +1,174 @@
+/* Contenedor principal */
+.container-Show-Tipo-Cliente {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+}
+
+/* Encabezado */
+.user-management-title-Show-Tipo-Cliente {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-top: 60px;
+    color: #333;
+    text-align: center;
+}
+
+/* Búsqueda y botones */
+.search-create-container-Show-Tipo-Cliente {
+    display: flex;
+    flex-direction: column; /* Cambiar a columna para centrar verticalmente */
+    align-items: center; /* Centrar los elementos */
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+/* Estilo para el contenedor de búsqueda */
+.search-container-Show-Tipo-Cliente {
+    position: relative; /* Para posicionar el icono dentro del contenedor */
+    width: 80%; /* Asegurarse de que el campo de búsqueda ocupe el ancho completo */
+    margin: 0 auto; 
+}
+
+/* Estilo para el campo de entrada */
+.form-control-Show-Tipo-Cliente {
+    width: 100%;
+    padding: 12px; /* Aumentar el padding para un campo más grande */
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px; /* Aumentar el tamaño de la fuente */
+    transition: border-color 0.3s; /* Transición suave en el borde */
+}
+
+/* Efecto al hacer foco en el campo de entrada */
+.form-control-Show-Tipo-Cliente:focus {
+    border-color: #007bff; /* Color del borde al hacer foco */
+    outline: none; /* Eliminar el contorno predeterminado */
+}
+
+/* Estilo para el icono de búsqueda */
+.search-icon {
+    position: absolute; /* Posicionar el icono dentro del contenedor */
+    left: 10px; /* Espacio desde la izquierda */
+    top: 50%; /* Centramos verticalmente */
+    transform: translateY(-50%); /* Ajustar verticalmente el icono */
+    color: #007bff; /* Color del icono */
+    font-size: 18px; /* Tamaño del icono */
+}
+
+/* Botones */
+.create-btn-container-showTC-Show-Tipo-Cliente,
+.create-btn-container-Regresar-Show-Tipo-Cliente {
+    margin-left: 0; /* Reiniciar margen izquierdo para centrar */
+    margin-top: 10px; /* Espacio entre botones */
+    display: flex;
+    justify-content: center; /* Centrar los botones */
+}
+
+.btn-Show-Tipo-Cliente {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    margin: 0 5px; /* Espacio entre botones */
+}
+
+.btn-primary-Show-Tipo-Cliente {
+    width: 25px;
+    height: 25px;
+    margin-top: -52px;
+    margin-right: -300px;
+    background-color: #007bff;
+}
+
+.btn-secondary-Show-Tipo-Cliente {
+    height: 25px;
+    margin-top: -62px;
+    margin-right: -475px;
+    background-color: #6c757d;
+}
+
+/* Tabla */
+.table-Show-Tipo-Cliente {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para la tabla */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Para asegurar que los bordes redondeados se mantengan */
+}
+
+.table-Show-Tipo-Cliente th {
+    padding: 12px;
+    text-align: center;
+    background-color: black;
+    color: #fff;
+    border: none; 
+}
+
+.table-Show-Tipo-Cliente td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ced4da; /* Añadir borde solo a las celdas de datos */
+}
+
+.table-Show-Tipo-Cliente tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.table-Show-Tipo-Cliente tbody tr:hover {
+    background-color: #e9ecef;
+}
+
+/* Botones de acción */
+.btn-warning-Show-Tipo-Cliente {
+    background-color: #ffc107;
+    border: none;
+    color: white;
+    margin-right: 5px;
+}
+
+.btn-danger-Show-Tipo-Cliente {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+}
+
+/* Mensajes de carga y error */
+.loading-Show-Tipo-Cliente,
+.text-danger-Show-Tipo-Cliente {
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/* Paginación */
+.pagination-Show-Tipo-Cliente {
+    list-style: none;
+    display: flex;
+    gap: 5px;
+}
+
+.page-item-Show-Tipo-Cliente {
+    cursor: pointer;
+}
+
+.page-item-Show-Tipo-Cliente.active-Show-Tipo-Cliente .page-link-Show-Tipo-Cliente {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-link-Show-Tipo-Cliente {
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    color: #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.page-link-Show-Tipo-Cliente:hover {
+    background-color: #e9ecef;
+    color: #0056b3;
+}
+

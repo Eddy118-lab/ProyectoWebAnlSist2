@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Styles/StyleProveedor.css';  // Asegúrate de tener un archivo CSS para Proveedor
 
 const URI_TIPO_PROVEEDOR = 'http://localhost:8000/api/tipo-proveedor/';
 

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import './Styles/StyleProveedor.css'; // Importa el archivo CSS
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const URI = 'http://localhost:8000/api/detalle-factura-proveedor'; // Cambia esto si es necesario

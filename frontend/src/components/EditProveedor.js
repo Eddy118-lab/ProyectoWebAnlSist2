@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Styles/StyleProveedor.css';  // Asegúrate de tener un archivo CSS para Proveedor
+import './Styles/StyleEditProveedor.css';
 
 const URI_PROVEEDOR = 'http://localhost:8000/api/proveedor/';
 const URI_TIPO_PROVEEDOR = 'http://localhost:8000/api/tipo-proveedor/';
@@ -89,39 +89,39 @@ const CompEditProveedor = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Proveedor</h2>
+        <div className='form-container-Edit-Proveedor'>
+            <h2 className='form-title-Edit-Proveedor'>Editar Proveedor</h2>
             
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success-Edit-Proveedor">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger-Edit-Proveedor">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className='form-grid'>
-                <div className='form-column'>
-                    <div className='form-group'>
+            <form onSubmit={handleSubmit} className='form-grid-Edit-Proveedor'>
+                <div className='form-column-Edit-Proveedor'>
+                    <div className='form-group-Edit-Proveedor'>
                         <label>Nombre</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Proveedor'
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Proveedor'>
                         <label>Email</label>
                         <input
                             type='email'
-                            className='form-control'
+                            className='form-control-Edit-Proveedor'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Proveedor'>
                         <label>Dirección</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Proveedor'
                             value={direccion}
                             onChange={(e) => setDireccion(e.target.value)}
                             required
@@ -129,31 +129,31 @@ const CompEditProveedor = () => {
                     </div>
                 </div>
 
-                <div className='form-column'>
-                    <div className='form-group'>
+                <div className='form-column-Edit-Proveedor'>
+                    <div className='form-group-Edit-Proveedor'>
                         <label>Teléfono</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Proveedor'
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Proveedor'>
                         <label>NIT</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Proveedor'
                             value={nit}
                             onChange={(e) => setNit(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Proveedor'>
                         <label>Tipo de Proveedor</label>
                         <select
-                            className='form-control'
+                            className='form-control-Edit-Proveedor'
                             value={tipoProveedorId}
                             onChange={(e) => setTipoProveedorId(e.target.value)}
                             required
@@ -168,10 +168,10 @@ const CompEditProveedor = () => {
                     </div>
                 </div>
 
-                <div className='form-buttons'>
-                    <button type='submit' className='btn btn-primary'>Actualizar</button>
-                    <button type='button' className='btn btn-secondary' onClick={handleCancel}>Cancelar</button>
-                    <button type='button' className='btn btn-info' onClick={handleManageTipoProveedores}>
+                <div className='form-buttons-Edit-Proveedor'>
+                    <button type='submit' className='btn btn-primary-Edit-Proveedor'>Actualizar</button>
+                    <button type='button' className='btn btn-secondary-Edit-Proveedor' onClick={handleCancel}>Cancelar</button>
+                    <button type='button' className='btn btn-info-Edit-Proveedor' onClick={handleManageTipoProveedores}>
                         Gestionar Tipos de Proveedor
                     </button>
                 </div>

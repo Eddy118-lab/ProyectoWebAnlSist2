@@ -1,0 +1,139 @@
+
+/* Contenedor principal */
+.form-container-Edit-Proveedor {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    margin-top: 50px;
+}
+  
+/* Título del formulario */
+.form-title-Edit-Proveedor {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    margin-top: 70px;
+}
+  
+/* Estilos para la cuadrícula de 2 columnas */
+.form-grid-Edit-Proveedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* Estilo especial para el campo "Tipo de Proveedor" */
+.form-group-Edit-Proveedor select {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    color: #333;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    appearance: none; /* Para eliminar la flecha por defecto en algunos navegadores */
+    cursor: pointer;
+}
+  
+
+.form-group-Edit-Proveedor select:focus {
+    border-color: #007bff;
+    background-color: #e9f5ff;
+}
+
+.form-group-Edit-Proveedor option {
+    padding: 10px;
+}
+
+/* Estilo para resaltar el label de "Tipo de Proveedor" */
+.form-group-Edit-Proveedor label[for="tipoProveedor"] {
+    font-size: 18px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+/* Estilos para cada campo del formulario */
+.form-group-Edit-Proveedor {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+  
+.form-group-Edit-Proveedor label {
+    font-weight: bold;
+    color: #555;
+}
+  
+.form-group-Edit-Proveedor input {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+  
+.form-group-Edit-Proveedor input:focus {
+    border-color: #007bff;
+}
+  
+/* Botones centrados */
+.form-buttons-Edit-Proveedor {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+  
+.btn-Edit-Proveedor {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+  
+.btn-primary-Edit-Proveedor {
+    background-color: #007bff;
+    color: white;
+}
+  
+.btn-primary-Edit-Proveedor:hover {
+    background-color: #0056b3;
+}
+  
+.btn-secondary-Edit-Proveedor {
+    background-color: #6c757d;
+    color: white;
+}
+  
+.btn-secondary-Edit-Proveedor:hover {
+    background-color: #5a6268;
+}
+  
+/* Mensaje de éxito */
+.alert-success-Edit-Proveedor {
+    text-align: center;
+    padding: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.btn-info-Edit-Proveedor {
+    background-color: #007bfb;
+    color: white;
+}
+
+.btn-info-Edit-Proveedor:hover {
+    background-color: #0056b3;
+}

@@ -1,0 +1,144 @@
+/* Estilo general para el contenedor del formulario */
+.form-container-Edit-Conductor {
+    display: flex;
+    flex-direction: column;
+    max-width: 800px;
+    margin: 20px auto;
+    margin-top: 140px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el diseño del formulario */
+.form-grid-Edit-Conductor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    flex-grow: 1; /* Permite que el formulario crezca y ocupe todo el espacio disponible */
+}
+
+/* Asegura que las columnas del formulario ocupen toda la altura disponible */
+.form-column-Edit-Conductor {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilos para cada grupo de campos del formulario */
+.form-group-Edit-Conductor {
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+/* Estilos para los campos de entrada */
+.form-control-Edit-Conductor {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Estilo general para los grupos de imágenes */
+.image-group-Edit-Conductor {
+    margin-bottom: 20px; /* Espacio inferior entre grupos de imágenes */
+    padding: 15px; /* Espacio interno */
+    border: 1px solid #ddd; /* Borde suave */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: #f8f9fa; /* Color de fondo suave */
+}
+
+/* Estilo para las imágenes en miniatura en el grupo */
+.thumbnail-Edit-Conductor {
+    max-width: 100px; /* Ancho máximo de la miniatura */
+    margin-top: 10px; /* Espacio superior */
+    border: 1px solid #ddd; /* Borde suave */
+    border-radius: 4px; /* Bordes redondeados */
+    display: block; /* Asegura que las imágenes se muestren en bloque */
+    margin-left: auto; /* Centra horizontalmente */
+    margin-right: auto; /* Centra horizontalmente */
+}
+
+/* Estilo para los labels de las imágenes */
+.image-label-Edit-Conductor {
+    font-weight: bold; /* Negrita para destacar los títulos */
+    margin-bottom: 5px; /* Espacio entre el label y la imagen */
+    text-align: center; /* Centra el texto */
+}
+
+/* Estilo para los inputs de archivo */
+.input-file-Edit-Conductor {
+    margin-top: 10px; /* Espacio superior para los inputs de archivo */
+}
+
+/* Estilos para los botones del formulario */
+.form-buttons-Edit-Conductor {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centra los botones */
+    gap: 10px; /* Espacio entre los botones */
+    margin-top: auto; /* Empuja los botones hacia abajo */
+    padding-top: 20px; /* Espacio adicional entre los campos y los botones */
+    border-top: 1px solid #ddd; /* Separador para mayor claridad */
+}
+
+/* Botones individuales */
+.btn-primary-Edit-Conductor {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-primary-Edit-Conductor:hover {
+    background-color: #0056b3;
+}
+
+.btn-secondary-Edit-Conductor {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-secondary-Edit-Conductor:hover {
+    background-color: #5a6268;
+}
+
+/* Estilos para las alertas de mensajes */
+.alert-success-Edit-Conductor {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.alert-danger-Edit-Conductor {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Estilo para el título del formulario */
+.form-title-Edit-Conductor {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+} 

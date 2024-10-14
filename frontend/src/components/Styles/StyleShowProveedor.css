@@ -1,0 +1,65 @@
+.proveedor-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 200px;
+}
+
+.proveedor-row {
+    margin-bottom: 20px;
+}
+
+.proveedor-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.proveedor-title {
+    font-size: 2rem;
+    color: #343a40;
+}
+
+.proveedor-search-create {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    margin-bottom: 15px;
+}
+
+.proveedor-search-container {
+    flex: 1;
+}
+
+.proveedor-create-btn {
+    margin-left: 500px;
+}
+
+.proveedor-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.proveedor-table th, .proveedor-table td {
+    padding: 12px;
+    text-align: left;
+}
+
+.proveedor-table th {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+}
+
+.proveedor-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.proveedor-pagination {
+    margin-top: 20px;
+}
+
+.proveedor-pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+}

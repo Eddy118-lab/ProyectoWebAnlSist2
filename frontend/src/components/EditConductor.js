@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Styles/StyleConductor.css';  // Asegúrate de tener un archivo de estilo si es necesario
+import './Styles/StyleEditConductor.css';
 
 const URI_CONDUCTOR = 'http://localhost:8000/api/conductor/';
-const URI_IMG = 'http://localhost:8000/uploadsConductor/'; // Constante para la URL de las imágenes
+const URI_IMG = 'http://localhost:8000/uploadsConductor/';
 
 const EditConductor = () => {
-    const { id } = useParams();  // Obtener el ID del conductor de los parámetros de la URL
+    const { id } = useParams();
     const [primerNom, setPrimerNom] = useState('');
     const [segundoNombre, setSegundoNombre] = useState('');
     const [primerApell, setPrimerApell] = useState('');
@@ -37,8 +37,8 @@ const EditConductor = () => {
                 setTelefono(conductor.telefono);
                 setEmail(conductor.email);
                 setFechaContratacion(conductor.fecha_contratacion);
-                setCurrentFrontImage(conductor.front_imagen_url); // URL de la imagen actual frontal
-                setCurrentTrasImage(conductor.tras_imagen_url);   // URL de la imagen actual trasera
+                setCurrentFrontImage(conductor.front_imagen_url);
+                setCurrentTrasImage(conductor.tras_imagen_url);
             } catch (error) {
                 console.error("Error al obtener el conductor:", error);
                 setErrorMessage("Error al obtener el conductor.");
@@ -51,13 +51,11 @@ const EditConductor = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Validar que si se actualiza una imagen, ambas se deben actualizar
         if ((frontImagen && !trasImagen) || (!frontImagen && trasImagen)) {
             setErrorMessage("Debes actualizar ambas imágenes juntas.");
             return;
         }
 
-        // Creamos un objeto FormData para manejar archivos
         const formData = new FormData();
         formData.append('primer_nom', primerNom);
         formData.append('segundo_nombre', segundoNombre);
@@ -68,7 +66,6 @@ const EditConductor = () => {
         formData.append('email', email);
         formData.append('fecha_contratacion', fechaContratacion);
 
-        // Si las imágenes se actualizaron, agregarlas al FormData
         if (frontImagen && trasImagen) {
             formData.append('front_imagen_url', frontImagen);
             formData.append('tras_imagen_url', trasImagen);
@@ -101,67 +98,67 @@ const EditConductor = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Conductor</h2>
+        <div className='form-container-Edit-Conductor'>
+            <h2 className='form-title-Edit-Conductor'>Editar Conductor</h2>
             
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success-Edit-Conductor">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger-Edit-Conductor">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className='form-grid'>
-                <div className='form-column'>
-                    <div className='form-group'>
+            <form onSubmit={handleSubmit} className='form-grid-Edit-Conductor'>
+                <div className='form-column-Edit-Conductor'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Primer Nombre</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={primerNom}
                             onChange={(e) => setPrimerNom(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Segundo Nombre</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={segundoNombre}
                             onChange={(e) => setSegundoNombre(e.target.value)}
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Primer Apellido</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={primerApell}
                             onChange={(e) => setPrimerApell(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Segundo Apellido</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={segundoApell}
                             onChange={(e) => setSegundoApell(e.target.value)}
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Número de Licencia</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={noLicencia}
                             onChange={(e) => setNoLicencia(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Teléfono</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
                             required
@@ -169,76 +166,74 @@ const EditConductor = () => {
                     </div>
                 </div>
 
-                <div className='form-column'>
-                    <div className='form-group'>
+                <div className='form-column-Edit-Conductor'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Email</label>
                         <input
                             type='email'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Fecha de Contratación</label>
                         <input
                             type='date'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             value={fechaContratacion}
                             onChange={(e) => setFechaContratacion(e.target.value)}
                             required
                         />
                     </div>
 
-                    {/* Mostrar la imagen frontal actual como miniatura */}
                     {currentFrontImage && (
-                        <div className='form-group'>
+                        <div className='form-group-Edit-Conductor'>
                             <label>Imagen Frontal Actual</label>
                             <img 
                                 src={`${URI_IMG}${currentFrontImage}`} 
                                 alt="Imagen Frontal Actual" 
-                                className="thumbnail" 
+                                className="thumbnail-Edit-Conductor" 
                             />
                         </div>
                     )}
 
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Imagen Frontal (Nueva)</label>
                         <input
                             type='file'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             onChange={(e) => setFrontImagen(e.target.files[0])}
                             accept="image/*"
                         />
                     </div>
 
-                    {/* Mostrar la imagen trasera actual como miniatura */}
                     {currentTrasImage && (
-                        <div className='form-group'>
+                        <div className='form-group-Edit-Conductor'>
                             <label>Imagen Trasera Actual</label>
                             <img 
                                 src={`${URI_IMG}${currentTrasImage}`} 
                                 alt="Imagen Trasera Actual" 
-                                className="thumbnail" 
+                                className="thumbnail-Edit-Conductor" 
                             />
                         </div>
                     )}
 
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Conductor'>
                         <label>Imagen Trasera (Nueva)</label>
                         <input
                             type='file'
-                            className='form-control'
+                            className='form-control-Edit-Conductor'
                             onChange={(e) => setTrasImagen(e.target.files[0])}
                             accept="image/*"
                         />
                     </div>
                 </div>
 
-                <div className='form-buttons'>
-                    <button type='submit' className='btn btn-primary'>Actualizar</button>
-                    <button type='button' className='btn btn-secondary' onClick={handleCancel}>Cancelar</button>
+                <div className='form-buttons-Edit-Conductor'>
+                    <button type='submit' className='btn btn-primary-Edit-Conductor'>Actualizar</button>
+                    <button type='button' className='btn btn-secondary-Edit-Conductor' onClick={handleCancel}>Cancelar</button>
                 </div>
             </form>
         </div>

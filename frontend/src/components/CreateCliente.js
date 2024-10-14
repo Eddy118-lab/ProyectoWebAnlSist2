@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleCliente.css';  // Importa el archivo CSS
+import './Styles/StyleCreateCliente.css';
 
 const URI_CLIENTE = 'http://localhost:8000/api/cliente/';
 const URI_TIPO_CLIENTE = 'http://localhost:8000/api/tipo-cliente/';
@@ -70,39 +70,39 @@ const CompCreateCliente = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Crear Cliente</h2>
+        <div className='form-container-Create-Cliente'>
+            <h2 className='form-title-Create-Cliente'>Crear Cliente</h2>
             
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success-Create-Cliente">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger-Create-Cliente">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className="form-grid">
-                <div className="form-column">
-                    <div className="form-group">
+            <form onSubmit={handleSubmit} className="form-grid-Create-Cliente">
+                <div className="form-column-Create-Cliente">
+                    <div className="form-group-Create-Cliente">
                         <label>Nombre</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control-Create-Cliente"
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-Create-Cliente">
                         <label>Teléfono</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control-Create-Cliente"
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-Create-Cliente">
                         <label>NIT</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control-Create-Cliente"
                             value={nit}
                             onChange={(e) => setNit(e.target.value)}
                             required
@@ -110,31 +110,31 @@ const CompCreateCliente = () => {
                     </div>
                 </div>
                 
-                <div className="form-column">
-                    <div className="form-group">
+                <div className="form-column-Create-Cliente">
+                    <div className="form-group-Create-Cliente">
                         <label>Email</label>
                         <input
                             type="email"
-                            className="form-control"
+                            className="form-control-Create-Cliente"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-Create-Cliente">
                         <label>Dirección</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control-Create-Cliente"
                             value={direccion}
                             onChange={(e) => setDireccion(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-Create-Cliente">
                         <label>Tipo de Cliente</label>
                         <select
-                            className="form-control"
+                            className="form-control-Create-Cliente"
                             value={tipoClienteId}
                             onChange={(e) => setTipoClienteId(e.target.value)}
                             required
@@ -150,14 +150,14 @@ const CompCreateCliente = () => {
                 </div>
 
                 {/* Botones en una fila separada */}
-                <div className="form-buttons">
-                    <button type="submit" className="btn btn-primary">
+                <div className="form-buttons-Create-Cliente">
+                    <button type="submit" className="btn btn-primary-Create-Cliente">
                         Guardar
                     </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                    <button type="button" className="btn btn-secondary-Create-Cliente" onClick={handleCancel}>
                         Cancelar
                     </button>
-                    <button type="button" className="btn btn-info" onClick={handleManageTipoClientes}>
+                    <button type="button" className="btn btn-info-Create-Cliente" onClick={handleManageTipoClientes}>
                         Gestionar Tipos de Cliente
                     </button>
                 </div>

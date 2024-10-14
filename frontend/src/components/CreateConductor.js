@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleConductor.css';  // Importa el archivo CSS
+
 
 const URI_CONDUCTOR = 'http://localhost:8000/api/conductor/';
 

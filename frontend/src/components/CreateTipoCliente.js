@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleCliente.css';  // Importa el archivo CSS
+import './Styles/StyleCreateTipoCliente.css';
 
 const URI_TIPO_CLIENTE = 'http://localhost:8000/api/tipo-cliente/';
 
@@ -40,19 +40,19 @@ const CompCreateTipoCliente = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Crear Tipo de Cliente</h2>
+        <div className='form-container-Create-Tipo-Cliente'>
+            <h2 className='form-title-Create-Tipo-Cliente'>Crear Tipo de Cliente</h2>
             
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success-Create-Tipo-Cliente">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger-Create-Tipo-Cliente">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className="form-grid">
-                <div className="form-column">
-                    <div className="form-group">
+            <form onSubmit={handleSubmit} className="form-grid-Create-Tipo-Cliente">
+                <div className="form-column-Create-Tipo-Cliente">
+                    <div className="form-group-Create-Tipo-Cliente">
                         <label>Descripción</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control-Create-Tipo-Cliente"
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
@@ -61,11 +61,11 @@ const CompCreateTipoCliente = () => {
                 </div>
 
                 {/* Botones en una fila separada */}
-                <div className="form-buttons">
-                    <button type="submit" className="btn btn-primary">
+                <div className="form-buttons-Create-Tipo-Cliente">
+                    <button type="submit" className="btn btn-primary-Create-Tipo-Cliente">
                         Guardar
                     </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                    <button type="button" className="btn btn-secondary-Create-Tipo-Cliente" onClick={handleCancel}>
                         Cancelar
                     </button>
                 </div>

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Styles/StyleInventario.css'; // Archivo de estilos
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Iconos de FontAwesome
 import SearchInventario from './SearchInventario.js'; // Asegúrate de crear el componente de búsqueda si lo necesitas
 

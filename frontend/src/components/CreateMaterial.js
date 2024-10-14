@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleMaterial.css';  // Asegúrate de tener este archivo CSS
+import './Styles/StyleCreateMaterial.css';
 
 const URI_MATERIAL = 'http://localhost:8000/api/material/';
 const URI_DIMENSION = 'http://localhost:8000/api/dimension/';
@@ -12,13 +12,12 @@ const URI_PROVEEDOR = 'http://localhost:8000/api/proveedor/';
 const CompCreateMaterial = () => {
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
-    const [imagen, setImagen] = useState(null); // Para manejar el archivo de imagen correctamente
+    const [imagen, setImagen] = useState(null);
     const [dimensionId, setDimensionId] = useState('');
     const [pesoId, setPesoId] = useState('');
     const [tipoMaterialId, setTipoMaterialId] = useState('');
     const [proveedorId, setProveedorId] = useState('');
 
-    // Almacenar datos para dropdowns
     const [dimensiones, setDimensiones] = useState([]);
     const [pesos, setPesos] = useState([]);
     const [tiposMaterial, setTiposMaterial] = useState([]);
@@ -53,11 +52,10 @@ const CompCreateMaterial = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Crear un objeto FormData
         const formData = new FormData();
         formData.append('nombre', nombre);
         formData.append('descripcion', descripcion);
-        formData.append('imagen_url', imagen); // Añadir el archivo de imagen
+        formData.append('imagen_url', imagen);
         formData.append('dimension_id', dimensionId);
         formData.append('peso_id', pesoId);
         formData.append('tipo_material_id', tipoMaterialId);
@@ -66,7 +64,7 @@ const CompCreateMaterial = () => {
         try {
             const response = await axios.post(URI_MATERIAL, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data' // Importante para enviar archivos
+                    'Content-Type': 'multipart/form-data'
                 }
             });
             if (response.status === 201) {
@@ -89,50 +87,50 @@ const CompCreateMaterial = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Crear Material</h2>
+        <div className='form-container-Create-Material'>
+            <h2 className='form-title-Create-Material'>Crear Material</h2>
             
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success-Create-Material">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger-Create-Material">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className="form-grid">
-                <div className="form-column">
-                    <div className="form-group">
+            <form onSubmit={handleSubmit} className="form-grid-Create-Material">
+                <div className="form-column-nombre-Create-Material">
+                    <div className="form-group-Create-Material">
                         <label>Nombre</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control-nombre-Create-Material"
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-descripcion-Create-Material">
                         <label>Descripción</label>
                         <textarea
-                            className="form-control"
+                            className="form-control-descripcion-Create-Material"
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
                         ></textarea>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-imagen-Create-Material">
                         <label>Imagen</label>
                         <input
                             type="file"
-                            className="form-control"
-                            accept="image/*" // Para aceptar solo imágenes
-                            onChange={(e) => setImagen(e.target.files[0])} // Almacena el archivo de imagen
+                            className="form-control-imagen-Create-Material"
+                            accept="image/*"
+                            onChange={(e) => setImagen(e.target.files[0])}
                             required
                         />
                     </div>
                 </div>
                 
-                <div className="form-column">
-                    <div className="form-group">
+                <div className="form-column-Create-Material">
+                    <div className="form-group-dimension-Create-Material">
                         <label>Dimensión</label>
                         <select
-                            className="form-control"
+                            className="form-control-dimension-Create-Material"
                             value={dimensionId}
                             onChange={(e) => setDimensionId(e.target.value)}
                             required
@@ -145,10 +143,10 @@ const CompCreateMaterial = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-peso-Create-Material">
                         <label>Peso</label>
                         <select
-                            className="form-control"
+                            className="form-control-peso-Create-Material"
                             value={pesoId}
                             onChange={(e) => setPesoId(e.target.value)}
                             required
@@ -161,10 +159,10 @@ const CompCreateMaterial = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-tipo-material-Create-Material">
                         <label>Tipo de Material</label>
                         <select
-                            className="form-control"
+                            className="form-control-tipo-material-Create-Material"
                             value={tipoMaterialId}
                             onChange={(e) => setTipoMaterialId(e.target.value)}
                             required
@@ -177,10 +175,10 @@ const CompCreateMaterial = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group">
+                    <div className="form-group-proveedor-Create-Material">
                         <label>Proveedor</label>
                         <select
-                            className="form-control"
+                            className="form-control-proveedor-Create-Material"
                             value={proveedorId}
                             onChange={(e) => setProveedorId(e.target.value)}
                             required
@@ -195,24 +193,23 @@ const CompCreateMaterial = () => {
                     </div>
                 </div>
 
-                {/* Botones de acción */}
-                <div className="form-buttons">
-                    <button type="submit" className="btn btn-primary">
+                <div className="form-buttons-Create-Material">
+                    <button type="submit" className="btn btn-primary-Create-Material">
                         Guardar
                     </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                    <button type="button" className="btn btn-secondary-Create-Material" onClick={handleCancel}>
                         Cancelar
                     </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/dimension/gestion-dimensiones')}>
+                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/material/dimension/gestion-dimensiones')}>
                         Gestionar Dimensiones
                     </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/peso/gestion-pesos')}>
+                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/material/peso/gestion-pesos')}>
                         Gestionar Pesos
                     </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/tipo-material/gestion-tipos-materiales')}>
+                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/material/tipo-material/gestion-tipos-materiales')}>
                         Gestionar Tipos de Materiales
                     </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/proveedor/gestion-proveedores')}>
+                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/proveedor/gestion-proveedores')}>
                         Gestionar Proveedores
                     </button>
                 </div>
@@ -222,4 +219,3 @@ const CompCreateMaterial = () => {
 };
 
 export default CompCreateMaterial;
-

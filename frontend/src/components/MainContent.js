@@ -9,7 +9,7 @@ import compra from './pictures/buys.png';
 import materiales from './pictures/materials.png';
 import FactProv from './pictures/supplierbilling.png';
 import camion from './pictures/truck.png';
-import './Styles/MainContent.css'; // Asegúrate de que esta ruta sea correcta
+import './Styles/MainContent.css';
 
 function MainContent() {
   return (

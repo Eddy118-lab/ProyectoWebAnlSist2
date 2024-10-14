@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './Styles/StyleFacturaProveedor.css';
 
 const URI_FACTURA_PROVEEDOR = 'http://localhost:8000/api/factura-proveedor/';
 

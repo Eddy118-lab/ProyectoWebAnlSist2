@@ -36,14 +36,36 @@ body.in-module .side-nav {
   font-size: 25px;
   position: fixed;
   top: 0;
-  left: -200px;
+  left: -100%; /* Mueve el menú fuera de la vista completamente cuando está oculto */
   width: 200px;
   height: 100%;
   background-color: #333;
   color: white;
-  transition: left 0.3s ease;
+  transition: left 0.5s ease; /* Transición suave al abrir/cerrar */
   z-index: 999;
+  overflow-y: auto; /* Scroll vertical */
+  padding-right: 10px;
 }
+
+/* Cuando el menú esté abierto */
+.side-nav.open {
+  left: 0; /* Trae el menú a la vista */
+}
+
+/* Personalización del scroll */
+.side-nav::-webkit-scrollbar {
+  width: 1px; /* Hace el scroll más delgado */
+}
+
+.side-nav::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3); /* Color del scroll con algo de transparencia */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.side-nav::-webkit-scrollbar-track {
+  background-color: transparent; /* Elimina el fondo del track para que no se note */
+}
+
 
 .side-nav.open {
   left: 0;

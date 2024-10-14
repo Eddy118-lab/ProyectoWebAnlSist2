@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Styles/StyleCliente.css'; // Utilizando el mismo estilo
 
 const URI_TIPO_CLIENTE = 'http://localhost:8000/api/tipo-cliente';
 

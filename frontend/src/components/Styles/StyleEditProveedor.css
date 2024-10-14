@@ -1,0 +1,115 @@
+/* Estilo para el contenedor del formulario */
+.form-container-Edit-Proveedor {
+    margin: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para el título del formulario */
+.form-title-Edit-Proveedor {
+    text-align: center;
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Estilo para los mensajes de éxito y error */
+.alert {
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.alert-success-Edit-Proveedor {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.alert-danger-Edit-Proveedor {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+/* Estilo para el formulario */
+.form-grid-Edit-Proveedor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* Estilo para los grupos de formularios */
+.form-group-Edit-Proveedor {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para las etiquetas de los campos */
+.form-group-Edit-Proveedor label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Estilo para los controles del formulario */
+.form-control-Edit-Proveedor {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+/* Estilo para el enfoque de los controles */
+.form-control-Edit-Proveedor:focus {
+    border-color: #66afe9;
+    outline: none;
+}
+
+/* Estilo para los botones del formulario */
+.form-buttons-Edit-Proveedor {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Estilo para los botones */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Estilo para el botón primario */
+.btn-primary-Edit-Proveedor {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary-Edit-Proveedor:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el botón secundario */
+.btn-secondary-Edit-Proveedor {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary-Edit-Proveedor:hover {
+    background-color: #5a6268;
+}
+
+/* Estilo para el botón de información */
+.btn-info-Edit-Proveedor {
+    background-color: #17a2b8;
+    color: white;
+}
+
+.btn-info-Edit-Proveedor:hover {
+    background-color: #138496;
+}

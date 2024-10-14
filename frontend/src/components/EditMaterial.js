@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Styles/StyleMaterial.css'; // Asegúrate de tener un archivo de estilo si es necesario
 
 const URI_MATERIAL = 'http://localhost:8000/api/material/';
 const URI_IMG = 'http://localhost:8000/uploadsMaterial/'; // Constante para la URL de las imágenes

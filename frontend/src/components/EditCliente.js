@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Styles/StyleCliente.css';  // Importa el archivo CSS
+import './Styles/StyleEditCliente.css';
 
 const URI_CLIENTE = 'http://localhost:8000/api/cliente/';
 const URI_TIPO_CLIENTE = 'http://localhost:8000/api/tipo-cliente/';
@@ -88,39 +88,39 @@ const CompEditCliente = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Cliente</h2>
+        <div className='form-container-Edit-Cliente'>
+            <h2 className='form-title-Edit-Cliente'>Editar Cliente</h2>
             
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success-Edit-Cliente">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger-Edit-Cliente">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className='form-grid'>
-                <div className='form-column'>
-                    <div className='form-group'>
+            <form onSubmit={handleSubmit} className='form-grid-Edit-Cliente'>
+                <div className='form-column-Edit-Cliente'>
+                    <div className='form-group-Edit-Cliente'>
                         <label>Nombre</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Cliente'
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Cliente'>
                         <label>Email</label>
                         <input
                             type='email'
-                            className='form-control'
+                            className='form-control-Edit-Cliente'
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Cliente'>
                         <label>Dirección</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Cliente'
                             value={direccion}
                             onChange={(e) => setDireccion(e.target.value)}
                             required
@@ -128,31 +128,31 @@ const CompEditCliente = () => {
                     </div>
                 </div>
 
-                <div className='form-column'>
-                    <div className='form-group'>
+                <div className='form-column-Edit-Cliente'>
+                    <div className='form-group-Edit-Cliente'>
                         <label>Teléfono</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Cliente'
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Cliente'>
                         <label>NIT</label>
                         <input
                             type='text'
-                            className='form-control'
+                            className='form-control-Edit-Cliente'
                             value={nit}
                             onChange={(e) => setNit(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='form-group'>
+                    <div className='form-group-Edit-Cliente'>
                         <label>Tipo de Cliente</label>
                         <select
-                            className='form-control'
+                            className='form-control-Edit-Cliente'
                             value={tipoClienteId}
                             onChange={(e) => setTipoClienteId(e.target.value)}
                             required
@@ -167,10 +167,10 @@ const CompEditCliente = () => {
                     </div>
                 </div>
 
-                <div className='form-buttons'>
-                    <button type='submit' className='btn btn-primary'>Actualizar</button>
-                    <button type='button' className='btn btn-secondary' onClick={handleCancel}>Cancelar</button>
-                    <button type='button' className='btn btn-info' onClick={handleManageTipoClientes}>
+                <div className='form-buttons-Edit-Cliente'>
+                    <button type='submit' className='btn btn-primary-Edit-Cliente'>Actualizar</button>
+                    <button type='button' className='btn btn-secondary-Edit-Cliente' onClick={handleCancel}>Cancelar</button>
+                    <button type='button' className='btn btn-info-Edit-Cliente' onClick={handleManageTipoClientes}>
                         Gestionar Tipos de Cliente
                     </button>
                 </div>

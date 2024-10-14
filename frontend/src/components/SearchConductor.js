@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import './Styles/StyleSearch.css';
 
 const SearchCliente = ({ onSearch }) => {
     const [query, setQuery] = useState('');

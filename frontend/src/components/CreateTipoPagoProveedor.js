@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleFacturaProveedor.css';  // Cambia el nombre del archivo CSS según sea necesario
+
 
 const URI_TIPO_PAGO_PROVEEDOR = 'http://localhost:8000/api/tipo-pago-proveedor/';
 

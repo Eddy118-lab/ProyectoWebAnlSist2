@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate para redirigir
-import './Styles/ListaMaterial.css'; // Importar el archivo de estilo separado
+import './Styles/StyleListaMateriales.css';
 
 // Rutas para inventarios y materiales
 const INVENTARIOS_ROUTE = `http://localhost:8000/api/inventario`;
@@ -11,6 +11,8 @@ const IMAGES_ROUTE = `http://localhost:8000/uploadsMaterial/`;
 const CompListaMateriales = () => {
   const [inventarios, setInventarios] = useState([]);
   const [materiales, setMateriales] = useState({});
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
   const navigate = useNavigate(); // Inicializar el hook useNavigate
 
   // Función para obtener los inventarios
@@ -59,20 +61,33 @@ const CompListaMateriales = () => {
     navigate(`/compra/gestion-compras/detalle/${inventarioId}`); // Redirigir al segundo componente pasando el ID del inventario
   };
 
+  // Función para cambiar de página
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  // Cálculo de los materiales a mostrar en la página actual
+  const indexOfLastMaterial = currentPage * itemsPerPage;
+  const indexOfFirstMaterial = indexOfLastMaterial - itemsPerPage;
+  const currentMaterials = inventarios.slice(indexOfFirstMaterial, indexOfLastMaterial);
+
+  // Número total de páginas
+  const totalPages = Math.ceil(inventarios.length / itemsPerPage);
+
   return (
-    <div className="material-list-container">
+    <div className="material-list-container-Lista-Materiales">
       <h1>Listado de Materiales</h1>
-      <div className="material-card-container">
-        {inventarios.map((inventario) => (
-          <div key={inventario.id} className="material-card">
+      <div className="material-card-container-Lista-Materiales">
+        {currentMaterials.map((inventario) => (
+          <div key={inventario.id} className="material-card-Lista-Materiales">
             {materiales[inventario.id] && (
               <div>
                 <img
                   src={`${IMAGES_ROUTE}${materiales[inventario.id].imagen_url}`}
                   alt={materiales[inventario.id].nombre}
-                  className="material-image"
+                  className="material-image-Lista-Materiales"
                 />
-                <div className="material-card-content">
+                <div className="material-card-content-Lista-Materiales">
                   <h2>{materiales[inventario.id].nombre}</h2>
                   <p><strong>Inventario No:</strong> {inventario.id}</p>
                   <p><strong>Existencias: </strong> {inventario.cantidad} <strong> (metros)</strong></p>
@@ -82,7 +97,7 @@ const CompListaMateriales = () => {
                   <p><strong>Tipo Material:</strong> {materiales[inventario.id].tipoMaterial?.descripcion || 'No disponible'}</p>
                   <p><strong>Proveedor:</strong> {materiales[inventario.id].proveedor?.nombre || 'No disponible'}</p>
                   <button 
-                    className="material-add-button" 
+                    className="material-add-button-Lista-Materiales" 
                     onClick={() => handleAddMaterial(inventario.id)}
                   >
                     Agregar
@@ -91,6 +106,19 @@ const CompListaMateriales = () => {
               </div>
             )}
           </div>
+        ))}
+      </div>
+
+      {/* Paginación */}
+      <div className="pagination-Lista-Materiales">
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button 
+            key={index + 1} 
+            className={`pagination-button-Lista-Materiales ${currentPage === index + 1 ? 'active' : ''}`} 
+            onClick={() => paginate(index + 1)}
+          >
+            {index + 1}
+          </button>
         ))}
       </div>
     </div>

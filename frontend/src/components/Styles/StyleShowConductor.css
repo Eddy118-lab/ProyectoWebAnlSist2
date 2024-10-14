@@ -1,0 +1,174 @@
+/* Estilos generales del contenedor */
+.container-Show-Conductor {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin: 100px;
+}
+
+/* Estilos del encabezado */
+.user-management-header-Show-Conductor {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.user-management-title-conductor-Show-Conductor {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Estilos del contenedor de búsqueda y creación */
+.search-create-container-Show-Conductor {
+    margin-left: 10px;
+}
+
+.search-create-wrapper-Show-Conductor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilos de la tabla */
+.table-Show-Conductor {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.table-Show-Conductor th,
+.table-Show-Conductor td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+.table-primary-Show-Conductor {
+    background-color: #007bff;
+    color: white;
+}
+
+.table-Show-Conductor th {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.table-Show-Conductor th:hover {
+    background-color: #0056b3;
+}
+
+.table-Show-Conductor tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+.table-Show-Conductor tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Estilos de los botones */
+.btn-Show-Conductor {
+    border-radius: 5px;
+    padding: 10px 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    outline: none;
+    width: 38px;
+    height: 38px;
+    
+}
+
+.btn-primary-Show-Conductor {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary-Show-Conductor:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.btn-warning-Show-Conductor {
+    background-color: #ffc107;
+    color: black;
+}
+
+.btn-warning-Show-Conductor:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+}
+
+.btn-danger-Show-Conductor {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger-Show-Conductor:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+/* Estilos de paginación */
+.pagination-Show-Conductor {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination-Show-Conductor .page-item-Show-Conductor {
+    margin: 0 5px;
+}
+
+.pagination-Show-Conductor .page-item-Show-Conductor.active-Show-Conductor .page-link-Show-Conductor {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.pagination-Show-Conductor .page-link-Show-Conductor {
+    padding: 8px 12px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+    color: #333;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-Show-Conductor .page-link-Show-Conductor:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estilos del modal */
+.modal-Show-Conductor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content-Show-Conductor {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.close-Show-Conductor {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+.modal-image-Show-Conductor {
+    max-width: 100%;
+    height: auto;
+}

@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Styles/StyleCliente.css';  // Importa el archivo CSS
 import SearchCliente from './SearchCliente.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './Styles/StyleShowCliente.css';
 
 const URI = 'http://localhost:8000/api/cliente';
 
@@ -84,18 +84,18 @@ const CompShowCliente = () => {
     const totalPages = Math.ceil(filteredClientes.length / clientesPerPage);
 
     return (
-        <div className="container">
+        <div className="comp-show-cliente-container">
             <div className="row">
                 <div className="col">
                     <div className="search-create-container">
-                        <div className='user-management-header'>
-                            <h2 className='user-management-title-cliente'>Gestión de Clientes</h2>
+                        <div className='comp-show-cliente-header'>
+                            <h2 className='comp-show-cliente-title'>Gestión de Clientes</h2>
                         </div>
                         <div className="search-create-wrapper">
-                            <div className="search-container">
+                            <div className="comp-show-cliente-search-container">
                                 <SearchCliente clientes={clientes} onSearch={handleSearch} />
                             </div>
-                            <div className="create-btn-container">
+                            <div className="comp-show-cliente-create-btn-container">
                                 <Link to="/cliente/create" className="btn btn-primary">
                                     <i className="fa-solid fa-plus"></i>
                                 </Link>
@@ -106,7 +106,7 @@ const CompShowCliente = () => {
                     {loading && <p>Cargando...</p>}
                     {error && <p className='text-danger'>{error}</p>}
 
-                    <div className="table-container">
+                    <div className="comp-show-cliente-table-container">
                         <table className="table table-hover">
                             <thead className="table-primary">
                                 <tr>

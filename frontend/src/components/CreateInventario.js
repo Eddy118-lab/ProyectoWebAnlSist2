@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleInventario.css';  // Archivo de estilos
+
 
 // URIs para las claves foráneas
 const URI_INVENTARIO = 'http://localhost:8000/api/inventario/';

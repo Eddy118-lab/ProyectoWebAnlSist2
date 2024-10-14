@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import './Styles/StyleSearch.css';
+import './Styles/StyleSearchProveedor.css';
 
-const SearchCliente = ({ onSearch }) => {
+
+const SearchProveedor = ({ onSearch }) => {
     const [query, setQuery] = useState('');
 
     const handleChange = (e) => {
@@ -10,10 +11,10 @@ const SearchCliente = ({ onSearch }) => {
     };
 
     return (
-        <div className='search-bar'>
+        <div className='search-bar-Search-Proveedor'>
             <input
                 type='text'
-                className='form-control'
+                className='form-control-Search-Proveedor'
                 placeholder='Buscar por nombre o email...'
                 value={query}
                 onChange={handleChange}
@@ -22,4 +23,4 @@ const SearchCliente = ({ onSearch }) => {
     );
 };
 
-export default SearchCliente;
+export default SearchProveedor;

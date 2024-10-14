@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Styles/StyleGestion.css'; // Utilizando el mismo estilo
 
 const URI = 'http://localhost:8000/api/dimension'; // Reemplaza con la URL correcta de tu API
 

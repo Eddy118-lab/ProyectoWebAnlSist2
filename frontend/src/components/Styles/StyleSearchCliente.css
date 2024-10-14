@@ -1,0 +1,80 @@
+/* Contenedor de la barra de búsqueda */
+.search-bar-Search-Cliente {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  position: relative; /* Para posicionar el botón de limpiar */
+  margin-right: 350px;
+}
+
+/* Contenedor del input y del botón de limpiar */
+.input-container-Search-Cliente {
+  position: relative;
+}
+
+/* Input de búsqueda */
+.form-control-Search-Cliente {
+  width: 100%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  height: 30px;
+}
+
+/* Placeholder del input */
+.form-control-Search-Cliente::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+/* Botón de limpiar búsqueda */
+.clear-btn-Search-Cliente {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #999;
+  outline: none;
+}
+
+/* Lista de sugerencias */
+.suggestions-list-Search-Cliente {
+  list-style: none;
+  padding: 0;
+  margin-top: 5px;
+  background-color: #fff;
+  border: 1px solid #dcdcdc;
+  border-radius: 5px;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Elementos de la lista de sugerencias */
+.suggestion-item-Search-Cliente {
+  padding: 10px;
+  cursor: pointer;
+  border-bottom: 1px solid #eee;
+}
+
+/* Cambio de color al pasar sobre una sugerencia */
+.suggestion-item-Search-Cliente:hover {
+  background-color: #f9f9f9;
+}
+
+/* Spinner de carga */
+.loading-spinner-Search-Cliente {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}

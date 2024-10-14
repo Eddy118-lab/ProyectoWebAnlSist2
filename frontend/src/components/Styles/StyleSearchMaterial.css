@@ -1,0 +1,73 @@
+.search-container-Search-Material {
+    max-width: 600px; /* Máxima anchura para el contenedor de búsqueda */
+    margin: 20px auto; /* Centrando el contenedor */
+    padding: 20px;
+    border: 1px solid #e1e1e1; /* Borde sutil */
+    border-radius: 10px; /* Bordes redondeados */
+    background-color: #f8f9fa; /* Color de fondo claro */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+input.form-control-Search-Material {
+    width: 100%; /* Ajustar el ancho al 100% del contenedor */
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Borde del campo de entrada */
+    border-radius: 5px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    transition: border-color 0.3s; /* Transición para cambio de borde */
+}
+
+input.form-control-Search-Material:focus {
+    border-color: #007bff; /* Color del borde al hacer foco */
+    outline: none; /* Sin contorno al hacer foco */
+}
+
+.material-container-Search-Material {
+    margin-top: 15px; /* Espaciado superior para la lista de materiales */
+}
+
+.material-card-Search-Material {
+    margin-bottom: 15px; /* Espaciado inferior entre las tarjetas */
+    border: 1px solid #e1e1e1; /* Borde sutil en tarjetas */
+    border-radius: 8px; /* Bordes redondeados */
+    background-color: white; /* Fondo blanco para las tarjetas */
+    transition: box-shadow 0.3s; /* Transición para la sombra */
+}
+
+.material-card-Search-Material:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); /* Sombra al pasar el mouse */
+}
+
+.card-Search-Material {
+    border: none; /* Sin borde en la tarjeta */
+}
+
+.card-img-top-Search-Material {
+    border-top-left-radius: 8px; /* Redondeo superior */
+    border-top-right-radius: 8px; /* Redondeo superior */
+    height: 200px; /* Altura fija para las imágenes */
+    object-fit: cover; /* Ajustar la imagen sin distorsión */
+}
+
+.card-body-Search-Material {
+    padding: 15px; /* Espaciado interno */
+}
+
+.card-title-Search-Material {
+    font-size: 1.25rem; /* Tamaño de fuente para el título */
+    margin-bottom: 10px; /* Margen inferior */
+}
+
+.card-text-Search-Material {
+    margin-bottom: 5px; /* Espaciado entre textos */
+}
+
+.btn-warning {
+    background-color: #ffc107; /* Color de fondo del botón */
+    border: none; /* Sin borde */
+    transition: background-color 0.3s; /* Transición para color de fondo */
+}
+
+.btn-warning:hover {
+    background-color: #e0a800; /* Color más oscuro al pasar el mouse */
+}

@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Styles/StyleConductor.css'; // Importa el archivo CSS
 import SearchConductor from './SearchConductor.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './Styles/StyleShowConductor.css';
+
 
 const URI = 'http://localhost:8000/api/conductor';
 const URI_IMG = 'http://localhost:8000/uploadsConductor/'; // Constante para la URL de las imágenes
@@ -97,19 +98,19 @@ const CompShowConductor = () => {
     };
 
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col">
-                    <div className="search-create-container">
-                        <div className='user-management-header'>
-                            <h2 className='user-management-title-conductor'>Gestión de Conductores</h2>
+        <div className="container-Show-Conductor">
+            <div className="row-Show-Conductor">
+                <div className="col-Show-Conductor">
+                    <div className="search-create-container-Show-Conductor">
+                        <div className='user-management-header-Show-Conductor'>
+                            <h2 className='user-management-title-conductor-Show-Conductor'>Gestión de Conductores</h2>
                         </div>
-                        <div className="search-create-wrapper">
-                            <div className="search-container">
+                        <div className="search-create-wrapper-Show-Conductor">
+                            <div className="search-container-Show-Conductor">
                                 <SearchConductor conductores={conductores} onSearch={handleSearch} />
                             </div>
-                            <div className="create-btn-container">
-                                <Link to="/conductor/create" className="btn btn-primary">
+                            <div className="create-btn-container-Show-Conductor">
+                                <Link to="/conductor/create" className="btn-Show-Conductor btn-primary-Show-Conductor">
                                     <i className="fa-solid fa-plus"></i>
                                 </Link>
                             </div>
@@ -117,10 +118,10 @@ const CompShowConductor = () => {
                     </div>
 
                     {loading && <p>Cargando...</p>}
-                    {error && <p className='text-danger'>{error}</p>}
+                    {error && <p className='text-danger-Show-Conductor'>{error}</p>}
 
-                    <table className='table table-hover'>
-                        <thead className='table-primary'>
+                    <table className='table-Show-Conductor table-hover-Show-Conductor'>
+                        <thead className='table-primary-Show-Conductor'>
                             <tr>
                                 <th onClick={() => sortConductores('primer_nom')} style={{ cursor: 'pointer' }}>
                                     Primer Nombre {getSortIcon('primer_nom')}
@@ -164,29 +165,28 @@ const CompShowConductor = () => {
                                             <img
                                                 src={`${URI_IMG}${conductor.front_imagen_url}`}
                                                 alt={`Licencia Frontal de ${conductor.primer_nom}`}
-                                                className="image-thumbnail"
-                                                style={{ width: '100px', height: 'auto', cursor: 'pointer' }} // Cambia a puntero al pasar el ratón
-                                                onClick={() => openModal(`${URI_IMG}${conductor.front_imagen_url}`)} // Abre el modal al hacer clic
+                                                className="image-thumbnail-Show-Conductor"
+                                                style={{ width: '100px', height: 'auto', cursor: 'pointer' }}
+                                                onClick={() => openModal(`${URI_IMG}${conductor.front_imagen_url}`)}
                                             />
                                             <img
                                                 src={`${URI_IMG}${conductor.tras_imagen_url}`}
                                                 alt={`Licencia Trasera de ${conductor.primer_nom}`}
-                                                className="image-thumbnail"
-                                                style={{ width: '100px', height: 'auto', cursor: 'pointer' }} // Cambia a puntero al pasar el ratón
-                                                onClick={() => openModal(`${URI_IMG}${conductor.tras_imagen_url}`)} // Abre el modal al hacer clic
+                                                className="image-thumbnail-Show-Conductor"
+                                                style={{ width: '100px', height: 'auto', cursor: 'pointer' }}
+                                                onClick={() => openModal(`${URI_IMG}${conductor.tras_imagen_url}`)}
                                             />
                                         </td>
                                         <td>
-                                            <div className="action-buttons"> {/* Contenedor para los botones */}
-                                                <Link to={`/conductor/edit/${conductor.id}`} className='btn btn-warning btn-sm'>
+                                            <div className="action-buttons-Show-Conductor">
+                                                <Link to={`/conductor/edit/${conductor.id}`} className='btn-Show-Conductor btn-warning-Show-Conductor btn-sm-Show-Conductor'>
                                                     <i className="fa-regular fa-pen-to-square"></i>
                                                 </Link>
-                                                <button onClick={() => deleteConductor(conductor.id)} className='btn btn-danger btn-sm'>
+                                                <button onClick={() => deleteConductor(conductor.id)} className='btn-Show-Conductor btn-danger-Show-Conductor btn-sm-Show-Conductor'>
                                                     <i className="fa-regular fa-trash-can"></i>
                                                 </button>
                                             </div>
                                         </td>
-
                                     </tr>
                                 ))
                             )}
@@ -194,11 +194,11 @@ const CompShowConductor = () => {
                     </table>
 
                     {/* Paginación */}
-                    <nav className='d-flex justify-content-center'>
-                        <ul className='pagination'>
+                    <nav className='d-flex-Show-Conductor justify-content-center-Show-Conductor'>
+                        <ul className='pagination-Show-Conductor'>
                             {[...Array(totalPages).keys()].map(number => (
-                                <li key={number + 1} className={`page-item ${number + 1 === currentPage ? 'active' : ''}`}>
-                                    <button onClick={() => paginate(number + 1)} className='page-link'>
+                                <li key={number + 1} className={`page-item-Show-Conductor ${number + 1 === currentPage ? 'active-Show-Conductor' : ''}`}>
+                                    <button onClick={() => paginate(number + 1)} className='page-link-Show-Conductor'>
                                         {number + 1}
                                     </button>
                                 </li>
@@ -208,12 +208,12 @@ const CompShowConductor = () => {
                 </div>
             </div>
 
-            {/* Modal para imagen */}
+            {/* Modal para mostrar imágenes */}
             {isModalOpen && (
-                <div className="modal-overlay" onClick={closeModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <span className="close-button" onClick={closeModal}>&times;</span>
-                        <img src={selectedImage} alt="Imagen ampliada" style={{ width: '100%', height: 'auto' }} />
+                <div className="modal-Show-Conductor">
+                    <div className="modal-content-Show-Conductor">
+                        <span className="close-Show-Conductor" onClick={closeModal}>&times;</span>
+                        <img src={selectedImage} alt="Imagen del Conductor" className="modal-image-Show-Conductor" />
                     </div>
                 </div>
             )}

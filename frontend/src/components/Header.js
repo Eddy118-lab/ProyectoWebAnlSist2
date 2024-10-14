@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './pictures/logo.png';
 import usuario from './pictures/usuario.png';
-import './Styles/Header.css'; // Agrega los estilos del Header si los tienes
+import './Styles/Header.css';
 
 function Header({ onLogout }) {
   const [isNavOpen, setIsNavOpen] = useState(false);

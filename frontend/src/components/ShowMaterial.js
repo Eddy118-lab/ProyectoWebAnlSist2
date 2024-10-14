@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Styles/StyleMaterial.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const URI = 'http://localhost:8000/api/material';

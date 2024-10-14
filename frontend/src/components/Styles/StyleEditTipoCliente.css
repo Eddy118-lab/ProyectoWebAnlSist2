@@ -1,0 +1,116 @@
+/* Contenedor principal del formulario */
+.form-container-Edit-Tipo-Cliente {
+    max-width: 600px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centrar horizontalmente */
+    margin-top: 130px;
+    padding: 20px; /* Espaciado interno */
+    background-color: #f9f9f9; /* Color de fondo claro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+/* Título del formulario */
+.form-title-Edit-Tipo-Cliente {
+    text-align: center; /* Centrar el texto */
+    margin-bottom: 20px; /* Espacio debajo del título */
+    font-size: 24px; /* Tamaño de fuente */
+    color: #333; /* Color del texto */
+}
+
+/* Estilos para las alertas */
+.alert {
+    margin-bottom: 15px; /* Espacio debajo de las alertas */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+.alert-success-Edit-Tipo-Cliente {
+    background-color: #d4edda; /* Color de fondo verde claro */
+    color: #155724; /* Color del texto */
+}
+
+.alert-danger-Edit-Tipo-Cliente {
+    background-color: #f8d7da; /* Color de fondo rojo claro */
+    color: #721c24; /* Color del texto */
+}
+
+/* Estilos del formulario */
+.form-grid-Edit-Tipo-Cliente {
+    display: grid; /* Usar un grid para el formulario */
+    gap: 15px; /* Espacio entre los elementos */
+}
+
+/* Columna del formulario */
+.form-column-Edit-Tipo-Cliente {
+    display: flex; /* Usar flexbox para centrar */
+    flex-direction: column; /* Dirección de los elementos */
+}
+
+/* Grupo del formulario */
+.form-group-Edit-Tipo-Cliente {
+    margin-bottom: 15px; /* Espacio debajo de los grupos */
+}
+
+/* Estilo para etiquetas */
+label {
+    font-weight: bold; /* Negrita para las etiquetas */
+    margin-right: 15px;
+    margin-bottom: 5px; /* Espacio debajo de las etiquetas */
+    color: #333; /* Color del texto */
+    display: inline-block; /* Asegura que el margin-bottom funcione bien */
+}
+
+/* Estilo de las entradas de texto */
+.form-control-Edit-Tipo-Cliente {
+    padding: 10px; /* Espaciado interno */
+    border: 1px solid #ccc; /* Bordes */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 16px; /* Tamaño de fuente */
+    transition: border-color 0.3s; /* Transición de color del borde */
+    margin-top: 10px; /* Espacio entre el label y el input */
+}
+
+
+/* Efecto al enfocar las entradas */
+.form-control-Edit-Tipo-Cliente:focus {
+    border-color: #007bff; /* Color del borde en foco */
+    outline: none; /* Quitar el contorno predeterminado */
+}
+
+/* Botones del formulario */
+.form-buttons-Edit-Tipo-Cliente {
+    display: flex; /* Usar flexbox para alinear los botones */
+    justify-content: center; /* Centrar los botones */
+    gap: 10px; /* Espacio entre botones */
+}
+
+/* Estilos generales para botones */
+.btn {
+    padding: 10px 15px; /* Espaciado interno de los botones */
+    border: none; /* Sin bordes */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+/* Estilo para el botón de actualización */
+.btn-primary-Edit-Tipo-Cliente {
+    background-color: #007bff; /* Color de fondo azul */
+    color: white; /* Color del texto */
+}
+
+/* Efecto al pasar el mouse sobre el botón de actualización */
+.btn-primary-Edit-Tipo-Cliente:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el mouse */
+}
+
+/* Estilo para el botón de cancelar */
+.btn-secondary-Edit-Tipo-Cliente {
+    background-color: #007bff; /* Color de fondo gris */
+    color: white; /* Color del texto */
+}
+
+/* Efecto al pasar el mouse sobre el botón de cancelar */
+.btn-secondary-Edit-Tipo-Cliente:hover {
+    background-color: #007bff; /* Color de fondo al pasar el mouse */
+}
