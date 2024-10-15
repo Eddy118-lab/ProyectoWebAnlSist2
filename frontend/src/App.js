@@ -50,6 +50,12 @@ import CompExito from './components/MensajeExito.js';
 import CompCreateVehiculo from './components/CreateVehiculo.js';
 import CompEditVehiculo from './components/EditVehiculo.js';
 import CompShowVehiculo from './components/ShowVehiculo.js';
+import CompCreateCombustible from './components/CreateCombustible.js';
+import CompEditCombustible from './components/EditCombustible.js';
+import CompShowCombustible from './components/ShowCombustible.js';
+import CompCreateReparacion from './components/CreateReparacion.js';
+import CompEditReparacion from './components/EditReparacion.js';
+import CompShowReparacion from './components/ShowReparacion.js';
 import PrivateRoute from './components/privateroute.js'; 
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -60,6 +66,7 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 function App() {
@@ -172,8 +179,13 @@ function App() {
           <Route path="/vehiculo/gestion-vehiculos" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowVehiculo /></PrivateRoute>} />
           <Route path="/vehiculo/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateVehiculo /></PrivateRoute>} />
           <Route path="/vehiculo/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
-          <Route path="/vehiculo/combustible/gestion-combustibles" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
-          <Route path="/vehiculo/reparacion/gestion-reparaciones" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
+          <Route path="/vehiculo/combustible/gestion-combustibles/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowCombustible /></PrivateRoute>} />
+          <Route path="/vehiculo/combustible/create/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateCombustible /></PrivateRoute>} />
+          <Route path="/vehiculo/combustible/edit/:id/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditCombustible /></PrivateRoute>} />
+          
+          <Route path="/vehiculo/reparacion/gestion-reparaciones/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowReparacion /></PrivateRoute>} />
+          <Route path="/vehiculo/reparacion/create/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateReparacion /></PrivateRoute>} />
+          <Route path="/vehiculo/reparacion/edit/:id/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditReparacion /></PrivateRoute>} />
           {/* Si la ruta no coincide, redirige a la última ruta válida */}
           <Route path="*" element={<RedirectToLastValidRoute />} />
         </Routes>

@@ -73,16 +73,17 @@ const CompShowTipoMaterial = () => {
                 <div className="col">
                     <div className="search-create-container">
                         <div className='user-management-header'>
-                            <h2 className='user-management-title'>Gestión de Tipos de Material</h2>
+                        <h2 className='text-center display-6' style={{ marginTop: '90px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                            Gestión de Tipos de Material</h2>
                         </div>
-                        <div className="search-create-wrapper">
-                        <div className="create-btn-container-showTC">
-                                <Link to="/material/tipo-material/create" className="btn btn-primary">
+                        <div className="search-create-wrapper d-flex justify-content-center">
+                            <div className="create-btn-container-showTC">
+                                <Link to="/material/tipo-material/create" className="btn btn-primary" style={{marginBottom: '10px'}}>
                                     <i className="fa-solid fa-plus"></i>
                                 </Link>
-                                </div>
-                                <div className="create-btn-container-Regresar">
-                                <Link to="/material/gestion-materiales" className="btn btn-secondary ml-2">
+                            </div>
+                            <div className="create-btn-container-Regresar ml-2">
+                                <Link to="/material/gestion-materiales" className="btn btn-secondary">
                                     Regresar
                                 </Link>
                             </div>
@@ -93,7 +94,7 @@ const CompShowTipoMaterial = () => {
                     {error && <p className='text-danger'>{error}</p>}
 
                     <table className='table table-hover'>
-                        <thead className='table-primary'>
+                        <thead className='table-dark'>
                             <tr>
                                 <th onClick={() => sortTipos('descripcion')} style={{ cursor: 'pointer' }}>
                                     Descripción {getSortIcon('descripcion')}

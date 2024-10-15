@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 // URIs para las claves foráneas
 const URI_INVENTARIO = 'http://localhost:8000/api/inventario/';
@@ -94,98 +94,103 @@ const CompCreateInventario = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Crear Inventario</h2>
-            
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className="form-grid">
-                <div className="form-column">
-                    <div className="form-group">
-                        <label>Cantidad</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            value={cantidad}
-                            onChange={(e) => setCantidad(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Precio Unitario</label>
-                        <input
-                            type="number"
-                            step="0.01"
-                            className="form-control"
-                            value={precioUnitario}
-                            onChange={(e) => setPrecioUnitario(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Fecha de Ingreso</label>
-                        <input
-                            type="date"
-                            className="form-control"
-                            value={fechaIngreso}
-                            onChange={(e) => setFechaIngreso(e.target.value)}
-                            required
-                        />
-                    </div>
+        <div className='container vh-100 d-flex justify-content-center align-items-center'>
+            <div className="card" style={{ maxWidth: '600px', width: '100%' }}>
+                <div className="card-header text-center">
+                    <h2>Crear Inventario</h2>
                 </div>
-                
-                <div className="form-column">
-                    <div className="form-group">
-                        <label>Stock Mínimo</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            value={stockMin}
-                            onChange={(e) => setStockMin(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Stock Máximo</label>
-                        <input
-                            type="number"
-                            className="form-control"
-                            value={stockMax}
-                            onChange={(e) => setStockMax(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Material</label>
-                        <select
-                            className="form-control"
-                            value={materialId}
-                            onChange={(e) => setMaterialId(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccione un material</option>
-                            {materiales.map((material) => (
-                                <option key={material.id} value={material.id}>
-                                    {material.nombre}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
+                <div className="card-body">
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                    
+                    <form onSubmit={handleSubmit} className="row g-3">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Cantidad</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={cantidad}
+                                    onChange={(e) => setCantidad(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Precio Unitario</label>
+                                <input
+                                    type="number"
+                                    step="0.01"
+                                    className="form-control"
+                                    value={precioUnitario}
+                                    onChange={(e) => setPrecioUnitario(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Fecha de Ingreso</label>
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    value={fechaIngreso}
+                                    onChange={(e) => setFechaIngreso(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Stock Mínimo</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={stockMin}
+                                    onChange={(e) => setStockMin(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Stock Máximo</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    value={stockMax}
+                                    onChange={(e) => setStockMax(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Material</label>
+                                <select
+                                    className="form-control"
+                                    value={materialId}
+                                    onChange={(e) => setMaterialId(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Seleccione un material</option>
+                                    {materiales.map((material) => (
+                                        <option key={material.id} value={material.id}>
+                                            {material.nombre}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
 
-                <div className="form-buttons">
-                    <button type="submit" className="btn btn-primary">
-                        Guardar
-                    </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
-                        Cancelar
-                    </button>
-                    <button type="button" className="btn btn-info" onClick={handleManageMateriales}>
-                        Gestionar Materiales
-                    </button>
+                        <div className="col-12">
+                            <button type="submit" className="btn btn-primary me-2">
+                                Guardar
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                                Cancelar
+                            </button>
+                            <button type="button" className="btn btn-info" onClick={handleManageMateriales}>
+                                Gestionar Materiales
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

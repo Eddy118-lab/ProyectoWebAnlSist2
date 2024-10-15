@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './Styles/StyleShowTipoProveedor.css'; // Importa el nuevo CSS
-import './Styles/StyleShowTipoProveedor.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap instalado
+import './Styles/StyleShowTipoProveedor.css'; // Mantén este archivo si necesitas estilos adicionales
 
 const URI = 'http://localhost:8000/api/tipo-proveedor';
 
@@ -13,6 +13,7 @@ const CompShowTipoProveedor = () => {
     const [tiposProveedoresPerPage] = useState(4);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
     const navigate = useNavigate();
 
     const [sortOrder, setSortOrder] = useState('asc');
@@ -68,30 +69,46 @@ const CompShowTipoProveedor = () => {
 
     const indexOfLastTipoProveedor = currentPage * tiposProveedoresPerPage;
     const indexOfFirstTipoProveedor = indexOfLastTipoProveedor - tiposProveedoresPerPage;
-    const currentTiposProveedores = filteredTiposProveedores.slice(indexOfFirstTipoProveedor, indexOfLastTipoProveedor);
+    
+    // Filtrar los tipos de proveedores según el término de búsqueda
+    const filteredResults = filteredTiposProveedores.filter(tipoProveedor =>
+        tipoProveedor.descripcion.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    
+    const currentTiposProveedores = filteredResults.slice(indexOfFirstTipoProveedor, indexOfLastTipoProveedor);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-    const totalPages = Math.ceil(filteredTiposProveedores.length / tiposProveedoresPerPage);
+    const totalPages = Math.ceil(filteredResults.length / tiposProveedoresPerPage);
 
     return (
-        <div className="container-ShowTipoProveedor">
-            <div className="header-ShowTipoProveedor">
-                <h2 className="title-ShowTipoProveedor">Gestión de Tipos de Proveedores</h2>
-                <div className="buttons-ShowTipoProveedor">
-                    <Link to="/proveedor/tipo-proveedor/create" className="btn btn-add-ShowTipoProveedor">
-                        <i className="fa-solid fa-plus"></i> Agregar Tipo
-                    </Link>
-                    <Link to="/proveedor/gestion-proveedores" className="btn btn-back-ShowTipoProveedor">
-                        Regresar
-                    </Link>
-                </div>
+        <div className="container my-5">
+            <h2 className="h2 text-center" style={{ marginBottom: '20px', marginTop: '90px' }}>Gestión de Tipos de Proveedores</h2> {/* Centrado aquí */}
+
+            <div className="text-center mb-4">
+                <Link to="/proveedor/tipo-proveedor/create" className="btn btn-primary me-2">
+                    <i className="fa-solid fa-plus"></i> Agregar Tipo
+                </Link>
+                <Link to="/proveedor/gestion-proveedores" className="btn btn-secondary">
+                    Regresar
+                </Link>
             </div>
 
-            {loading && <p className="loading-text-ShowTipoProveedor">Cargando...</p>}
-            {error && <p className="text-danger-ShowTipoProveedor">{error}</p>}
+            {/* Campo de búsqueda */}
+            <div className="mb-4 text-center">
+                <input
+                    type="text"
+                    className="form-control w-50 mx-auto"
+                    placeholder="Buscar por descripción..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+            </div>
 
-            <table className='table table-hover table-ShowTipoProveedor'>
-                <thead className='table-header-ShowTipoProveedor'>
+            {loading && <p className="text-center text-muted">Cargando...</p>}
+            {error && <p className="text-danger">{error}</p>}
+
+            <table className="table table-hover mt-3">
+                <thead className="table-dark">
                     <tr>
                         <th onClick={() => sortTiposProveedores('descripcion')} style={{ cursor: 'pointer' }}>
                             Descripción {getSortIcon('descripcion')}
@@ -102,17 +119,17 @@ const CompShowTipoProveedor = () => {
                 <tbody>
                     {currentTiposProveedores.length === 0 ? (
                         <tr>
-                            <td colSpan="2" className="no-data-text-ShowTipoProveedor">No hay tipos de proveedores disponibles</td>
+                            <td colSpan="2" className="text-center text-muted">No hay tipos de proveedores disponibles</td>
                         </tr>
                     ) : (
                         currentTiposProveedores.map(tipoProveedor => (
                             <tr key={tipoProveedor.id}>
                                 <td>{tipoProveedor.descripcion}</td>
                                 <td>
-                                    <Link to={`/proveedor/tipo-proveedor/edit/${tipoProveedor.id}`} className='btn btn-warning btn-sm btn-edit-ShowTipoProveedor'>
+                                    <Link to={`/proveedor/tipo-proveedor/edit/${tipoProveedor.id}`} className='btn btn-warning btn-sm me-2'>
                                         <i className="fa-regular fa-pen-to-square"></i> Editar
                                     </Link>
-                                    <button onClick={() => deleteTipoProveedor(tipoProveedor.id)} className='btn btn-danger btn-sm btn-delete-ShowTipoProveedor'>
+                                    <button onClick={() => deleteTipoProveedor(tipoProveedor.id)} className='btn btn-danger btn-sm'>
                                         <i className="fa-regular fa-trash-can"></i> Eliminar
                                     </button>
                                 </td>
@@ -123,8 +140,8 @@ const CompShowTipoProveedor = () => {
             </table>
 
             {/* Paginación */}
-            <nav className='pagination-container-ShowTipoProveedor'>
-                <ul className='pagination'>
+            <nav>
+                <ul className="pagination justify-content-center">
                     {[...Array(totalPages).keys()].map(number => (
                         <li key={number + 1} className={`page-item ${number + 1 === currentPage ? 'active' : ''}`}>
                             <button onClick={() => paginate(number + 1)} className='page-link'>

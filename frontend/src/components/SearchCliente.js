@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './Styles/StyleSearchCliente.css';
 
 const SearchCliente = ({ clientes, onSearch }) => {
@@ -11,13 +11,14 @@ const SearchCliente = ({ clientes, onSearch }) => {
         setQuery(value);
         setLoading(true);
 
-        // Simulamos una búsqueda que podría ser asincrónica
+        // Filtrar sugerencias basadas en el nombre o email del cliente
         const filteredSuggestions = clientes.filter(cliente =>
             cliente.nombre.toLowerCase().includes(value.toLowerCase()) ||
             cliente.email.toLowerCase().includes(value.toLowerCase())
         );
         setSuggestions(filteredSuggestions);
 
+        // Llamar a la función de búsqueda con la consulta actual
         onSearch(value);
         setLoading(false);
     };

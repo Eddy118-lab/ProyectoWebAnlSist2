@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleCreateProveedor.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 const URI_PROVEEDOR = 'http://localhost:8000/api/proveedor/';
 const URI_TIPO_PROVEEDOR = 'http://localhost:8000/api/tipo-proveedor/';
@@ -70,97 +70,102 @@ const CompCreateProveedor = () => {
     };
 
     return (
-        <div className='form-container-Create-Proveedor'>
-            <h2 className='form-title-Create-Proveedor'>Crear Proveedor</h2>
-            
-            {successMessage && <div className="alert alert-success-Create-Proveedor">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger-Create-Proveedor">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className="form-grid-Create-Proveedor">
-                <div className="form-column-Create-Proveedor">
-                    <div className="form-group-Create-Proveedor">
-                        <label>Nombre</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Proveedor"
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Proveedor">
-                        <label>Teléfono</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Proveedor"
-                            value={telefono}
-                            onChange={(e) => setTelefono(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Proveedor">
-                        <label>NIT</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Proveedor"
-                            value={nit}
-                            onChange={(e) => setNit(e.target.value)}
-                            required
-                        />
-                    </div>
+        <div className='container vh-100 d-flex justify-content-center align-items-center'>
+            <div className="card" style={{ width: '400%', maxWidth: '800px' }}>
+                <div className="card-header text-center">
+                    <h2>Crear Proveedor</h2>
                 </div>
-                
-                <div className="form-column-Create-Proveedor">
-                    <div className="form-group-Create-Proveedor">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            className="form-control-Create-Proveedor"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Proveedor">
-                        <label>Dirección</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Proveedor"
-                            value={direccion}
-                            onChange={(e) => setDireccion(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Proveedor">
-                        <label>Tipo de Proveedor</label>
-                        <select
-                            className="form-control-Create-Proveedor"
-                            value={tipoProveedorId}
-                            onChange={(e) => setTipoProveedorId(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccione un tipo de proveedor</option>
-                            {tiposProveedor.map((tipo) => (
-                                <option key={tipo.id} value={tipo.id}>
-                                    {tipo.descripcion}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
+                <div className="card-body">
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                    
+                    <form onSubmit={handleSubmit} className="row g-3">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Nombre</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Teléfono</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={telefono}
+                                    onChange={(e) => setTelefono(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>NIT</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={nit}
+                                    onChange={(e) => setNit(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Dirección</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={direccion}
+                                    onChange={(e) => setDireccion(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Tipo de Proveedor</label>
+                                <select
+                                    className="form-select"
+                                    value={tipoProveedorId}
+                                    onChange={(e) => setTipoProveedorId(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Seleccione un tipo de proveedor</option>
+                                    {tiposProveedor.map((tipo) => (
+                                        <option key={tipo.id} value={tipo.id}>
+                                            {tipo.descripcion}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
 
-                <div className="form-buttons-Create-Proveedor">
-                    <button type="submit" className="btn btn-primary-Create-Proveedor">
-                        Guardar
-                    </button>
-                    <button type="button" className="btn btn-secondary-Create-Proveedor" onClick={handleCancel}>
-                        Cancelar
-                    </button>
-                    <button type="button" className="btn btn-info-Create-Proveedor" onClick={handleManageTipoProveedores}>
-                        Gestionar Tipos de Proveedores
-                    </button>
+                        <div className="col-12">
+                            <button type="submit" className="btn btn-primary me-2">
+                                Guardar
+                            </button>
+                            <button type="button" className="btn btn-secondary me-2" onClick={handleCancel}>
+                                Cancelar
+                            </button>
+                            <button type="button" className="btn btn-info" onClick={handleManageTipoProveedores}>
+                                Gestionar Tipos de Proveedores
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

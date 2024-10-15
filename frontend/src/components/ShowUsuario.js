@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SearchUsuario from './SearchUsuarios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import './Styles/StyleShowUsuario.css';
 
 const URI = 'http://localhost:8000/api/usuario/';
 
@@ -11,7 +12,7 @@ const CompShowUsuario = () => {
     const [usuarios, setUsuarios] = useState([]);
     const [filteredUsuarios, setFilteredUsuarios] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [usuariosPerPage] = useState(4);
+    const [usuariosPerPage] = useState(5);
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortField, setSortField] = useState('nombcomp');
 
@@ -52,7 +53,7 @@ const CompShowUsuario = () => {
 
     const handleSearch = (query) => {
         const filtered = usuarios.filter(user =>
-            user.nombcomp.toLowerCase().includes(query.toLowerCase()) || 
+            user.nombcomp.toLowerCase().includes(query.toLowerCase()) ||
             user.email.toLowerCase().includes(query.toLowerCase())
         );
         setFilteredUsuarios(filtered);
@@ -63,7 +64,7 @@ const CompShowUsuario = () => {
         const order = (sortField === field && sortOrder === 'asc') ? 'desc' : 'asc';
         const sortedUsuarios = [...filteredUsuarios].sort((a, b) => {
             if (field === 'fechanaci') {
-                return order === 'asc' 
+                return order === 'asc'
                     ? new Date(a[field]) - new Date(b[field])
                     : new Date(b[field]) - new Date(a[field]);
             } else {
@@ -96,7 +97,7 @@ const CompShowUsuario = () => {
         <div className='container'>
             <div className='row justify-content-center my-4'>
                 {/* Título modificado */}
-                <h2 className='text-center display-4' style={{ marginTop: '60px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
                     Gestión de Usuarios
                 </h2>
             </div>
@@ -107,8 +108,8 @@ const CompShowUsuario = () => {
                     <SearchUsuario usuarios={usuarios} onSearch={handleSearch} />
                 </div>
                 <div className='col-md-3 text-end'>
-                    <Link to="/usuario/create" className='btn btn-primary'>
-                        <i className="fa-solid fa-plus"></i> 
+                    <Link to="/usuario/create" className='btn btn-primary d-flex justify-content-center align-items-center' style={{ width: '50px', height: '40px' }}>
+                        <i className="fa-solid fa-plus"></i>
                     </Link>
                 </div>
             </div>
@@ -161,7 +162,7 @@ const CompShowUsuario = () => {
 
             {/* Paginación */}
             <nav className='row justify-content-center'>
-                <ul className='pagination'>
+                <ul className='pagination' style={{ marginBottom: '10px' }}>
                     {[...Array(totalPages)].map((_, index) => (
                         <li key={index + 1} className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
                             <button onClick={() => paginate(index + 1)} className='page-link'>

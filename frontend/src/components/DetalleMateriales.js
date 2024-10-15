@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
-import { useDetalles } from '../components/DetallesContext.js'; // Import the context
+import { useDetalles } from '../components/DetallesContext.js'; // Importar el contexto
 
 // Ruta para obtener el precio unitario del inventario
 const INVENTORY_ROUTE = 'http://localhost:8000/api/inventario';
@@ -10,7 +11,7 @@ const MATERIAL_ROUTE = 'http://localhost:8000/api/material'; // Ruta para obtene
 const CompDetalleMateriales = () => {
   const { id } = useParams(); // ID del material desde la URL
   const navigate = useNavigate(); // Para la navegación entre componentes
-  const { detalles, setDetalles } = useDetalles(); // Access context data
+  const { detalles, setDetalles } = useDetalles(); // Acceder a los datos del contexto
 
   const [cantidad, setCantidad] = useState(detalles[id]?.cantidad || 0);
   const [precioUnitario, setPrecioUnitario] = useState(detalles[id]?.precioUnitario || 0);
@@ -77,59 +78,71 @@ const CompDetalleMateriales = () => {
   };
 
   return (
-    <div>
-      <h1>Detalle del Material</h1>
-      <p>ID del material seleccionado: {id}</p>
-    
-      <div>
-        <label>Cantidad: </label>
-        <input
-          type="number"
-          value={cantidad}
-          min="1"
-          onChange={(e) => setCantidad(parseInt(e.target.value))}
-        />
-      </div>
+    <div className="container mt-5">
+      <div className="card" style={{ maxWidth: '800px', margin: 'auto' }}>
+        <div className="card-header text-center">
+        <h5 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>Detalle del Material</h5>
+          <p className="text-muted">ID del material seleccionado: <strong>{id}</strong></p>
+        </div>
+        <div className="card-body">
+          <div className="row">
+            {/* Columna 1 */}
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Cantidad:</label>
+              <input
+                type="number"
+                className="form-control"
+                value={cantidad}
+                min="1"
+                onChange={(e) => setCantidad(parseInt(e.target.value))}
+              />
+            </div>
 
-      <div>
-        <label>Precio Unitario: </label>
-        <input type="text" value={precioUnitario} disabled />
-      </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Precio Unitario:</label>
+              <input type="text" className="form-control" value={precioUnitario} disabled />
+            </div>
 
-      <div>
-        <label>Subtotal: </label>
-        <input type="text" value={subtotal} disabled />
-      </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Subtotal:</label>
+              <input type="text" className="form-control" value={subtotal} disabled />
+            </div>
 
-      <div>
-        <label>Descuento: </label>
-        <input
-          type="number"
-          value={descuento}
-          min="0"
-          max={0.05 * subtotal}
-          onChange={handleDescuentoChange}
-        />
-        <p>(El descuento no puede ser mayor al 5% del subtotal)</p>
-      </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Descuento:</label>
+              <input
+                type="number"
+                className="form-control"
+                value={descuento}
+                min="0"
+                max={0.05 * subtotal}
+                onChange={handleDescuentoChange}
+              />
+              <p className="form-text text-muted">(El descuento no puede ser mayor al 5% del subtotal)</p>
+            </div>
 
-      <div>
-        <label>Total: </label>
-        <input type="text" value={total} disabled />
-      </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Total:</label>
+              <input type="text" className="form-control" value={total} disabled />
+            </div>
 
-      <div>
-        <label>Inventario ID: </label>
-        <input type="text" value={inventarioId} disabled />
-      </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Inventario ID:</label>
+              <input type="text" className="form-control" value={inventarioId} disabled />
+            </div>
 
-      <div>
-        <label>Proveedor ID: </label>
-        <input type="text" value={proveedorId} disabled />
-      </div>
+            <div className="col-md-6 mb-3">
+              <label className="form-label">Proveedor ID:</label>
+              <input type="text" className="form-control" value={proveedorId} disabled />
+            </div>
+          </div>
 
-      <button onClick={() => handleSaveAndNavigate('/compra/gestion-compras/catalogo')}>Regresar al Catálogo</button>
-      <button onClick={() => handleSaveAndNavigate('/compra/gestion-compras/resumen')}>Pasar al Resumen</button>
+          <div className="text-center">
+            <button className="btn btn-secondary mx-2" onClick={() => handleSaveAndNavigate('/compra/gestion-compras/catalogo')}>Regresar al Catálogo</button>
+            <button className="btn btn-primary mx-2" onClick={() => handleSaveAndNavigate('/compra/gestion-compras/resumen')}>Pasar al Resumen</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

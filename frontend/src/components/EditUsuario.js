@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-import './Styles/StyleEditUsuario.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const URI = 'http://localhost:8000/api/usuario/';
 
@@ -84,116 +84,151 @@ const EditUsuario = () => {
     };
 
     return (
-        <div className='edit-usuario-form-container'>
-            <h2 className='edit-usuario-form-title'>Editar Usuario</h2>
-
-            <form onSubmit={handleSubmit} className="edit-usuario-form-grid">
-                <div className='edit-usuario-form-group'>
-                    <label>Nombre Completo</label>
-                    <input
-                        type='text'
-                        value={nombcomp}
-                        onChange={(e) => setNombreComp(e.target.value)}
-                        required
-                    />
+        <div className='container vh-100 d-flex justify-content-center align-items-center'>
+            <div className="card" style={{ width: '100%', maxWidth: '800px', marginTop: '90px' }}>
+                <div className="card-header text-center">
+                    <h2>Editar Usuario</h2>
                 </div>
+                <div className="card-body">
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
-                <div className='edit-usuario-form-group'>
-                    <label>Nombre de Usuario</label>
-                    <input
-                        type='text'
-                        value={nombusuar}
-                        onChange={(e) => setNombreUsuar(e.target.value)}
-                        required
-                    />
+                    <form onSubmit={handleSubmit} className="row g-3">
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Nombre Completo</label>
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    value={nombcomp}
+                                    onChange={(e) => setNombreComp(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Nombre de Usuario</label>
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    value={nombusuar}
+                                    onChange={(e) => setNombreUsuar(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input
+                                    type='email'
+                                    className='form-control'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Fecha de Nacimiento</label>
+                                <input
+                                    type='date'
+                                    className='form-control'
+                                    value={fechanaci}
+                                    onChange={(e) => setFechaNaci(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>NIT</label>
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    value={nit}
+                                    onChange={(e) => setNit(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>DPI</label>
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    value={dpi}
+                                    onChange={(e) => setDpi(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Dirección</label>
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    value={direccion}
+                                    onChange={(e) => setDireccion(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Teléfono</label>
+                                <input
+                                    type='text'
+                                    className='form-control'
+                                    value={telefono}
+                                    onChange={(e) => setTelefono(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Contraseña (Dejar en blanco si no deseas cambiarla)</label>
+                                <input
+                                    type='password'
+                                    className='form-control'
+                                    value={contrasenha}
+                                    onChange={(e) => setContrasenha(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className='col-md-6'>
+                            <div className="form-group">
+                                <label>Confirmar Contraseña</label>
+                                <input
+                                    type='password'
+                                    className='form-control'
+                                    value={confContrasenha}
+                                    onChange={(e) => setConfContrasenha(e.target.value)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="col-12 d-flex justify-content-center">
+                            <button type='submit' className='btn btn-primary me-2'>Actualizar</button>
+                            <button type='button' onClick={handleCancel} className='btn btn-secondary'>Cancelar</button>
+                        </div>
+                    </form>
                 </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>Email</label>
-                    <input
-                        type='email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>Fecha de Nacimiento</label>
-                    <input
-                        type='date'
-                        value={fechanaci}
-                        onChange={(e) => setFechaNaci(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>NIT</label>
-                    <input
-                        type='text'
-                        value={nit}
-                        onChange={(e) => setNit(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>DPI</label>
-                    <input
-                        type='text'
-                        value={dpi}
-                        onChange={(e) => setDpi(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>Dirección</label>
-                    <input
-                        type='text'
-                        value={direccion}
-                        onChange={(e) => setDireccion(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>Teléfono</label>
-                    <input
-                        type='text'
-                        value={telefono}
-                        onChange={(e) => setTelefono(e.target.value)}
-                        required
-                    />
-                </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>Contraseña (Dejar en blanco si no deseas cambiarla)</label>
-                    <input
-                        type='password'
-                        value={contrasenha}
-                        onChange={(e) => setContrasenha(e.target.value)}
-                    />
-                </div>
-
-                <div className='edit-usuario-form-group'>
-                    <label>Confirmar Contraseña</label>
-                    <input
-                        type='password'
-                        value={confContrasenha}
-                        onChange={(e) => setConfContrasenha(e.target.value)}
-                    />
-                </div>
-
-                <div className="edit-usuario-form-buttons">
-                    <button type='submit' className='edit-usuario-btn edit-usuario-btn-primary'>Actualizar</button>
-                    <button type='button' onClick={handleCancel} className='edit-usuario-btn edit-usuario-btn-secondary'>Cancelar</button>
-                </div>
-            </form>
-
-            {successMessage && <div className="edit-usuario-alert-success">{successMessage}</div>}
-            {errorMessage && <div className="edit-usuario-alert-danger">{errorMessage}</div>}
+            </div>
         </div>
     );
 };

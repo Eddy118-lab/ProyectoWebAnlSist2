@@ -60,20 +60,60 @@ const CompShowDetallFactProveedor = () => {
 
     const handlePrint = () => {
         const printWindow = window.open('', '_blank');
+        const grupo = detalles.find((grupo) => grupo.factura.id === parseInt(id));
+
+        const facturaHeader = `Factura ID: ${grupo.factura.id} - Fecha: ${formatDate(grupo.factura.fecha)} - Monto: ${formatCurrency(grupo.factura.monto)}`;
+
         printWindow.document.write(`
             <html>
                 <head>
                     <title>Impresión de Factura</title>
                     <style>
-                        body { font-family: Arial, sans-serif; }
-                        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-                        th, td { border: 1px solid #000; padding: 8px; text-align: left; }
-                        th { background-color: #f2f2f2; }
+                        body {
+                            font-family: Arial, sans-serif; 
+                            background-color: #f4f4f4; 
+                            margin: 20px; 
+                            color: #333;
+                        }
+                        h2, h3, h4 {
+                            text-align: center; 
+                            color: #000000; /* Cambiado a #00FFFF */
+                        }
+                        .container {
+                            background-color: #fff; 
+                            border-radius: 8px; 
+                            padding: 20px; 
+                            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                            max-width: 800px; 
+                            margin: auto;
+                        }
+                        table {
+                            width: 100%; 
+                            border-collapse: collapse; 
+                            margin: 20px 0;
+                        }
+                        th, td {
+                            border: 1px solid #ddd; 
+                            padding: 12px; 
+                            text-align: left; 
+                        }
+                        th {
+                            background-color: #00B0F6; /* Cambiado a #00FFFF */
+                            color: black; /* Cambié el color del texto a negro para mejor contraste */
+                        }
+                        tr:nth-child(even) {
+                            background-color: #f2f2f2;
+                        }
+                        .total {
+                            font-weight: bold; 
+                            font-size: 1.2em;
+                        }
                     </style>
                 </head>
                 <body>
-                    <h2>Detalles de Factura de Proveedores</h2>
-                    <div>
+                    <div class="container">
+                        <h2>Detalles de Factura de Proveedores</h2>
+                        <h3>${facturaHeader}</h3> 
                         ${printRef.current.innerHTML}
                     </div>
                     <script>window.print();</script>
@@ -107,9 +147,9 @@ const CompShowDetallFactProveedor = () => {
         <div className="container">
             <div className="row">
                 <div className="col">
-                    <h2 className="text-center">Detalles de Factura de Proveedores</h2>
+                    <h2 className='text-center display-6' style={{ marginTop: '110px', fontWeight: 'bold', paddingBottom: '10px' }}>Detalles de Factura de Proveedores</h2>
                     
-                    <div ref={printRef} className="mb-4">
+                    <div ref={printRef} className="mb-4" style={{ backgroundColor: '#ffffff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
                         <h3>
                             Factura ID: {grupo.factura.id} - Fecha: {formatDate(grupo.factura.fecha)} - Monto: {formatCurrency(grupo.factura.monto)}
                         </h3>
@@ -118,8 +158,8 @@ const CompShowDetallFactProveedor = () => {
                                 Inventarios: {grupo.inventarios.map(inv => `ID: ${inv.id} (Precio: ${inv.precio_unitario})`).join(', ')}
                             </h4>
                         )}
-                        <table className='table table-hover'>
-                            <thead className='table-primary'>
+                        <table className='table table-striped'>
+                            <thead className='table-dark'>
                                 <tr>
                                     <th>ID Detalle</th>
                                     <th>Cantidad</th>
@@ -152,18 +192,20 @@ const CompShowDetallFactProveedor = () => {
                         </table>
                     </div>
 
-                    <button 
-                        className="btn btn-secondary" 
-                        onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')}
-                    >
-                        Volver a Facturas
-                    </button>
-                    <button 
-                        className="btn btn-primary" 
-                        onClick={handlePrint}
-                    >
-                        Imprimir Factura
-                    </button>
+                    <div className="text-center">
+                        <button 
+                            className="btn btn-secondary mx-2" 
+                            onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')}
+                        >
+                            Volver a Facturas
+                        </button>
+                        <button 
+                            className="btn btn-primary mx-2" 
+                            onClick={handlePrint}
+                        >
+                            Imprimir Factura
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

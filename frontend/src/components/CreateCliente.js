@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleCreateCliente.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 const URI_CLIENTE = 'http://localhost:8000/api/cliente/';
 const URI_TIPO_CLIENTE = 'http://localhost:8000/api/tipo-cliente/';
@@ -70,98 +70,104 @@ const CompCreateCliente = () => {
     };
 
     return (
-        <div className='form-container-Create-Cliente'>
-            <h2 className='form-title-Create-Cliente'>Crear Cliente</h2>
-            
-            {successMessage && <div className="alert alert-success-Create-Cliente">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger-Create-Cliente">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className="form-grid-Create-Cliente">
-                <div className="form-column-Create-Cliente">
-                    <div className="form-group-Create-Cliente">
-                        <label>Nombre</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Cliente"
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Cliente">
-                        <label>Teléfono</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Cliente"
-                            value={telefono}
-                            onChange={(e) => setTelefono(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Cliente">
-                        <label>NIT</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Cliente"
-                            value={nit}
-                            onChange={(e) => setNit(e.target.value)}
-                            required
-                        />
-                    </div>
+        <div className='container vh-100 d-flex justify-content-center align-items-center'>
+            <div className="card" style={{ maxWidth: '600px', width: '100%', maxHeight:'100%'}}>
+                <div className="card-header text-center" >
+                    <h2>Crear Cliente</h2>
                 </div>
-                
-                <div className="form-column-Create-Cliente">
-                    <div className="form-group-Create-Cliente">
-                        <label>Email</label>
-                        <input
-                            type="email"
-                            className="form-control-Create-Cliente"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Cliente">
-                        <label>Dirección</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Cliente"
-                            value={direccion}
-                            onChange={(e) => setDireccion(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group-Create-Cliente">
-                        <label>Tipo de Cliente</label>
-                        <select
-                            className="form-control-Create-Cliente"
-                            value={tipoClienteId}
-                            onChange={(e) => setTipoClienteId(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccione un tipo de cliente</option>
-                            {tiposCliente.map((tipo) => (
-                                <option key={tipo.id} value={tipo.id}>
-                                    {tipo.descripcion}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
+                <div className="card-body">
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                    
+                    <form onSubmit={handleSubmit} className="row g-3">
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Nombre</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={nombre}
+                                    onChange={(e) => setNombre(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Teléfono</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={telefono}
+                                    onChange={(e) => setTelefono(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>NIT</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={nit}
+                                    onChange={(e) => setNit(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="col-md-6">
+                            <div className="form-group">
+                                <label>Email</label>
+                                <input
+                                    type="email"
+                                    className="form-control"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Dirección</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={direccion}
+                                    onChange={(e) => setDireccion(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Tipo de Cliente</label>
+                                <select
+                                    className="form-select"
+                                    value={tipoClienteId}
+                                    onChange={(e) => setTipoClienteId(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Seleccione un tipo de cliente</option>
+                                    {tiposCliente.map((tipo) => (
+                                        <option key={tipo.id} value={tipo.id}>
+                                            {tipo.descripcion}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
 
-                {/* Botones en una fila separada */}
-                <div className="form-buttons-Create-Cliente">
-                    <button type="submit" className="btn btn-primary-Create-Cliente">
-                        Guardar
-                    </button>
-                    <button type="button" className="btn btn-secondary-Create-Cliente" onClick={handleCancel}>
-                        Cancelar
-                    </button>
-                    <button type="button" className="btn btn-info-Create-Cliente" onClick={handleManageTipoClientes}>
-                        Gestionar Tipos de Cliente
-                    </button>
+                        <div className="col-12">
+                            <div className="d-flex justify-content-center">
+                                <button type="submit" className="btn btn-primary me-2">
+                                    Guardar
+                                </button>
+                                <button type="button" className="btn btn-secondary me-2" onClick={handleCancel}>
+                                    Cancelar
+                                </button>
+                                <button type="button" className="btn btn-info" onClick={handleManageTipoClientes}>
+                                    Gestionar Tipos de Cliente
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

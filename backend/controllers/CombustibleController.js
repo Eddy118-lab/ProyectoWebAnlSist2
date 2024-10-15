@@ -1,16 +1,26 @@
 import Combustible from '../models/Combustible.js';
 import Vehiculo from '../models/Vehiculo.js';
 
-// Obtener todos los registros de combustible
+// Obtener todos los registros de combustible (opcionalmente filtrados por vehiculo_id)
 export const getCombustibles = async (req, res) => {
     try {
-        const combustibles = await Combustible.findAll({
+        const { vehiculo_id } = req.query; // Obtiene el vehiculo_id de los parámetros de consulta
+
+        // Configura las opciones de búsqueda
+        const options = {
             include: {
                 model: Vehiculo,
                 as: 'vehiculo',
                 attributes: ['id', 'placa'] // Selecciona solo los campos necesarios
             }
-        });
+        };
+
+        // Si vehiculo_id está presente, filtra por vehiculo_id
+        if (vehiculo_id) {
+            options.where = { vehiculo_id }; // Añade el filtro
+        }
+
+        const combustibles = await Combustible.findAll(options);
         return res.status(200).json(combustibles);
     } catch (error) {
         console.error('Error al obtener los registros de combustible:', error);

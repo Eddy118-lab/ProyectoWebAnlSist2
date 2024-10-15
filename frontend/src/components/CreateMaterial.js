@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleCreateMaterial.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 const URI_MATERIAL = 'http://localhost:8000/api/material/';
 const URI_DIMENSION = 'http://localhost:8000/api/dimension/';
@@ -87,38 +87,38 @@ const CompCreateMaterial = () => {
     };
 
     return (
-        <div className='form-container-Create-Material'>
-            <h2 className='form-title-Create-Material'>Crear Material</h2>
+        <div className='container'>
+            <h2 className='text-center' style={{marginTop: '140px'}}>Crear Material</h2>
             
-            {successMessage && <div className="alert alert-success-Create-Material">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger-Create-Material">{errorMessage}</div>}
+            {successMessage && <div className="alert alert-success">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className="form-grid-Create-Material">
-                <div className="form-column-nombre-Create-Material">
-                    <div className="form-group-Create-Material">
+            <form onSubmit={handleSubmit} className="row g-3">
+                <div className="col-md-6">
+                    <div className="form-group">
                         <label>Nombre</label>
                         <input
                             type="text"
-                            className="form-control-nombre-Create-Material"
+                            className="form-control"
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group-descripcion-Create-Material">
+                    <div className="form-group">
                         <label>Descripción</label>
                         <textarea
-                            className="form-control-descripcion-Create-Material"
+                            className="form-control"
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
                             required
                         ></textarea>
                     </div>
-                    <div className="form-group-imagen-Create-Material">
+                    <div className="form-group">
                         <label>Imagen</label>
                         <input
                             type="file"
-                            className="form-control-imagen-Create-Material"
+                            className="form-control"
                             accept="image/*"
                             onChange={(e) => setImagen(e.target.files[0])}
                             required
@@ -126,11 +126,11 @@ const CompCreateMaterial = () => {
                     </div>
                 </div>
                 
-                <div className="form-column-Create-Material">
-                    <div className="form-group-dimension-Create-Material">
+                <div className="col-md-6">
+                    <div className="form-group">
                         <label>Dimensión</label>
                         <select
-                            className="form-control-dimension-Create-Material"
+                            className="form-select"
                             value={dimensionId}
                             onChange={(e) => setDimensionId(e.target.value)}
                             required
@@ -143,10 +143,10 @@ const CompCreateMaterial = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group-peso-Create-Material">
+                    <div className="form-group">
                         <label>Peso</label>
                         <select
-                            className="form-control-peso-Create-Material"
+                            className="form-select"
                             value={pesoId}
                             onChange={(e) => setPesoId(e.target.value)}
                             required
@@ -159,10 +159,10 @@ const CompCreateMaterial = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group-tipo-material-Create-Material">
+                    <div className="form-group">
                         <label>Tipo de Material</label>
                         <select
-                            className="form-control-tipo-material-Create-Material"
+                            className="form-select"
                             value={tipoMaterialId}
                             onChange={(e) => setTipoMaterialId(e.target.value)}
                             required
@@ -175,10 +175,10 @@ const CompCreateMaterial = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group-proveedor-Create-Material">
+                    <div className="form-group">
                         <label>Proveedor</label>
                         <select
-                            className="form-control-proveedor-Create-Material"
+                            className="form-select"
                             value={proveedorId}
                             onChange={(e) => setProveedorId(e.target.value)}
                             required
@@ -193,23 +193,23 @@ const CompCreateMaterial = () => {
                     </div>
                 </div>
 
-                <div className="form-buttons-Create-Material">
-                    <button type="submit" className="btn btn-primary-Create-Material">
+                <div className="col-12">
+                    <button type="submit" className="btn btn-primary me-2">
                         Guardar
                     </button>
-                    <button type="button" className="btn btn-secondary-Create-Material" onClick={handleCancel}>
+                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
                         Cancelar
                     </button>
-                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/material/dimension/gestion-dimensiones')}>
+                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/dimension/gestion-dimensiones')}>
                         Gestionar Dimensiones
                     </button>
-                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/material/peso/gestion-pesos')}>
+                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/peso/gestion-pesos')}>
                         Gestionar Pesos
                     </button>
-                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/material/tipo-material/gestion-tipos-materiales')}>
+                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/tipo-material/gestion-tipos-materiales')}>
                         Gestionar Tipos de Materiales
                     </button>
-                    <button type="button" className="btn btn-info-Create-Material" onClick={() => navigate('/proveedor/gestion-proveedores')}>
+                    <button type="button" className="btn btn-info" onClick={() => navigate('/proveedor/gestion-proveedores')}>
                         Gestionar Proveedores
                     </button>
                 </div>

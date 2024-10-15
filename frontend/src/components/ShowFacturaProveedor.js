@@ -53,85 +53,6 @@ const ShowFacturaProveedor = () => {
         setCurrentPage(page);
     };
 
-    const handlePrint = (factura) => {
-        try {
-            console.log('Preparando la impresión de la factura:', factura.id);
-
-            const printWindow = window.open('', '_blank');
-            if (!printWindow) {
-                throw new Error('No se pudo abrir la ventana de impresión.');
-            }
-
-            const monto = typeof factura.monto === 'number'
-                ? `Q.${factura.monto.toFixed(2)}`
-                : factura.monto || 'Monto no disponible';
-
-            printWindow.document.write(`
-                <html>
-                <head>
-                    <title>Factura #${factura.id}</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; }
-                        h1 { text-align: center; color: #4a90e2; }
-                        .factura-container {
-                            width: 80%; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;
-                            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-                        }
-                        .factura-header {
-                            text-align: center; margin-bottom: 20px;
-                        }
-                        .factura-info {
-                            display: flex; justify-content: space-between; margin-bottom: 20px;
-                        }
-                        .factura-info div {
-                            width: 48%;
-                        }
-                        .total {
-                            text-align: right; font-weight: bold; margin-top: 20px;
-                        }
-                        footer {
-                            text-align: center; margin-top: 30px; font-size: 0.9rem; color: #777;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <div class="factura-container">
-                        <div class="factura-header">
-                            <h1>Transportes Eben-Ezer</h1>
-                            <h1>Factura #${factura.id}</h1>
-                            <p>Fecha: ${formatDate(factura.fecha)}</p>
-                        </div>
-                        <div class="factura-info">
-                            <div>
-                                <h3>Proveedor:</h3>
-                                <p>${factura.proveedor?.nombre || 'No disponible'}</p>
-                            </div>
-                            <div>
-                                <h3>Monto:</h3>
-                                <p>${monto}</p>
-                            </div>
-                        </div>
-                        <div class="total">
-                            Total: ${monto}
-                        </div>
-                        <footer>
-                            <p>Gracias por su compra</p>
-                            <p>Información de contacto: transportesebenezer876@gmail.com</p>
-                        </footer>
-                        <button onclick="window.print()" style="margin: 20px; padding: 10px 20px; font-size: 16px;">Imprimir Factura</button>
-                    </div>
-                </body>
-                </html>
-            `);
-
-            printWindow.document.close();
-            printWindow.focus();
-        } catch (error) {
-            alert('Error al preparar la impresión. Revisa la consola para más detalles.');
-            console.error('Error en la impresión:', error);
-        }
-    };
-
     if (loading) return <p>Cargando...</p>;
     if (error) return <p className="text-danger">{error}</p>;
 
@@ -176,9 +97,6 @@ const ShowFacturaProveedor = () => {
                                     <Link to={`/factura-proveedor/pago-proveedor/${factura.id}`} className='btn btn-warning btn-sm'>
                                         Pago
                                     </Link>
-                                    <button onClick={() => handlePrint(factura)} className="btn btn-primary btn-sm ml-2">
-                                    <i className="fa-solid fa-print"></i>
-                                    </button>
                                 </td>
                             </tr>
                         ))}

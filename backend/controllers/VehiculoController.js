@@ -57,7 +57,7 @@ export const createVehiculo = async (req, res) => {
 export const updateVehiculo = async (req, res) => {
     try {
         const { id } = req.params;
-        const { placa, modelo, estado, tipo_marca_id } = req.body;
+        const { placa, modelo, tipo_marca_id } = req.body;
 
         const vehiculo = await Vehiculo.findByPk(id);
         if (!vehiculo) {
@@ -67,7 +67,6 @@ export const updateVehiculo = async (req, res) => {
         // Actualiza los campos del vehículo
         vehiculo.placa = placa;
         vehiculo.modelo = modelo;
-        vehiculo.estado = estado;
         vehiculo.tipo_marca_id = tipo_marca_id;
         
         await vehiculo.save();
@@ -94,5 +93,26 @@ export const deleteVehiculo = async (req, res) => {
     } catch (error) {
         console.error('Error al eliminar el vehículo:', error);
         return res.status(500).json({ message: 'Error al eliminar el vehículo.' });
+    }
+};
+
+
+export const updateVehiculoEstado = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const vehiculo = await Vehiculo.findByPk(id);
+        if (!vehiculo) {
+            return res.status(404).json({ message: 'Vehículo no encontrado.' });
+        }
+
+        // Cambia el estado del vehículo
+        vehiculo.estado = vehiculo.estado === 'activo' ? 'inactivo' : 'activo';
+        
+        await vehiculo.save();
+
+        return res.status(200).json(vehiculo);
+    } catch (error) {
+        console.error('Error al actualizar el estado del vehículo:', error);
+        return res.status(500).json({ message: 'Error al actualizar el estado del vehículo.' });
     }
 };

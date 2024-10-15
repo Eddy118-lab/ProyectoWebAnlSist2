@@ -74,16 +74,18 @@ const CompShowDimension = () => {
                 <div className="col">
                     <div className="search-create-container">
                         <div className='user-management-header'>
-                            <h2 className='user-management-title'>Gestión de Dimensiones</h2>
+                            <h2 className='text-center display-6' style={{ marginTop: '90px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                                Gestión de Dimensiones
+                            </h2>
                         </div>
-                        <div className="search-create-wrapper">
-                        <div className="create-btn-container-showTC">
+                        <div className="search-create-wrapper d-flex justify-content-center" style={{marginBottom: '10px'}}>
+                            <div className="create-btn-container-showTC">
                                 <Link to="/material/dimension/create" className="btn btn-primary">
                                     <i className="fa-solid fa-plus"></i>
                                 </Link>
-                                </div>
-                                <div className="create-btn-container-Regresar">
-                                <Link to="/material/gestion-materiales" className="btn btn-secondary ml-2">
+                            </div>
+                            <div className="create-btn-container-Regresar ml-2">
+                                <Link to="/material/gestion-materiales" className="btn btn-secondary">
                                     Regresar
                                 </Link>
                             </div>
@@ -94,7 +96,7 @@ const CompShowDimension = () => {
                     {error && <p className='text-danger'>{error}</p>}
 
                     <table className='table table-hover'>
-                        <thead className='table-primary'>
+                        <thead className='table-dark'>
                             <tr>
                                 <th onClick={() => sortDimensiones('descripcion')} style={{ cursor: 'pointer' }}>
                                     Descripción {getSortIcon('descripcion')}

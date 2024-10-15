@@ -59,39 +59,35 @@ const CompShowTipoCliente = () => {
     const totalPages = Math.ceil(filteredTiposCliente.length / tiposPerPage);
 
     return (
-        <div className="container">
+        <div className="container mt-5">
             <div className="row">
-                <div className="col">
-                    <div className="search-create-container">
-                        <h2 className='user-management-title'>Gestión de Tipos de Clientes</h2>
+                <div className="col-lg-12">
+                    <div className="mb-4 text-center">
+                        <h2 className='text-dark' style={{ marginTop: '60px', color: '#343a40' }}>Gestión de Tipos de Clientes</h2>
 
-                        <div className="search-create-wrapper">
-                            <div className="search-container-STC">
-                                <input
-                                    type="text"
-                                    placeholder="Buscar por descripción"
-                                    className="form-control"
-                                    onChange={(e) => handleSearch(e.target.value)}
-                                />
-                            </div>
-                            <div className="create-btn-container-showTC">
-                                <Link to="/cliente/tipo-cliente/create" className="btn btn-primary">
-                                    <i className="fa-solid fa-plus"></i>
-                                </Link>
-                                </div>
-                                <div className="create-btn-container-Regresar">
-                                <Link to="/cliente/gestion-clientes" className="btn btn-secondary ml-2">
-                                    Regresar
-                                </Link>
-                            </div>
+                        <div className="d-flex justify-content-center mb-3">
+                            <input
+                                type="text"
+                                placeholder="Buscar por descripción"
+                                className="form-control"
+                                style={{ maxWidth: '500px' }}
+                                onChange={(e) => handleSearch(e.target.value)}
+                            />
                         </div>
+
+                        <Link to="/cliente/tipo-cliente/create" className="btn btn-primary mb-3">
+                            <i className="fa-solid fa-plus"></i>
+                        </Link>
+                        <Link to="/cliente/gestion-clientes" className="btn btn-secondary mb-3 ml-2">
+                            Regresar
+                        </Link>
                     </div>
 
                     {loading && <p>Cargando...</p>}
                     {error && <p className='text-danger'>{error}</p>}
 
                     <table className='table table-hover'>
-                        <thead className='table-primary'>
+                        <thead className='table-dark'>
                             <tr>
                                 <th>ID</th>
                                 <th>Descripción</th>
@@ -101,7 +97,7 @@ const CompShowTipoCliente = () => {
                         <tbody>
                             {currentTipos.length === 0 ? (
                                 <tr>
-                                    <td colSpan="3">No hay tipos de cliente disponibles</td>
+                                    <td colSpan="3" className="text-center">No hay tipos de cliente disponibles</td>
                                 </tr>
                             ) : (
                                 currentTipos.map(tipo => (

@@ -15,7 +15,7 @@ import {getTiposPagoProveedor, getTipoPagoProveedorById, createTipoPagoProveedor
 import {getDetallesFactProveedoresGroupedByFactura, getDetalleFactProveedorById, createDetalleFactProveedor, updateDetalleFactProveedor, deleteDetalleFactProveedor} from '../controllers/DetallFactProveeController.js';
 import {getPagosProveedoresGroupedByFactura, getPagoProveedorById, createPagoProveedor, updatePagoProveedor, deletePagoProveedor} from '../controllers/PagoProveedorController.js';
 import {getTipoMarcas, getTipoMarcaById, createTipoMarca, updateTipoMarca, deleteTipoMarca} from '../controllers/TipoMarcaController.js';
-import {getVehiculos, getVehiculoById, createVehiculo, updateVehiculo, deleteVehiculo} from '../controllers/VehiculoController.js';
+import {getVehiculos, getVehiculoById, createVehiculo, updateVehiculo, deleteVehiculo, updateVehiculoEstado} from '../controllers/VehiculoController.js';
 import {getReparaciones, getReparacionById, createReparacion, updateReparacion, deleteReparacion} from '../controllers/ReparacionController.js'; 
 import {getCombustibles, getCombustibleById, createCombustible, updateCombustible, deleteCombustible} from '../controllers/CombustibleController.js'; 
 import { login } from '../controllers/LoginController.js';
@@ -143,6 +143,7 @@ router.get('/vehiculo/:id', getVehiculoById);
 router.post('/vehiculo', createVehiculo);
 router.put('/vehiculo/:id', updateVehiculo);
 router.delete('/vehiculo/:id', deleteVehiculo);
+router.patch('/vehiculo/:id/estado', updateVehiculoEstado); // Actualizar estado de un vehículo
 
 // CRUD DE COMBUSTIBLE
 router.get('/combustible', getCombustibles); 

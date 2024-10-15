@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css'; // Iconos de FontAwesome
-import SearchInventario from './SearchInventario.js'; // Asegúrate de crear el componente de búsqueda si lo necesitas
+import SearchInventario from './SearchInventario.js'; // Componente de búsqueda
 
 const URI = 'http://localhost:8000/api/inventario';
 
@@ -11,7 +11,7 @@ const CompShowInventario = () => {
     const [inventarios, setInventarios] = useState([]);
     const [filteredInventarios, setFilteredInventarios] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [inventariosPerPage] = useState(4);
+    const [inventariosPerPage] = useState(8);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
@@ -84,21 +84,18 @@ const CompShowInventario = () => {
     return (
         <div className="container mt-5">
             <div className="row">
-                <div className="col">
-                    <div className="search-create-container">
-                        <div className='user-management-header'>
-                            <h2 className='user-management-title-cliente'>Gestión de Inventario</h2>
+                <div className="col-lg-12">
+                    <div className="mb-4 text-center">
+                    <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                        Gestión de Inventario</h2>
+                    </div>
+                    <div className="d-flex justify-content-between mb-4">
+                        <div className="search-container" style={{width: '600px', height: '30px'}}>
+                            <SearchInventario onSearch={handleSearch} />
                         </div>
-                        <div className="search-create-wrapper">
-                            <div className="search-container">
-                                <SearchInventario onSearch={handleSearch} />
-                            </div>
-                            <div className="create-btn-container">
-                                <Link to="/inventario/create" className="btn btn-primary">
-                                    <i className="fa-solid fa-plus"></i>
-                                </Link>
-                            </div>
-                        </div>
+                        <Link to="/inventario/create" className="btn btn-primary" style={{ width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <i className="fa-solid fa-plus"></i>
+                        </Link>
                     </div>
 
                     {loading ? (
@@ -108,7 +105,7 @@ const CompShowInventario = () => {
                     ) : (
                         <div className="table-container">
                             <table className="table table-hover">
-                                <thead className="table-primary">
+                                <thead className="table-dark">
                                     <tr>
                                         <th onClick={() => sortInventarios('cantidad')} style={{ cursor: 'pointer' }}>
                                             Cantidad {getSortIcon('cantidad')}

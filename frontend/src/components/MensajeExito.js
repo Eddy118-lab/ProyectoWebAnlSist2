@@ -10,12 +10,17 @@ const CompExito = () => {
   };
 
   return (
-    <div className="container">
-      <h2>¡Compra realizada con éxito!</h2>
+    <div className="container mt-5 text-center">
+      <h2 className='text-center display-6' style={{ marginTop: '22%', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>¡Compra realizada con éxito!</h2>
       <p>Su compra ha sido procesada correctamente. Puede ver el detalle de su pago en la sección de "Mis compras".</p>
-      
-      {/* Botón para regresar al catálogo */}
-      <button onClick={handleGoToCatalog}>Volver al Catálogo</button>
+      <div className="my-4">
+        <button 
+          onClick={handleGoToCatalog} 
+          className="btn btn-success btn-lg"
+        >
+          Volver al Catálogo
+        </button>
+      </div>
     </div>
   );
 };
