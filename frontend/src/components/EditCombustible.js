@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 const URI_COMBUSTIBLE = 'http://localhost:8000/api/combustible/';
-const URI_VEHICULO = 'http://localhost:8000/api/vehiculo/';
+const URI_VEHICULO = 'http://localhost:8000/api/vehiculo';
 
 const CompEditCombustible = () => {
     const { id } = useParams();  // Obtener el ID del combustible de los parámetros de la URL

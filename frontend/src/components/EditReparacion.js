@@ -4,15 +4,14 @@ import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 const URI_REPARACIONES = 'http://localhost:8000/api/reparacion/';
-const URI_VEHICULOS = 'http://localhost:8000/api/vehiculo/';
+const URI_VEHICULOS = 'http://localhost:8000/api/vehiculo';
 
 const CompEditReparacion = () => {
-    const { id } = useParams();
+    const { vehiculo_id, id } = useParams(); // Obtener el ID del vehículo y de la reparación de los parámetros de la URL
     const [fecha, setFecha] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [costo, setCosto] = useState('');
-    const [vehiculoId, setVehiculoId] = useState('');
-    const [vehiculos, setVehiculos] = useState([]);
+    const [vehiculo, setVehiculo] = useState(null); // Estado para almacenar el vehículo
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
@@ -21,35 +20,33 @@ const CompEditReparacion = () => {
     useEffect(() => {
         const fetchReparacionData = async () => {
             try {
+                // Obtener la reparación
                 const response = await axios.get(`${URI_REPARACIONES}${id}`);
                 const reparacion = response.data;
 
+                if (!reparacion) {
+                    throw new Error("Reparación no encontrada.");
+                }
+
+                // Configurar datos de la reparación
                 setFecha(new Date(reparacion.fecha).toISOString().split('T')[0]); // Formato yyyy-mm-dd
                 setDescripcion(reparacion.descripcion);
                 setCosto(reparacion.costo);
-                setVehiculoId(reparacion.vehiculo_id);
+
+                // Obtener el vehículo relacionado con la reparación
+                const vehiculoResponse = await axios.get(`${URI_VEHICULOS}${vehiculo_id}`);
+                if (!vehiculoResponse.data) {
+                    throw new Error("Vehículo no encontrado.");
+                }
+                setVehiculo(vehiculoResponse.data); // Almacenar el vehículo en el estado
             } catch (error) {
                 console.error("Error al obtener los datos de la reparación:", error);
-                setErrorMessage("Error al cargar los datos de la reparación, por favor intenta nuevamente.");
+                setErrorMessage(error.response ? error.response.data.message : "Error al cargar los datos de la reparación, por favor intenta nuevamente.");
             }
         };
 
         fetchReparacionData();
-    }, [id]);
-
-    // Cargar vehículos disponibles
-    useEffect(() => {
-        const getVehiculos = async () => {
-            try {
-                const res = await axios.get(URI_VEHICULOS);
-                setVehiculos(res.data);
-            } catch (error) {
-                console.error("Error al obtener los vehículos:", error);
-            }
-        };
-
-        getVehiculos();
-    }, []);
+    }, [id, vehiculo_id]);
 
     // Manejar la actualización de datos de la reparación
     const handleSubmit = async (e) => {
@@ -59,25 +56,31 @@ const CompEditReparacion = () => {
             fecha,
             descripcion,
             costo,
-            vehiculo_id: vehiculoId
+            vehiculo_id // Asegúrate de que este ID sea correcto
         };
 
         try {
-            await axios.put(`${URI_REPARACIONES}${id}`, updatedReparacion);
-            setSuccessMessage("Reparación actualizada con éxito!");
-            setErrorMessage('');
-            setTimeout(() => {
-                navigate('/vehiculo/reparacion/gestion-reparaciones');
-            }, 2000);
+            const response = await axios.put(`${URI_REPARACIONES}${id}`, updatedReparacion);
+            if (response.status === 200) {
+                setSuccessMessage("Reparación actualizada con éxito!");
+                setErrorMessage('');
+                setTimeout(() => {
+                    // Navegar a la página de gestión de reparaciones
+                    navigate(`/vehiculo/reparacion/gestion-reparaciones/${vehiculo_id}`);
+                }, 2000);
+            } else {
+                setErrorMessage("Error al actualizar la reparación.");
+            }
         } catch (error) {
             console.error("Error al actualizar los datos de la reparación:", error);
-            setErrorMessage("Error al actualizar la reparación, por favor intenta nuevamente.");
+            setErrorMessage(error.response ? error.response.data.message : "Error al actualizar la reparación, por favor intenta nuevamente.");
         }
     };
 
     // Cancelar y volver
     const handleCancel = () => {
-        navigate('/vehiculo/reparacion/gestion-reparaciones');
+        // Regresar a la página de gestión de reparaciones
+        navigate(`/vehiculo/reparacion/gestion-reparaciones/${vehiculo_id}`);
     };
 
     return (
@@ -129,16 +132,17 @@ const CompEditReparacion = () => {
                                 <label>Vehículo</label>
                                 <select
                                     className='form-select'
-                                    value={vehiculoId}
-                                    onChange={(e) => setVehiculoId(e.target.value)}
+                                    value={vehiculo ? vehiculo.id : ''}
+                                    disabled // Deshabilitar el menú desplegable ya que se edita un vehículo existente
                                     required
                                 >
-                                    <option value=''>Seleccione un vehículo</option>
-                                    {vehiculos.map(vehiculo => (
-                                        <option key={vehiculo.id} value={vehiculo.id}>
+                                    {vehiculo ? (
+                                        <option value={vehiculo.id}>
                                             {vehiculo.placa} - {vehiculo.modelo}
                                         </option>
-                                    ))}
+                                    ) : (
+                                        <option value=''>Cargando vehículo...</option>
+                                    )}
                                 </select>
                             </div>
                         </div>

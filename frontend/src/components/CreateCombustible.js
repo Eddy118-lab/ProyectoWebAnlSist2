@@ -11,7 +11,7 @@ const CompCreateCombustible = () => {
     const [fecha, setFecha] = useState('');
     const [cantidad, setCantidad] = useState('');
     const [costo, setCosto] = useState('');
-    const [vehiculoId, setVehiculoId] = useState(id); // Inicializa con el ID del vehículo de la URL
+    const [vehiculoId] = useState(id); // Almacena solo el ID del vehículo
     const [vehiculos, setVehiculos] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');

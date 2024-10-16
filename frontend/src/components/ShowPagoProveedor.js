@@ -46,16 +46,18 @@ const CompShowPagoProveedor = () => {
     };
 
     return (
-        <div className="container">
+        <div className="container mt-5">
             <div className="row">
-                <div className="col">
-                    <h2 className="text-center">Pagos de Proveedores</h2>
+                <div className="col-12 col-md-10 offset-md-1">
+                <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>Pagos de Proveedores</h2>
 
                     <div key={grupo.factura.id} className="mb-4">
-                        <h3>Factura ID: {grupo.factura.id} - Fecha: {grupo.factura.fecha} - Monto: Q.{grupo.factura.monto}</h3>
+                        <h3 className="text-center">
+                            Factura ID: {grupo.factura.id} - Fecha: {formatFecha(grupo.factura.fecha)} - Monto: <span className="text-success">Q.{grupo.factura.monto}</span>
+                        </h3>
 
-                        <table className='table table-hover'>
-                            <thead className='table-primary'>
+                        <table className="table table-bordered table-hover mt-4">
+                            <thead className="table-dark">
                                 <tr>
                                     <th>ID Pago</th>
                                     <th>Fecha</th>
@@ -82,18 +84,18 @@ const CompShowPagoProveedor = () => {
                         </table>
                     </div>
 
-                    <div className='action-buttons'>
+                    <div className="d-flex justify-content-between mt-4">
                         <button
                             className="btn btn-secondary"
                             onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')}
                         >
-                            Volver a Facturas
+                            <i className="fas fa-arrow-left"></i> Volver a Facturas
                         </button>
                         <button
-                            className="btn btn-primary ms-2"
+                            className="btn btn-primary"
                             onClick={() => navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores')}
                         >
-                            Gestionar Tipos de Pagos
+                            <i className="fas fa-cog"></i> Gestionar Tipos de Pagos
                         </button>
                     </div>
                 </div>

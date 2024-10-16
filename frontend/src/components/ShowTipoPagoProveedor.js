@@ -44,24 +44,25 @@ const CompShowTipoPagoProveedor = () => {
     if (error) return <p className='text-danger'>{error}</p>;
 
     return (
-        <div className='container'>
-            <div className='header'>
-                <h2 className='text-center'>Tipos de Pago de Proveedores</h2>
-            </div>
-
-            <div className='actions mb-3'>
-                <Link to='/factura-proveedor/tipo-pago-proveedor/create' className='btn btn-primary'>
-                    <i className="fa-solid fa-plus"></i> Crear Tipo de Pago
-                </Link>
+        <div className="container mt-5">
+            <div className="d-flex flex-column align-items-center mb-4">
+            <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                    Tipos de Pago de Proveedores
+                </h2>
+                <div className="align-self-end mb-3">
+                    <Link to='/factura-proveedor/tipo-pago-proveedor/create' className='btn btn-primary'>
+                        <i className="fa-solid fa-plus"></i> Crear Tipo de Pago
+                    </Link>
+                </div>
             </div>
 
             {tiposPago.length > 0 ? (
-                <table className="table table-bordered">
-                    <thead>
+                <table className="table table-bordered table-hover">
+                    <thead className="table-dark">
                         <tr>
                             <th>ID</th>
                             <th>Descripción</th>
-                            <th>Acciones</th>
+                            <th className="text-center">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,11 +70,11 @@ const CompShowTipoPagoProveedor = () => {
                             <tr key={tipo.id}>
                                 <td>{tipo.id}</td>
                                 <td>{tipo.descripcion}</td>
-                                <td>
-                                    <Link to={`/factura-proveedor/tipo-pago-proveedor/edit/${tipo.id}`} className='btn btn-warning btn-sm'>
+                                <td className="text-center">
+                                    <Link to={`/factura-proveedor/tipo-pago-proveedor/edit/${tipo.id}`} className='btn btn-warning btn-sm me-2'>
                                         <i className="fa-regular fa-pen-to-square"></i> Editar
                                     </Link>
-                                    <button onClick={() => deleteTipoPago(tipo.id)} className='btn btn-danger btn-sm ml-2'>
+                                    <button onClick={() => deleteTipoPago(tipo.id)} className='btn btn-danger btn-sm'>
                                         <i className="fa-regular fa-trash-can"></i> Eliminar
                                     </button>
                                 </td>
@@ -82,12 +83,12 @@ const CompShowTipoPagoProveedor = () => {
                     </tbody>
                 </table>
             ) : (
-                <p>No se encontraron tipos de pago.</p>
+                <p className="text-center">No se encontraron tipos de pago.</p>
             )}
 
-            <div className='actions'>
-                <button onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')} className='btn btn-secondary'>
-                    Volver
+            <div className="mt-4">
+                <button onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')} className="btn btn-secondary">
+                    <i className="fas fa-arrow-left"></i> Volver
                 </button>
             </div>
         </div>
@@ -95,4 +96,3 @@ const CompShowTipoPagoProveedor = () => {
 };
 
 export default CompShowTipoPagoProveedor;
-

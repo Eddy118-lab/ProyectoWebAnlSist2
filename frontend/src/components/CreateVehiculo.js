@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const URI_VEHICULO = 'http://localhost:8000/api/vehiculo/';
 const URI_MARCAS = 'http://localhost:8000/api/tipo-marca/';
@@ -11,7 +11,7 @@ const CompCreateVehiculo = () => {
     const [modelo, setModelo] = useState('');
     const [estado, setEstado] = useState('');
     const [tipoMarcaId, setTipoMarcaId] = useState('');
-    const [marcas, setMarcas] = useState([]); // Para cargar las marcas desde el API
+    const [marcas, setMarcas] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
@@ -23,7 +23,7 @@ const CompCreateVehiculo = () => {
     const getMarcas = async () => {
         try {
             const res = await axios.get(URI_MARCAS);
-            setMarcas(res.data); // Suponiendo que el API devuelve un arreglo de objetos con id y descripcion
+            setMarcas(res.data);
         } catch (error) {
             console.error("Error al obtener las marcas:", error);
             setErrorMessage("Error al obtener las marcas.");
@@ -31,9 +31,13 @@ const CompCreateVehiculo = () => {
     };
 
     const checkPlacaExists = async (placa) => {
+        console.log(`Verificando si la placa existe: ${placa}`);
         try {
-            const res = await axios.get(`${URI_VEHICULO}?placa=${placa}`);
-            return res.data.length > 0; // Verifica si existe algún vehículo con la misma placa
+            const res = await axios.get(URI_VEHICULO);
+            console.log(`Respuesta del servidor:`, res.data);
+            const exists = res.data.some(vehiculo => vehiculo.placa === placa);
+            console.log(`¿La placa ${placa} existe? ${exists}`);
+            return exists;
         } catch (error) {
             console.error("Error al verificar la placa:", error);
             setErrorMessage("Error al verificar la placa, por favor intenta nuevamente.");
@@ -41,21 +45,32 @@ const CompCreateVehiculo = () => {
         }
     };
 
+    const validatePlaca = (placa) => {
+        const regex = /^C-\d{3}[A-Z]{3}$/;
+        return regex.test(placa);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validar el formato de la placa
+        if (!validatePlaca(placa)) {
+            setErrorMessage("Formato de placa inválido. Usa el formato 'C-###AAA'.");
+            return;
+        }
 
         // Verificar si la placa ya existe
         const placaExists = await checkPlacaExists(placa);
         if (placaExists) {
             setErrorMessage("La placa ya está registrada. Por favor ingresa una placa diferente.");
-            return; // Salir de la función si la placa ya existe
+            return;
         }
 
         const newVehiculo = {
             placa,
             modelo,
             estado,
-            tipo_marca_id: tipoMarcaId // Enviamos el ID de la marca seleccionada
+            tipo_marca_id: tipoMarcaId
         };
 
         try {
@@ -63,7 +78,7 @@ const CompCreateVehiculo = () => {
             setSuccessMessage("Vehículo creado con éxito!");
             setErrorMessage('');
             setTimeout(() => {
-                navigate('/vehiculo/gestion-vehiculos'); // Redirigir al módulo Gestión de Vehículos después de 2 segundos
+                navigate('/vehiculo/gestion-vehiculos');
             }, 2000);
         } catch (error) {
             console.error("Error al enviar los datos:", error);
@@ -72,7 +87,7 @@ const CompCreateVehiculo = () => {
     };
 
     const handleCancel = () => {
-        navigate('/vehiculo/gestion-vehiculos'); // Redirigir al módulo Gestión de Vehículos al cancelar
+        navigate('/vehiculo/gestion-vehiculos');
     };
 
     return (
@@ -134,7 +149,7 @@ const CompCreateVehiculo = () => {
                                     <option value=''>Seleccione una marca</option>
                                     {marcas.map(marca => (
                                         <option key={marca.id} value={marca.id}>
-                                            {marca.nombre} {/* Mostrar la descripción de la marca */}
+                                            {marca.nombre}
                                         </option>
                                     ))}
                                 </select>

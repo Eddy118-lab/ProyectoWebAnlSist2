@@ -14,7 +14,7 @@ const ShowFacturaProveedor = () => {
     const [facturas, setFacturas] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [pageSize] = useState(10);
+    const [pageSize] = useState(8);
     const [filteredFacturas, setFilteredFacturas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -58,10 +58,11 @@ const ShowFacturaProveedor = () => {
 
     return (
         <div className="container mt-5">
-            <h1 className="facturas-title">Facturas de Proveedor</h1>
+            <h1 className="text-center display-6" style={{ marginTop: '90px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>Facturas de Proveedor</h1>
 
-            <div className="search-create-wrapper">
-                <div className="search-container">
+            {/* Centrar el buscador */}
+            <div className="d-flex justify-content-center mt-3 mb-4">
+                <div className="search-container" style={{ width: '100%', maxWidth: '600px', maxHeight: '70px' }}>
                     <input
                         type="text"
                         className="form-control"
@@ -74,7 +75,7 @@ const ShowFacturaProveedor = () => {
 
             <div className="table-container">
                 <table className="table table-hover">
-                    <thead className="table-primary">
+                    <thead className="table-dark">
                         <tr>
                             <th>ID</th>
                             <th>Fecha</th>
@@ -91,10 +92,10 @@ const ShowFacturaProveedor = () => {
                                 <td>Q.{typeof factura.monto === 'number' ? factura.monto.toFixed(2) : factura.monto}</td>
                                 <td>{factura.proveedor?.nombre || 'Proveedor no disponible'}</td>
                                 <td>
-                                    <Link to={`/factura-proveedor/detalle-factura-proveedor/${factura.id}`} className='btn btn-warning btn-sm mr-2'>
+                                    <Link to={`/factura-proveedor/detalle-factura-proveedor/${factura.id}`} className="btn btn-warning btn-sm mr-2">
                                         Detalle
                                     </Link>
-                                    <Link to={`/factura-proveedor/pago-proveedor/${factura.id}`} className='btn btn-warning btn-sm'>
+                                    <Link to={`/factura-proveedor/pago-proveedor/${factura.id}`} className="btn btn-warning btn-sm">
                                         Pago
                                     </Link>
                                 </td>
@@ -105,7 +106,7 @@ const ShowFacturaProveedor = () => {
             </div>
 
             <nav>
-                <ul className="pagination">
+                <ul className="pagination justify-content-center" style={{marginBottom: '10px'}}>
                     {Array.from({ length: totalPages }, (_, index) => (
                         <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
                             <button onClick={() => handlePageChange(index + 1)} className="page-link">

@@ -1,49 +1,61 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import { Link, useParams } from 'react-router-dom';
 
 const URI_REPARACIONES = 'http://localhost:8000/api/reparacion/';
-const URI_VEHICULOS = 'http://localhost:8000/api/vehiculo/'; 
+const URI_VEHICULOS = 'http://localhost:8000/api/vehiculo';
 
 const CompShowReparacion = () => {
+    const { id: vehiculo_id } = useParams(); // Obtener el ID del vehículo de la URL
     const [reparaciones, setReparaciones] = useState([]);
-    const [vehiculos, setVehiculos] = useState([]); // Para almacenar la lista de vehículos
+    const [vehiculo, setVehiculo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const navigate = useNavigate();
+
+    const getReparacionesByVehiculoId = useCallback(async () => {
+        setLoading(true);
+        try {
+            const res = await axios.get(URI_REPARACIONES);
+            const filteredReparaciones = res.data.filter(reparacion => reparacion.vehiculo_id.toString() === vehiculo_id);
+            setReparaciones(filteredReparaciones);
+        } catch (error) {
+            setError('Error al obtener las reparaciones.');
+            console.error('Error al obtener las reparaciones:', error);
+        } finally {
+            setLoading(false);
+        }
+    }, [vehiculo_id]);
+
+    const getVehiculoData = useCallback(async () => {
+        try {
+            const res = await axios.get(`${URI_VEHICULOS}/${vehiculo_id}`);
+            setVehiculo(res.data);
+        } catch (error) {
+            setError('Error al obtener los datos del vehículo.');
+            console.error('Error al obtener los datos del vehículo:', error);
+        }
+    }, [vehiculo_id]);
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const resReparaciones = await axios.get(URI_REPARACIONES);
-                const resVehiculos = await axios.get(URI_VEHICULOS);
-                setReparaciones(resReparaciones.data);
-                setVehiculos(resVehiculos.data); // Guardar vehículos en el estado
-                setLoading(false);
-            } catch (error) {
-                setError('Error al obtener los datos de reparaciones o vehículos.');
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
+        getReparacionesByVehiculoId();
+        getVehiculoData();
+    }, [getReparacionesByVehiculoId, getVehiculoData]);
 
-    const deleteReparacion = async (id) => {
+    const deleteReparacion = async (reparacionId) => {
         try {
             const isConfirmed = window.confirm('¿Estás seguro de que deseas eliminar esta reparación?');
             if (isConfirmed) {
-                await axios.delete(`${URI_REPARACIONES}${id}`);
-                setReparaciones(reparaciones.filter(reparacion => reparacion.id !== id)); // Actualizar el estado después de eliminar
+                await axios.delete(`${URI_REPARACIONES}${reparacionId}`);
+                getReparacionesByVehiculoId(); // Actualizar la lista después de eliminar
             }
         } catch (error) {
-            console.error("Error al eliminar la reparación:", error);
+            setError('Error al eliminar la reparación.');
+            console.error('Error al eliminar la reparación:', error);
         }
     };
 
-    // Función para obtener la placa del vehículo según su ID
-    const getPlacaById = (id) => {
-        const vehiculo = vehiculos.find(v => v.id === id);
-        return vehiculo ? vehiculo.placa : 'Desconocido'; // Retorna 'Desconocido' si no se encuentra el vehículo
+    const formatFecha = (fecha) => {
+        return new Date(fecha).toLocaleDateString('es-ES'); // Formato dd-mm-yyyy
     };
 
     return (
@@ -51,12 +63,13 @@ const CompShowReparacion = () => {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="mb-4">
-                    <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>Gestión de Reparaciones</h2>
-                        {/* Botón para regresar */}
+                        <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                            Gestión de Reparaciones
+                        </h2>
                         <Link to="/vehiculo/gestion-vehiculos" className="btn btn-secondary mb-3">
                             Regresar a Gestión de Vehículos
                         </Link>
-                        <Link to="/vehiculo/reparacion/create" className="btn btn-primary mb-3">
+                        <Link to={`/vehiculo/reparacion/create/${vehiculo_id}`} className="btn btn-primary mb-3">
                             <i className="fa-solid fa-plus"></i>
                         </Link>
                     </div>
@@ -76,17 +89,18 @@ const CompShowReparacion = () => {
                         <tbody>
                             {reparaciones.length === 0 ? (
                                 <tr>
-                                    <td colSpan="5">No hay registros de reparaciones disponibles</td>
+                                    <td colSpan="5">No hay registros de reparaciones disponibles para este vehículo.</td>
                                 </tr>
                             ) : (
                                 reparaciones.map(reparacion => (
                                     <tr key={reparacion.id}>
-                                        <td>{new Date(reparacion.fecha).toLocaleDateString('es-ES')}</td>
+                                        <td>{formatFecha(reparacion.fecha)}</td>
                                         <td>{reparacion.descripcion}</td>
                                         <td>{reparacion.costo}</td>
-                                        <td>{getPlacaById(reparacion.vehiculo_id)}</td> {/* Mostrar la placa asociada */}
+                                        <td>{vehiculo ? vehiculo.placa : 'Cargando...'}</td> {/* Mostrar la placa del vehículo */}
                                         <td>
-                                            <Link to={`/vehiculo/reparacion/edit/${reparacion.id}`} className="btn btn-warning btn-sm mr-2">
+                                            {/* Enlace de edición actualizado con ambos parámetros */}
+                                            <Link to={`/vehiculo/reparacion/edit/${vehiculo.id}/${reparacion.id}`} className="btn btn-warning btn-sm mr-2">
                                                 <i className="fa-regular fa-pen-to-square"></i>
                                             </Link>
                                             <button onClick={() => deleteReparacion(reparacion.id)} className="btn btn-danger btn-sm">

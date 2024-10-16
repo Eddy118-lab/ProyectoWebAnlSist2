@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SearchUsuario from './SearchUsuarios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './Styles/StyleShowUsuario.css';
@@ -15,6 +14,7 @@ const CompShowUsuario = () => {
     const [usuariosPerPage] = useState(5);
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortField, setSortField] = useState('nombcomp');
+    const [searchTerm, setSearchTerm] = useState('');  // Inicialización del searchTerm
 
     useEffect(() => {
         getUsuarios();
@@ -51,15 +51,6 @@ const CompShowUsuario = () => {
         return '**********';
     };
 
-    const handleSearch = (query) => {
-        const filtered = usuarios.filter(user =>
-            user.nombcomp.toLowerCase().includes(query.toLowerCase()) ||
-            user.email.toLowerCase().includes(query.toLowerCase())
-        );
-        setFilteredUsuarios(filtered);
-        setCurrentPage(1);
-    };
-
     const sortUsuarios = (field) => {
         const order = (sortField === field && sortOrder === 'asc') ? 'desc' : 'asc';
         const sortedUsuarios = [...filteredUsuarios].sort((a, b) => {
@@ -85,6 +76,19 @@ const CompShowUsuario = () => {
         return '';
     };
 
+    // Filtrar usuarios basado en el término de búsqueda
+    useEffect(() => {
+        const filtered = usuarios.filter((usuario) =>
+            usuario.nombcomp.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            usuario.nombusuar.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            usuario.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            usuario.nit.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            usuario.telefono.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            usuario.direccion.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredUsuarios(filtered);
+    }, [searchTerm, usuarios]);
+
     const indexOfLastUser = currentPage * usuariosPerPage;
     const indexOfFirstUser = indexOfLastUser - usuariosPerPage;
     const currentUsuarios = filteredUsuarios.slice(indexOfFirstUser, indexOfLastUser);
@@ -103,13 +107,17 @@ const CompShowUsuario = () => {
             </div>
 
             {/* Contenedor del buscador y el botón Crear Usuario */}
-            <div className='row justify-content-between align-items-center mb-4'>
-                <div className='col-md-6'>
-                    <SearchUsuario usuarios={usuarios} onSearch={handleSearch} />
-                </div>
-                <div className='col-md-3 text-end'>
-                    <Link to="/usuario/create" className='btn btn-primary d-flex justify-content-center align-items-center' style={{ width: '50px', height: '40px' }}>
-                        <i className="fa-solid fa-plus"></i>
+            <div className="row justify-content-center mb-4">
+                <div className="col-md-6 d-flex justify-content-center">
+                    <input
+                        type="text"
+                        className="form-control me-2"
+                        placeholder="Buscar usuario..."  // Actualizado
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}  // Actualizado para la búsqueda
+                    />
+                    <Link to="/usuario/create" className="btn btn-primary ms-2">  {/* Ruta actualizada */}
+                        <i className="fa-solid fa-plus"></i> 
                     </Link>
                 </div>
             </div>

@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -17,12 +16,7 @@ const CompShowCombustible = () => {
     const [sortField, setSortField] = useState('fecha');
     const [vehiculoPlaca, setVehiculoPlaca] = useState(''); // Estado para almacenar la placa del vehículo
 
-    useEffect(() => {
-        getCombustiblesByVehiculoId();
-        getVehiculoPlaca(); // Llamar para obtener la placa del vehículo
-    }, [id]); // Agregar id como dependencia
-
-    const getCombustiblesByVehiculoId = async () => {
+    const getCombustiblesByVehiculoId = useCallback(async () => {
         setLoading(true);
         try {
             const res = await axios.get(URI); // Obtener todos los combustibles
@@ -34,9 +28,9 @@ const CompShowCombustible = () => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [id]);
 
-    const getVehiculoPlaca = async () => {
+    const getVehiculoPlaca = useCallback(async () => {
         try {
             const res = await axios.get(`${URI_VEHICULO}/${id}`); // Obtener el vehículo por ID
             setVehiculoPlaca(res.data.placa); // Asignar la placa al estado
@@ -44,7 +38,12 @@ const CompShowCombustible = () => {
             console.error('Error al obtener la placa del vehículo:', error);
             setError('Error al obtener la placa del vehículo');
         }
-    };
+    }, [id]);
+
+    useEffect(() => {
+        getCombustiblesByVehiculoId();
+        getVehiculoPlaca(); // Llamar para obtener la placa del vehículo
+    }, [getCombustiblesByVehiculoId, getVehiculoPlaca]); // Agregar las funciones como dependencias
 
     const deleteCombustible = async (combustibleId) => {
         try {
@@ -82,11 +81,13 @@ const CompShowCombustible = () => {
             <div className="row">
                 <div className="col-lg-12">
                     <div className="mb-4">
-                    <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>Gestión de Combustibles</h2>
+                        <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                            Gestión de Combustibles
+                        </h2>
                         <Link to="/vehiculo/gestion-vehiculos" className="btn btn-secondary mb-3">
                             Regresar a Gestión de Vehículos
                         </Link>
-                        <Link to={`/vehiculo/combustible/create/${id}`} className="btn btn-primary mb-3"> {/* Pasa el vehiculo_id aquí */}
+                        <Link to={`/vehiculo/combustible/create/${id}`} className="btn btn-primary mb-3">
                             <i className="fa-solid fa-plus"></i>
                         </Link>
                     </div>
@@ -122,7 +123,7 @@ const CompShowCombustible = () => {
                                         <td>{combustible.costo}</td>
                                         <td>{vehiculoPlaca}</td> {/* Mostrar la placa aquí */}
                                         <td>
-                                            <Link to={`/vehiculo/combustible/edit/${combustible.id}/${id}`} className="btn btn-warning btn-sm mr-2"> {/* Agregar ID de vehículo aquí */}
+                                            <Link to={`/vehiculo/combustible/edit/${id}/${combustible.id}`} className="btn btn-warning btn-sm mr-2">
                                                 <i className="fa-regular fa-pen-to-square"></i>
                                             </Link>
                                             <button onClick={() => deleteCombustible(combustible.id)} className="btn btn-danger btn-sm">
@@ -141,4 +142,3 @@ const CompShowCombustible = () => {
 };
 
 export default CompShowCombustible;
-

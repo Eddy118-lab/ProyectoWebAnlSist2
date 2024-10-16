@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const URI_VEHICULOS = 'http://localhost:8000/api/vehiculo/';
 const URI_MARCAS = 'http://localhost:8000/api/tipo-marca/';
@@ -16,7 +16,6 @@ const CompShowVehiculo = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         getVehiculos();
@@ -102,7 +101,10 @@ const CompShowVehiculo = () => {
     // Función para actualizar el estado del vehículo
     const updateVehiculoEstado = async (id, estadoActual) => {
         try {
-            await axios.patch(`${URI_VEHICULOS}${id}/estado`);
+            // Determinar el nuevo estado basado en el booleano
+            const nuevoEstado = estadoActual === 1 ? 0 : 1; // 1 para activo, 0 para inactivo
+            const estadoTexto = nuevoEstado === 1 ? 'activo' : 'inactivo';
+            await axios.patch(`${URI_VEHICULOS}${id}/estado`, { estado: estadoTexto });
             getVehiculos(); // Vuelve a obtener los vehículos para reflejar el cambio
         } catch (error) {
             console.error("Error al actualizar el estado del vehículo:", error);
@@ -167,10 +169,11 @@ const CompShowVehiculo = () => {
                                         <td>{vehiculo.modelo}</td>
                                         <td>
                                             <button 
-                                                onClick={() => updateVehiculoEstado(vehiculo.id, vehiculo.estado)}
+                                                onClick={() => updateVehiculoEstado(vehiculo.id, vehiculo.estado === 'activo' ? 1 : 0)} // Utiliza 1 para activo y 0 para inactivo
                                                 className={`btn btn-sm ${vehiculo.estado.toLowerCase() === 'activo' ? 'btn-success' : 'btn-secondary'}`}
+                                                disabled={vehiculo.estado.toLowerCase() === 'inactivo'} // Deshabilitar si está inactivo
                                             >
-                                                {vehiculo.estado === 'activo' ? 'Activo' : 'Inactivo'}
+                                                {vehiculo.estado.charAt(0).toUpperCase() + vehiculo.estado.slice(1)} {/* Capitaliza la primera letra */}
                                             </button>
                                         </td>
                                         <td>{getMarcaNombre(vehiculo.tipo_marca_id)}</td>
@@ -203,9 +206,6 @@ const CompShowVehiculo = () => {
                                             <Link 
                                                 to={`/vehiculo/reparacion/gestion-reparaciones/${vehiculo.id}`} 
                                                 className="btn btn-dark btn-sm ml-2" 
-                                                tabIndex={vehiculo.estado.toLowerCase() === 'inactivo' ? -1 : 0} // Evitar la navegación del teclado
-                                                aria-disabled={vehiculo.estado.toLowerCase() === 'inactivo'} // Añadir atributo de accesibilidad
-                                                style={{ pointerEvents: vehiculo.estado.toLowerCase() === 'inactivo' ? 'none' : 'auto', opacity: vehiculo.estado.toLowerCase() === 'inactivo' ? 0.5 : 1 }} // Estilo visual
                                             >
                                                 <i className="fa-solid fa-wrench"></i>
                                             </Link>

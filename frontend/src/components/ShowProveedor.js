@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import SearchProveedor from './SearchProveedor.js';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -11,11 +10,12 @@ const CompShowProveedor = () => {
     const [proveedores, setProveedores] = useState([]);
     const [filteredProveedores, setFilteredProveedores] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [proveedoresPerPage] = useState(4);
+    const [proveedoresPerPage] = useState(8);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortField, setSortField] = useState('nombre');
+    const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
         getProveedores();
@@ -48,15 +48,6 @@ const CompShowProveedor = () => {
         }
     };
 
-    const handleSearch = (query) => {
-        const filtered = proveedores.filter(proveedor =>
-            proveedor.nombre.toLowerCase().includes(query.toLowerCase()) ||
-            proveedor.email.toLowerCase().includes(query.toLowerCase())
-        );
-        setFilteredProveedores(filtered);
-        setCurrentPage(1);
-    };
-
     const sortProveedores = (field) => {
         const sortedProveedores = [...filteredProveedores].sort((a, b) => {
             const aField = a[field]?.toLowerCase() || '';
@@ -75,6 +66,19 @@ const CompShowProveedor = () => {
         return sortOrder === 'asc' ? '↑' : '↓';
     };
 
+    // Filtrar proveedores basado en el término de búsqueda
+    useEffect(() => {
+        const filtered = proveedores.filter((proveedor) =>
+            proveedor.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            proveedor.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            proveedor.telefono.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            proveedor.nit.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            proveedor.direccion.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            (proveedor.tipoProveedor?.descripcion.toLowerCase() || '').includes(searchTerm.toLowerCase())
+        );
+        setFilteredProveedores(filtered);
+    }, [searchTerm, proveedores]);
+
     const indexOfLastProveedor = currentPage * proveedoresPerPage;
     const indexOfFirstProveedor = indexOfLastProveedor - proveedoresPerPage;
     const currentProveedores = filteredProveedores.slice(indexOfFirstProveedor, indexOfLastProveedor);
@@ -84,19 +88,25 @@ const CompShowProveedor = () => {
 
     return (
         <div className="container">
+            {/* Título */}
             <div className='row justify-content-center my-4'>
                 <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
                     Gestión de Proveedores
                 </h2>
             </div>
 
-            <div className='row justify-content-between align-items-center mb-4'>
-                <div className='col-md-6'>
-                    <SearchProveedor proveedores={proveedores} onSearch={handleSearch} />
-                </div>
-                <div className='col-md-3 text-end'>
-                    <Link to="/proveedor/create" className='btn btn-primary'>
-                        <i className="fa-solid fa-plus"></i>
+            {/* Buscador y botón de crear en la misma fila */}
+            <div className="row justify-content-center mb-4">
+                <div className="col-md-6 d-flex justify-content-center">
+                    <input
+                        type="text"
+                        className="form-control me-2"
+                        placeholder="Buscar proveedor..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                    <Link to="/proveedor/create" className="btn btn-primary ms-2">
+                        <i className="fa-solid fa-plus"></i> 
                     </Link>
                 </div>
             </div>
@@ -104,6 +114,7 @@ const CompShowProveedor = () => {
             {loading && <p>Cargando...</p>}
             {error && <p className="text-danger">{error}</p>}
 
+            {/* Tabla de proveedores */}
             <table className="table table-hover">
                 <thead className="table-dark">
                     <tr>
