@@ -12,29 +12,45 @@ const CompCreateReparacion = () => {
     const [descripcion, setDescripcion] = useState('');
     const [costo, setCosto] = useState('');
     const [vehiculoId] = useState(id); // Almacena solo el ID del vehículo
-    const [vehiculos, setVehiculos] = useState([]);
+    const [vehiculo, setVehiculo] = useState(null); // Para almacenar el vehículo
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchVehiculos = async () => {
+        const fetchVehiculo = async () => {
             try {
-                const res = await axios.get(URI_VEHICULO);
-                const filteredVehiculo = res.data.find(vehiculo => vehiculo.id.toString() === id); // Filtrar el vehículo por ID
-                setVehiculos([filteredVehiculo]); // Solo almacenar el vehículo que coincide
+                const res = await axios.get(`${URI_VEHICULO}${id}`);
+                setVehiculo(res.data); // Almacenar el vehículo completo
             } catch (error) {
-                console.error("Error al obtener los vehículos:", error);
-                setErrorMessage("Error al obtener los vehículos.");
+                console.error("Error al obtener el vehículo:", error);
+                setErrorMessage("Error al obtener el vehículo.");
             }
         };
 
-        fetchVehiculos();
+        fetchVehiculo();
     }, [id]); // Agregar id como dependencia
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        // Verifica si el vehículo ya está activo
+        if (vehiculo?.estado === 'activo') {
+            setErrorMessage("El vehículo ya está activo.");
+            return;
+        }
+
+        // Primero, actualiza el estado del vehículo a "activo"
+        try {
+            await axios.patch(`${URI_VEHICULO}${id}/estado`, { estado: 'activo' });
+            setVehiculo({ ...vehiculo, estado: 'activo' }); // Actualizar el estado localmente
+        } catch (error) {
+            console.error("Error al actualizar el estado del vehículo:", error);
+            setErrorMessage("Error al actualizar el estado del vehículo.");
+            return;
+        }
+
+        // Ahora, procede a crear la reparación
         const newReparacion = {
             fecha,
             descripcion,
@@ -122,7 +138,7 @@ const CompCreateReparacion = () => {
                                     disabled // Deshabilitar el campo de selección
                                 >
                                     <option value={vehiculoId}>
-                                        {vehiculos.length > 0 ? vehiculos[0].placa : 'Cargando vehículo...'}
+                                        {vehiculo ? vehiculo.placa : 'Cargando vehículo...'}
                                     </option>
                                 </select>
                             </div>
