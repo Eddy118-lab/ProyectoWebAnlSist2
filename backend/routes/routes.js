@@ -18,6 +18,7 @@ import {getTipoMarcas, getTipoMarcaById, createTipoMarca, updateTipoMarca, delet
 import {getVehiculos, getVehiculoById, createVehiculo, updateVehiculo, deleteVehiculo, updateVehiculoEstado} from '../controllers/VehiculoController.js';
 import {getReparaciones, getReparacionById, createReparacion, updateReparacion, deleteReparacion} from '../controllers/ReparacionController.js'; 
 import {getCombustibles, getCombustibleById, createCombustible, updateCombustible, deleteCombustible} from '../controllers/CombustibleController.js'; 
+import { getRutas, getRutaById, createRuta, updateRuta, deleteRuta } from '../controllers/RutaController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -158,6 +159,13 @@ router.get('/reparacion/:id', getReparacionById);
 router.post('/reparacion', createReparacion); 
 router.put('/reparacion/:id', updateReparacion); 
 router.delete('/reparacion/:id', deleteReparacion); 
+
+// CRUD DE RUTA
+router.get('/ruta', getRutas);
+router.get('/ruta/:id', getRutaById);
+router.post('/ruta', createRuta);
+router.put('/ruta/:id', updateRuta);
+router.delete('/ruta/:id', deleteRuta);
 
 ///// RUTA LOGIN
 router.post('/login', login);

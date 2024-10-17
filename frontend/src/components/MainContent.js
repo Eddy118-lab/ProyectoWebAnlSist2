@@ -9,6 +9,7 @@ import compra from './pictures/buys.png';
 import materiales from './pictures/materials.png';
 import FactProv from './pictures/supplierbilling.png';
 import camion from './pictures/truck.png';
+import ruta from './pictures/route.png';
 import './Styles/MainContent.css';
 
 function MainContent() {
@@ -54,6 +55,12 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
+          <Link to="/ruta/gestion-rutas" className="btn-module">
+            <img src={ruta} alt="Gestión de Rutas" />
+            <h3>Gestión de Rutas</h3>
+          </Link>
+        </div>
+        <div className="module-card">
           <Link to="/usuario/gestion-usuarios" className="btn-module">
             <img src={usuario2} alt="Gestión de Usuarios" />
             <h3>Gestión de Usuarios</h3>
@@ -61,7 +68,7 @@ function MainContent() {
         </div>
         <div className="module-card">
           <Link to="/compra/gestion-compras/catalogo" className="btn-module">
-            <img src={compra} alt="Gestión de Compras" />  {/* Nueva tarjeta */}
+            <img src={compra} alt="Gestión de Compras" /> 
             <h3>Gestión de Compras</h3>
           </Link>
         </div>

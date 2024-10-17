@@ -56,6 +56,9 @@ import CompShowCombustible from './components/ShowCombustible.js';
 import CompCreateReparacion from './components/CreateReparacion.js';
 import CompEditReparacion from './components/EditReparacion.js';
 import CompShowReparacion from './components/ShowReparacion.js';
+import CompCreateRuta from './components/CreateRuta.js';
+import CompEditRuta from './components/EditRuta.js';
+import CompShowRuta from './components/ShowRuta.js';
 import PrivateRoute from './components/privateroute.js';
 
 import HeaderInicio from './inicio/HeaderInicio.js';
@@ -66,6 +69,7 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function SaveLastValidRoute() {
   const location = useLocation();
@@ -104,16 +108,102 @@ function App() {
 
   const RedirectToLastValidRoute = () => {
     const navigate = useNavigate();
-    const lastValidRoute = localStorage.getItem('lastValidRoute') || '/Home';
+    const lastValidRoute = localStorage.getItem('lastValidRoute') || '/inicio'; // Obtener la última ruta válida o /inicio
+    const protectedRoutes = [
+      "/Home",
+
+      // Rutas de Usuario
+      "/usuario/gestion-usuarios",
+      "/usuario/create",
+      "/usuario/edit/:id",
+
+      // Rutas de Cliente
+      "/cliente/gestion-clientes",
+      "/cliente/create",
+      "/cliente/edit/:id",
+      "/cliente/tipo-cliente/gestion-tipos-clientes",
+      "/cliente/tipo-cliente/create",
+      "/cliente/tipo-cliente/edit/:id",
+
+      // Rutas de Conductor
+      "/conductor/gestion-conductores",
+      "/conductor/create",
+      "/conductor/edit/:id",
+
+      // Rutas de Proveedor
+      "/proveedor/gestion-proveedores",
+      "/proveedor/create",
+      "/proveedor/edit/:id",
+      "/proveedor/tipo-proveedor/gestion-tipos-proveedores",
+      "/proveedor/tipo-proveedor/create",
+      "/proveedor/tipo-proveedor/edit/:id",
+
+      // Rutas de Material
+      "/material/gestion-materiales",
+      "/material/create",
+      "/material/edit/:id",
+      "/material/dimension/gestion-dimensiones",
+      "/material/dimension/create",
+      "/material/dimension/edit/:id",
+      "/material/peso/gestion-pesos",
+      "/material/peso/create",
+      "/material/peso/edit/:id",
+      "/material/tipo-material/gestion-tipos-materiales",
+      "/material/tipo-material/create",
+      "/material/tipo-material/edit/:id",
+
+      // Rutas de Inventario
+      "/inventario/gestion-inventarios",
+      "/inventario/create",
+
+      // Rutas de Factura Proveedor
+      "/factura-proveedor/gestion-facturas-proveedores",
+      "/factura-proveedor/detalle-factura-proveedor/:id",
+      "/factura-proveedor/pago-proveedor/:id",
+      "/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores",
+      "/factura-proveedor/tipo-pago-proveedor/create",
+      "/factura-proveedor/tipo-pago-proveedor/edit/:id",
+
+      // Rutas de Compras
+      "/compra/gestion-compras/catalogo",
+      "/compra/gestion-compras/detalle/:id",
+      "/compra/gestion-compras/resumen",
+      "/compra/gestion-compras/exito",
+
+      // Rutas de Vehículo
+      "/vehiculo/gestion-vehiculos",
+      "/vehiculo/create",
+      "/vehiculo/edit/:id",
+      "/vehiculo/combustible/gestion-combustibles/:id",
+      "/vehiculo/combustible/create/:id",
+      "/vehiculo/combustible/edit/:id/:id",
+      "/vehiculo/reparacion/gestion-reparaciones/:id",
+      "/vehiculo/reparacion/create/:id",
+      "/vehiculo/reparacion/edit/:id/:id",
+
+      // Rutas de ruta
+      "/ruta/gestion-rutas",
+      "/ruta/create",
+      "/ruta/edit/:id"
+    ];
+
     useEffect(() => {
-      navigate(lastValidRoute);
+      // Verifica si la última ruta válida está dentro de las rutas protegidas
+      if (!protectedRoutes.includes(lastValidRoute)) {
+        // Si no es una ruta protegida, redirige a inicio
+        navigate('/inicio');
+      } else {
+        // Si es una ruta protegida, redirige a la última ruta válida
+        navigate(lastValidRoute);
+      }
     }, [navigate, lastValidRoute]);
 
     return null;
   };
 
+
   if (loading) {
-    return <div>Loading...</div>; // Estado de carga mientras se verifica la autenticación
+    return <div>Cargando...</div>; // Estado de carga mientras se verifica la autenticación
   }
 
   return (
@@ -205,10 +295,12 @@ function App() {
               <Route path="/vehiculo/combustible/gestion-combustibles/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowCombustible /></PrivateRoute>} />
               <Route path="/vehiculo/combustible/create/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateCombustible /></PrivateRoute>} />
               <Route path="/vehiculo/combustible/edit/:id/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditCombustible /></PrivateRoute>} />
-
               <Route path="/vehiculo/reparacion/gestion-reparaciones/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowReparacion /></PrivateRoute>} />
               <Route path="/vehiculo/reparacion/create/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateReparacion /></PrivateRoute>} />
               <Route path="/vehiculo/reparacion/edit/:id/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditReparacion /></PrivateRoute>} />
+              <Route path="/ruta/gestion-rutas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowRuta /></PrivateRoute>} />
+              <Route path="/ruta/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateRuta /></PrivateRoute>} />
+              <Route path="/ruta/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditRuta /></PrivateRoute>} />
               {/* Si la ruta no coincide, redirige a la última ruta válida */}
 
               <Route path="*" element={<RedirectToLastValidRoute />} />

@@ -26,6 +26,7 @@ function Header({ onLogout }) {
     '/proveedor/gestion-proveedores',
     '/conductor/gestion-conductores',
     '/vehiculo/gestion-vehiculos',
+    '/ruta/gestion-rutas',
     '/usuario/gestion-usuarios',
     '/cliente/gestion-clientes',
     '/compra/gestion-compras/catalogo',
@@ -110,6 +111,7 @@ function Header({ onLogout }) {
           <li onClick={() => handleNavItemClick('/proveedor/gestion-proveedores')}>Gestión de Proveedores</li>
           <li onClick={() => handleNavItemClick('/conductor/gestion-conductores')}>Gestión de Conductores</li>
           <li onClick={() => handleNavItemClick('/vehiculo/gestion-vehiculos')}>Gestión de Vehículos</li>
+          <li onClick={() => handleNavItemClick('/ruta/gestion-rutas')}>Gestión de Rutas</li>
           <li onClick={() => handleNavItemClick('/usuario/gestion-usuarios')}>Gestión de Usuarios</li>
           <li onClick={() => handleNavItemClick('/cliente/gestion-clientes')}>Gestión de Clientes</li>
           <li onClick={() => handleNavItemClick('/compra/gestion-compras/catalogo')}>Gestión de Compras</li> {/* Nuevo módulo */}
