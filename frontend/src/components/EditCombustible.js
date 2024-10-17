@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const URI_COMBUSTIBLE = 'http://localhost:8000/api/combustible/';
 const URI_VEHICULO = 'http://localhost:8000/api/vehiculo';
@@ -17,18 +17,18 @@ const CompEditCombustible = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const navigate = useNavigate();
 
-    // Función para obtener el combustible y los vehículos
+    // Cargar datos de combustible y vehículos
     useEffect(() => {
         const fetchCombustible = async () => {
             try {
                 const res = await axios.get(`${URI_COMBUSTIBLE}${id}`);
                 const combustible = res.data;
-                setFecha(combustible.fecha);
+                
+                setFecha(new Date(combustible.fecha).toISOString().split('T')[0]); // Formato yyyy-mm-dd
                 setCantidad(combustible.cantidad);
                 setCosto(combustible.costo);
                 setVehiculoId(combustible.vehiculo_id);
             } catch (error) {
-                console.error("Error al obtener el combustible:", error);
                 setErrorMessage("Error al obtener el combustible.");
             }
         };
@@ -38,7 +38,6 @@ const CompEditCombustible = () => {
                 const res = await axios.get(URI_VEHICULO);
                 setVehiculos(res.data);
             } catch (error) {
-                console.error("Error al obtener los vehículos:", error);
                 setErrorMessage("Error al obtener los vehículos.");
             }
         };
@@ -47,6 +46,7 @@ const CompEditCombustible = () => {
         fetchVehiculos();
     }, [id]);
 
+    // Manejar la actualización de combustible
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -54,7 +54,7 @@ const CompEditCombustible = () => {
             fecha,
             cantidad,
             costo,
-            vehiculo_id: vehiculoId // Incluye la clave foránea
+            vehiculo_id: vehiculoId
         };
 
         try {
@@ -62,20 +62,18 @@ const CompEditCombustible = () => {
             if (response.status === 200) {
                 setSuccessMessage("Combustible actualizado con éxito!");
                 setErrorMessage('');
-                setTimeout(() => {
-                    navigate(`/vehiculo/combustible/gestion-combustibles/${vehiculoId}`); // Regresa a la ruta correcta
-                }, 2000);
+                setTimeout(() => navigate(`/vehiculo/combustible/gestion-combustibles/${vehiculoId}`), 2000);
             } else {
                 setErrorMessage("Error al actualizar el combustible.");
             }
         } catch (error) {
-            console.error("Error al enviar datos:", error);
             setErrorMessage("Error al actualizar el combustible.");
         }
     };
 
+    // Cancelar y volver
     const handleCancel = () => {
-        navigate(`/vehiculo/combustible/gestion-combustibles/${vehiculoId}`); // Regresa a la ruta correcta
+        navigate(`/vehiculo/combustible/gestion-combustibles/${vehiculoId}`);
     };
 
     return (
@@ -87,7 +85,7 @@ const CompEditCombustible = () => {
                 <div className="card-body">
                     {successMessage && <div className="alert alert-success">{successMessage}</div>}
                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-                    
+
                     <form onSubmit={handleSubmit} className="row g-3">
                         <div className="col-md-6">
                             <div className="form-group">
@@ -130,13 +128,11 @@ const CompEditCombustible = () => {
                                     className='form-select'
                                     value={vehiculoId}
                                     onChange={(e) => setVehiculoId(e.target.value)}
-                                    required
-                                    disabled // Deshabilitar el select
+                                    disabled // Deshabilitado para evitar cambios de vehículo
                                 >
-                                    <option value="" disabled>Seleccione un vehículo</option>
                                     {vehiculos.map(vehiculo => (
                                         <option key={vehiculo.id} value={vehiculo.id}>
-                                            {vehiculo.placa} {/* Mostrar la placa aquí */}
+                                            {vehiculo.placa}
                                         </option>
                                     ))}
                                 </select>

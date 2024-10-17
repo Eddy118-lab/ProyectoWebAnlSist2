@@ -49,63 +49,71 @@ const CompShowReparacion = () => {
                 getReparacionesByVehiculoId(); // Actualizar la lista después de eliminar
             }
         } catch (error) {
-            setError('Error al eliminar la reparación.');
             console.error('Error al eliminar la reparación:', error);
+            setError('Error al eliminar la reparación.');
         }
     };
 
+    // Función para formatear la fecha
     const formatFecha = (fecha) => {
-        return new Date(fecha).toLocaleDateString('es-ES'); // Formato dd-mm-yyyy
+        const [year, month, day] = fecha.split('-');
+        return `${day}-${month}-${year}`;
     };
 
     return (
         <div className="container mt-5">
             <div className="row">
                 <div className="col-lg-12">
-                    <div className="mb-4">
-                        <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
-                            Gestión de Reparaciones
-                        </h2>
-                        <Link to="/vehiculo/gestion-vehiculos" className="btn btn-secondary mb-3">
-                            Regresar a Gestión de Vehículos
-                        </Link>
-                        <Link to={`/vehiculo/reparacion/create/${vehiculo_id}`} className="btn btn-primary mb-3">
-                            <i className="fa-solid fa-plus"></i>
-                        </Link>
-                    </div>
+                    <h2 className="text-center display-6" style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                        Gestión de Reparaciones
+                    </h2>
+                    <Link to="/vehiculo/gestion-vehiculos" className="btn btn-secondary mb-3">
+                        Regresar a Gestión de Vehículos
+                    </Link>
+                    <Link to={`/vehiculo/reparacion/create/${vehiculo_id}`} className="btn btn-primary mb-3">
+                        <i className="fa-solid fa-plus"></i>
+                    </Link>
                     {loading && <p>Cargando...</p>}
                     {error && <p className="text-danger">{error}</p>}
-
                     <table className="table table-hover">
                         <thead className="table-dark">
                             <tr>
-                                <th>Fecha</th>
                                 <th>Descripción</th>
                                 <th>Costo</th>
-                                <th>Vehículo</th>
+                                <th>Fecha</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {reparaciones.length === 0 ? (
                                 <tr>
-                                    <td colSpan="5">No hay registros de reparaciones disponibles para este vehículo.</td>
+                                    <td colSpan="4">No hay reparaciones registradas.</td>
                                 </tr>
                             ) : (
-                                reparaciones.map(reparacion => (
+                                reparaciones.map((reparacion) => (
                                     <tr key={reparacion.id}>
-                                        <td>{formatFecha(reparacion.fecha)}</td>
                                         <td>{reparacion.descripcion}</td>
                                         <td>{reparacion.costo}</td>
-                                        <td>{vehiculo ? vehiculo.placa : 'Cargando...'}</td> {/* Mostrar la placa del vehículo */}
+                                        <td>{formatFecha(reparacion.fecha)}</td> {/* Formatear la fecha aquí */}
                                         <td>
-                                            {/* Enlace de edición actualizado con ambos parámetros */}
-                                            <Link to={`/vehiculo/reparacion/edit/${vehiculo.id}/${reparacion.id}`} className="btn btn-warning btn-sm mr-2">
-                                                <i className="fa-regular fa-pen-to-square"></i>
-                                            </Link>
-                                            <button onClick={() => deleteReparacion(reparacion.id)} className="btn btn-danger btn-sm">
-                                                <i className="fa-regular fa-trash-can"></i>
-                                            </button>
+                                            {vehiculo ? (
+                                                <>
+                                                    <Link
+                                                        to={`/vehiculo/reparacion/edit/${vehiculo.id}/${reparacion.id}`}
+                                                        className="btn btn-warning btn-sm mr-2"
+                                                    >
+                                                        <i className="fa-regular fa-pen-to-square"></i>
+                                                    </Link>
+                                                    <button
+                                                        onClick={() => deleteReparacion(reparacion.id)}
+                                                        className="btn btn-danger btn-sm"
+                                                    >
+                                                        <i className="fa-regular fa-trash-can"></i>
+                                                    </button>
+                                                </>
+                                            ) : (
+                                                <span>Cargando vehículo...</span>
+                                            )}
                                         </td>
                                     </tr>
                                 ))
@@ -119,3 +127,4 @@ const CompShowReparacion = () => {
 };
 
 export default CompShowReparacion;
+

@@ -60,8 +60,8 @@ const CompShowCombustible = () => {
 
     const sortCombustibles = (field) => {
         const sortedCombustibles = [...combustibles].sort((a, b) => {
-            const aField = a[field]?.toLowerCase() || '';
-            const bField = b[field]?.toLowerCase() || '';
+            const aField = a[field]?.toString().toLowerCase() || '';
+            const bField = b[field]?.toString().toLowerCase() || '';
             if (aField < bField) return sortOrder === 'asc' ? -1 : 1;
             if (aField > bField) return sortOrder === 'asc' ? 1 : -1;
             return 0;
@@ -71,6 +71,7 @@ const CompShowCombustible = () => {
         setSortField(field);
     };
 
+    // Función para formatear la fecha
     const formatFecha = (fecha) => {
         const [year, month, day] = fecha.split('-');
         return `${day}-${month}-${year}`; // Formato dd-mm-yyyy
@@ -106,7 +107,7 @@ const CompShowCombustible = () => {
                                 <th onClick={() => sortCombustibles('costo')} style={{ cursor: 'pointer' }}>
                                     Costo {sortField === 'costo' ? (sortOrder === 'asc' ? '↑' : '↓') : ''}
                                 </th>
-                                <th>Placa Vehículo</th> {/* Nueva columna para la placa */}
+                                <th>Placa Vehículo</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
@@ -118,10 +119,10 @@ const CompShowCombustible = () => {
                             ) : (
                                 combustibles.map(combustible => (
                                     <tr key={combustible.id}>
-                                        <td>{formatFecha(combustible.fecha)}</td>
+                                        <td>{formatFecha(combustible.fecha)}</td> {/* Formatear la fecha aquí */}
                                         <td>{combustible.cantidad}</td>
                                         <td>{combustible.costo}</td>
-                                        <td>{vehiculoPlaca}</td> {/* Mostrar la placa aquí */}
+                                        <td>{vehiculoPlaca || 'Placa no disponible'}</td>
                                         <td>
                                             <Link to={`/vehiculo/combustible/edit/${id}/${combustible.id}`} className="btn btn-warning btn-sm mr-2">
                                                 <i className="fa-regular fa-pen-to-square"></i>
