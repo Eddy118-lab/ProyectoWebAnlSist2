@@ -65,7 +65,7 @@
 
 /* Estilo para los elementos del menú desplegable del usuario */
 .user-menu-item {
-  padding: 10px;
+  padding: 8px;
   text-align: left;
   display: block;
   color: #333;
@@ -135,7 +135,7 @@
 
 /* Muestra el menú lateral cuando isNavOpen es verdadero */
 .side-nav.open {
-  display: block; /* Muestra el menú cuando está abierto */
+  display: block; /* Muetra el menú cuando está abierto */
 }
 
 .side-nav ul {

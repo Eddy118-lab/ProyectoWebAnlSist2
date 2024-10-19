@@ -19,6 +19,9 @@ import {getVehiculos, getVehiculoById, createVehiculo, updateVehiculo, deleteVeh
 import {getReparaciones, getReparacionById, createReparacion, updateReparacion, deleteReparacion} from '../controllers/ReparacionController.js'; 
 import {getCombustibles, getCombustibleById, createCombustible, updateCombustible, deleteCombustible} from '../controllers/CombustibleController.js'; 
 import { getRutas, getRutaById, createRuta, updateRuta, deleteRuta } from '../controllers/RutaController.js';
+import { getTipoEstados, getTipoEstadoById, createTipoEstado, updateTipoEstado, deleteTipoEstado } from '../controllers/TipoEstadoController.js';
+import { getAsignaciones, getAsignacionById, createAsignacion, updateAsignacion, deleteAsignacion } from '../controllers/AsignacionController.js';
+import { getCargas, getCargaById, createCarga, updateCarga, deleteCarga } from '../controllers/CargaController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -166,6 +169,27 @@ router.get('/ruta/:id', getRutaById);
 router.post('/ruta', createRuta);
 router.put('/ruta/:id', updateRuta);
 router.delete('/ruta/:id', deleteRuta);
+
+///// CRUD DE TIPO ESTADO
+router.get('/tipo-estado', getTipoEstados);
+router.get('/tipo-estado/:id', getTipoEstadoById);
+router.post('/tipo-estado', createTipoEstado);
+router.put('/tipo-estado/:id', updateTipoEstado);
+router.delete('/tipo-estado/:id', deleteTipoEstado);
+
+///// CRUD DE ASIGNACION
+router.get('/asignacion', getAsignaciones);
+router.get('/asignacion/:id', getAsignacionById);
+router.post('/asignacion', createAsignacion);
+router.put('/asignacion/:id', updateAsignacion);
+router.delete('/asignacion/:id', deleteAsignacion);
+
+///// CRUD DE CARGA
+router.get('/carga', getCargas);
+router.get('/carga/:id', getCargaById);
+router.post('/carga', createCarga);
+router.put('/carga/:id', updateCarga);
+router.delete('/carga/:id', deleteCarga);
 
 ///// RUTA LOGIN
 router.post('/login', login);

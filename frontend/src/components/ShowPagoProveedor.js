@@ -88,14 +88,12 @@ const CompShowPagoProveedor = () => {
                         <button
                             className="btn btn-secondary"
                             onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')}
-                        >
-                            <i className="fas fa-arrow-left"></i> Volver a Facturas
+                        > Volver a Facturas
                         </button>
                         <button
                             className="btn btn-primary"
                             onClick={() => navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores')}
-                        >
-                            <i className="fas fa-cog"></i> Gestionar Tipos de Pagos
+                        >Gestionar Tipos de Pagos
                         </button>
                     </div>
                 </div>

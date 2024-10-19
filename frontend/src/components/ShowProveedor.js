@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Modal, Button } from 'react-bootstrap'; // Importar Modal y Button de react-bootstrap
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'; // Importar autotable
+import * as XLSX from 'xlsx'; // Importar XLSX para descargar en Excel
 
 const URI = 'http://localhost:8000/api/proveedor';
 
@@ -16,6 +20,8 @@ const CompShowProveedor = () => {
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortField, setSortField] = useState('nombre');
     const [searchTerm, setSearchTerm] = useState('');
+    const [selectedProveedor, setSelectedProveedor] = useState(null); // Para el proveedor seleccionado
+    const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
 
     useEffect(() => {
         getProveedores();
@@ -86,6 +92,73 @@ const CompShowProveedor = () => {
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
     const totalPages = Math.ceil(filteredProveedores.length / proveedoresPerPage);
 
+    // Función para ver detalles del proveedor
+    const viewProveedorDetails = (proveedor) => {
+        setSelectedProveedor(proveedor);
+        setShowModal(true); // Cambiar a true para mostrar el modal
+        console.log("Proveedor seleccionado:", proveedor); // Verifica que el proveedor sea el correcto
+    };
+
+    // Función para descargar en PDF
+    const downloadPDF = () => {
+        if (!selectedProveedor) return;
+
+        const doc = new jsPDF();
+        doc.setFontSize(20);
+        doc.text("Detalles del Proveedor", 20, 20);
+        doc.setFontSize(12);
+
+        const headers = [["Nombre", "Email", "Teléfono", "NIT", "Dirección", "Tipo"]];
+        const data = [[
+            selectedProveedor.nombre,
+            selectedProveedor.email,
+            selectedProveedor.telefono,
+            selectedProveedor.nit,
+            selectedProveedor.direccion,
+            selectedProveedor.tipoProveedor?.descripcion || 'N/A'
+        ]];
+
+        // Usar autoTable para crear la tabla en el PDF
+        doc.autoTable({
+            head: headers,
+            body: data,
+            startY: 30,
+        });
+
+        doc.save(`proveedor_${selectedProveedor.id}.pdf`);
+    };
+
+    // Función para descargar en Excel
+    const downloadExcel = () => {
+        if (!selectedProveedor) return;
+
+        const worksheet = XLSX.utils.json_to_sheet([selectedProveedor]);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Proveedor");
+        XLSX.writeFile(workbook, `proveedor_${selectedProveedor.id}.xlsx`);
+    };
+
+    // Función para descargar en TXT
+    const downloadTXT = () => {
+        if (!selectedProveedor) return;
+
+        // Crear un texto simple con los datos
+        const text = `
+Nombre: ${selectedProveedor.nombre}
+Email: ${selectedProveedor.email}
+Teléfono: ${selectedProveedor.telefono}
+NIT: ${selectedProveedor.nit}
+Dirección: ${selectedProveedor.direccion}
+Tipo: ${selectedProveedor.tipoProveedor ? selectedProveedor.tipoProveedor.descripcion : 'N/A'}
+`.trim(); // .trim() elimina espacios en blanco adicionales al principio y al final
+
+        const blob = new Blob([text], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `proveedor_${selectedProveedor.id}.txt`;
+        link.click();
+    };
+
     return (
         <div className="container">
             {/* Título */}
@@ -154,7 +227,10 @@ const CompShowProveedor = () => {
                                 <td>{proveedor.direccion}</td>
                                 <td>{proveedor.tipoProveedor ? proveedor.tipoProveedor.descripcion : 'N/A'}</td>
                                 <td>
-                                    <div className="d-flex gap-2">
+                                    <div className="d-flex gap-2" style={{marginRight: '-90px'}}>
+                                        <button onClick={() => { viewProveedorDetails(proveedor); }} className="btn btn-info btn-sm">
+                                            <i className="fa-regular fa-eye"></i>
+                                        </button>
                                         <Link to={`/proveedor/edit/${proveedor.id}`} className="btn btn-warning btn-sm">
                                             <i className="fa-regular fa-pen-to-square"></i>
                                         </Link>
@@ -181,6 +257,56 @@ const CompShowProveedor = () => {
                     ))}
                 </ul>
             </nav>
+
+            {/* Modal para mostrar detalles del proveedor */}
+            <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
+                <Modal.Header style={{ backgroundColor: '#17a2b8', color: 'white' }}>
+                    <h5 className="modal-title">Detalles del Proveedor</h5>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedProveedor && (
+                        <div>
+                            <h5 className="mb-3">Información del Proveedor</h5>
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nombre</strong></td>
+                                        <td>{selectedProveedor.nombre}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email</strong></td>
+                                        <td>{selectedProveedor.email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Teléfono</strong></td>
+                                        <td>{selectedProveedor.telefono}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>NIT</strong></td>
+                                        <td>{selectedProveedor.nit}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dirección</strong></td>
+                                        <td>{selectedProveedor.direccion}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo</strong></td>
+                                        <td>{selectedProveedor.tipoProveedor ? selectedProveedor.tipoProveedor.descripcion : 'N/A'}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={downloadPDF}>Descargar PDF</Button>
+                    <Button variant="success" onClick={downloadExcel}>Descargar Excel</Button>
+                    <Button variant="info" onClick={downloadTXT}>Descargar TXT</Button>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };

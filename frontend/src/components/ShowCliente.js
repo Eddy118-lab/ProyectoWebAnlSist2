@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import SearchCliente from './SearchCliente.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Modal, Button } from 'react-bootstrap'; // Importar Modal y Button de react-bootstrap
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'; // Importar autotable
+import * as XLSX from 'xlsx'; // Importar XLSX para descargar en Excel
 
 const URI = 'http://localhost:8000/api/cliente';
 
@@ -14,9 +18,10 @@ const CompShowCliente = () => {
     const [clientesPerPage] = useState(5);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortField, setSortField] = useState('nombre');
+    const [selectedCliente, setSelectedCliente] = useState(null); // Para el cliente seleccionado
+    const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
 
     useEffect(() => {
         getClientes();
@@ -79,9 +84,76 @@ const CompShowCliente = () => {
     const indexOfLastCliente = currentPage * clientesPerPage;
     const indexOfFirstCliente = indexOfLastCliente - clientesPerPage;
     const currentClientes = filteredClientes.slice(indexOfFirstCliente, indexOfLastCliente);
+    const totalPages = Math.ceil(filteredClientes.length / clientesPerPage);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
-    const totalPages = Math.ceil(filteredClientes.length / clientesPerPage);
+
+    // Función para ver detalles del cliente
+    const viewClienteDetails = (cliente) => {
+        setSelectedCliente(cliente);
+        setShowModal(true); // Cambiar a true para mostrar el modal
+        console.log("Cliente seleccionado:", cliente); // Verifica que el cliente sea el correcto
+    };
+
+    // Función para descargar en PDF
+    const downloadPDF = () => {
+        if (!selectedCliente) return;
+
+        const doc = new jsPDF();
+        doc.setFontSize(20);
+        doc.text("Detalles del Cliente", 20, 20);
+        doc.setFontSize(12);
+
+        const headers = [["Nombre", "Email", "Teléfono", "NIT", "Dirección", "Tipo"]];
+        const data = [[
+            selectedCliente.nombre,
+            selectedCliente.email,
+            selectedCliente.telefono,
+            selectedCliente.nit,
+            selectedCliente.direccion,
+            selectedCliente.tipoCliente?.descripcion || 'N/A'
+        ]];
+
+        // Usar autoTable para crear la tabla en el PDF
+        doc.autoTable({
+            head: headers,
+            body: data,
+            startY: 30,
+        });
+
+        doc.save(`cliente_${selectedCliente.id}.pdf`);
+    };
+
+    // Función para descargar en Excel
+    const downloadExcel = () => {
+        if (!selectedCliente) return;
+
+        const worksheet = XLSX.utils.json_to_sheet([selectedCliente]);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Cliente");
+        XLSX.writeFile(workbook, `cliente_${selectedCliente.id}.xlsx`);
+    };
+
+    // Función para descargar en TXT
+    const downloadTXT = () => {
+        if (!selectedCliente) return;
+
+        // Crear un texto simple con los datos
+        const text = `
+Nombre: ${selectedCliente.nombre}
+Email: ${selectedCliente.email}
+Teléfono: ${selectedCliente.telefono}
+NIT: ${selectedCliente.nit}
+Dirección: ${selectedCliente.direccion}
+Tipo: ${selectedCliente.tipoCliente ? selectedCliente.tipoCliente.descripcion : 'N/A'}
+`.trim(); // .trim() elimina espacios en blanco adicionales al principio y al final
+
+        const blob = new Blob([text], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `cliente_${selectedCliente.id}.txt`;
+        link.click();
+    };
 
     return (
         <div className="container">
@@ -145,7 +217,10 @@ const CompShowCliente = () => {
                                         <td>{cliente.direccion}</td>
                                         <td>{cliente.tipoCliente ? cliente.tipoCliente.descripcion : 'N/A'}</td>
                                         <td>
-                                            <div className="d-flex gap-2">
+                                            <div className="d-flex gap-2" style={{marginRight: '-60px'}}>
+                                                <button onClick={() => { viewClienteDetails(cliente); }} className='btn btn-info btn-sm'>
+                                                    <i className="fa-regular fa-eye"></i>
+                                                </button>
                                                 <Link to={`/cliente/edit/${cliente.id}`} className='btn btn-warning btn-sm'>
                                                     <i className="fa-regular fa-pen-to-square"></i>
                                                 </Link>
@@ -174,6 +249,56 @@ const CompShowCliente = () => {
                     ))}
                 </ul>
             </nav>
+
+            {/* Modal para mostrar detalles del cliente */}
+            <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
+                <Modal.Header style={{ backgroundColor: '#17a2b8', color: 'white' }}>
+                    <h5 className="modal-title">Detalles del Cliente</h5>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedCliente && (
+                        <div>
+                            <h5 className="mb-3">Información del Cliente</h5>
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nombre</strong></td>
+                                        <td>{selectedCliente.nombre}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email</strong></td>
+                                        <td>{selectedCliente.email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Teléfono</strong></td>
+                                        <td>{selectedCliente.telefono}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>NIT</strong></td>
+                                        <td>{selectedCliente.nit}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dirección</strong></td>
+                                        <td>{selectedCliente.direccion}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Tipo</strong></td>
+                                        <td>{selectedCliente.tipoCliente ? selectedCliente.tipoCliente.descripcion : 'N/A'}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={downloadPDF}>Descargar PDF</Button>
+                    <Button variant="success" onClick={downloadExcel}>Descargar Excel</Button>
+                    <Button variant="info" onClick={downloadTXT}>Descargar TXT</Button>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };

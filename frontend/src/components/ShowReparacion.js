@@ -8,9 +8,11 @@ const URI_VEHICULOS = 'http://localhost:8000/api/vehiculo';
 const CompShowReparacion = () => {
     const { id: vehiculo_id } = useParams(); // Obtener el ID del vehículo de la URL
     const [reparaciones, setReparaciones] = useState([]);
+    const [filteredReparaciones, setFilteredReparaciones] = useState([]); // Estado para las reparaciones filtradas
     const [vehiculo, setVehiculo] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState(''); // Estado para el término de búsqueda
 
     const getReparacionesByVehiculoId = useCallback(async () => {
         setLoading(true);
@@ -18,6 +20,7 @@ const CompShowReparacion = () => {
             const res = await axios.get(URI_REPARACIONES);
             const filteredReparaciones = res.data.filter(reparacion => reparacion.vehiculo_id.toString() === vehiculo_id);
             setReparaciones(filteredReparaciones);
+            setFilteredReparaciones(filteredReparaciones); // Inicialmente los reparaciones filtradas son los mismos
         } catch (error) {
             setError('Error al obtener las reparaciones.');
             console.error('Error al obtener las reparaciones:', error);
@@ -60,6 +63,20 @@ const CompShowReparacion = () => {
         return `${day}-${month}-${year}`;
     };
 
+    // Función para manejar la búsqueda
+    const handleSearch = (e) => {
+        const term = e.target.value.toLowerCase();
+        setSearchTerm(term);
+        const filtered = reparaciones.filter(reparacion => {
+            return (
+                reparacion.descripcion.toLowerCase().includes(term) ||
+                reparacion.costo.toString().includes(term) ||
+                formatFecha(reparacion.fecha).includes(term) // Formatear fecha para búsqueda
+            );
+        });
+        setFilteredReparaciones(filtered);
+    };
+
     return (
         <div className="container mt-5">
             <div className="row">
@@ -67,6 +84,18 @@ const CompShowReparacion = () => {
                     <h2 className="text-center display-6" style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
                         Gestión de Reparaciones
                     </h2>
+
+                    {/* Campo de búsqueda centrado */}
+                    <div className="text-center mb-3">
+                        <input
+                            type="text"
+                            className="form-control w-50 mx-auto"
+                            placeholder="Buscar por descripción, costo o fecha..."
+                            value={searchTerm}
+                            onChange={handleSearch}
+                        />
+                    </div>
+
                     <Link to="/vehiculo/gestion-vehiculos" className="btn btn-secondary mb-3">
                         Regresar a Gestión de Vehículos
                     </Link>
@@ -85,12 +114,12 @@ const CompShowReparacion = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {reparaciones.length === 0 ? (
+                            {filteredReparaciones.length === 0 ? (
                                 <tr>
                                     <td colSpan="4">No hay reparaciones registradas.</td>
                                 </tr>
                             ) : (
-                                reparaciones.map((reparacion) => (
+                                filteredReparaciones.map((reparacion) => (
                                     <tr key={reparacion.id}>
                                         <td>{reparacion.descripcion}</td>
                                         <td>{reparacion.costo}</td>
@@ -127,4 +156,3 @@ const CompShowReparacion = () => {
 };
 
 export default CompShowReparacion;
-

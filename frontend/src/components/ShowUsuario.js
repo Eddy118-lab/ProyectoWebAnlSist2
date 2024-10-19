@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './Styles/StyleShowUsuario.css';
+import { Modal, Button } from 'react-bootstrap'; // Importar Modal y Button de react-bootstrap
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'; // Importar autotable
+import * as XLSX from 'xlsx'; // Importar XLSX para descargar en Excel
 
 const URI = 'http://localhost:8000/api/usuario/';
 
@@ -14,7 +18,9 @@ const CompShowUsuario = () => {
     const [usuariosPerPage] = useState(5);
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortField, setSortField] = useState('nombcomp');
-    const [searchTerm, setSearchTerm] = useState('');  // Inicialización del searchTerm
+    const [searchTerm, setSearchTerm] = useState(''); // Inicialización del searchTerm
+    const [selectedUsuario, setSelectedUsuario] = useState(null); // Estado para el usuario seleccionado
+    const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
 
     useEffect(() => {
         getUsuarios();
@@ -97,10 +103,77 @@ const CompShowUsuario = () => {
 
     const totalPages = Math.ceil(filteredUsuarios.length / usuariosPerPage);
 
+    // Función para abrir el modal con los detalles del usuario
+    const viewUsuarioDetails = (usuario) => {
+        setSelectedUsuario(usuario);
+        setShowModal(true); // Mostrar el modal
+    };
+
+    // Función para descargar en PDF
+    const downloadPDF = () => {
+        if (!selectedUsuario) return;
+
+        const doc = new jsPDF();
+        doc.setFontSize(20);
+        doc.text("Detalles del Usuario", 20, 20);
+        doc.setFontSize(12);
+
+        const headers = [["Nombre Completo", "Nombre Usuario", "Email", "Fecha Nacimiento", "NIT", "Teléfono", "Dirección"]];
+        const data = [[
+            selectedUsuario.nombcomp,
+            selectedUsuario.nombusuar,
+            selectedUsuario.email,
+            formatDate(selectedUsuario.fechanaci),
+            selectedUsuario.nit,
+            selectedUsuario.telefono,
+            selectedUsuario.direccion
+        ]];
+
+        // Usar autoTable para crear la tabla en el PDF
+        doc.autoTable({
+            head: headers,
+            body: data,
+            startY: 30,
+        });
+
+        doc.save(`usuario_${selectedUsuario.id}.pdf`);
+    };
+
+    // Función para descargar en Excel
+    const downloadExcel = () => {
+        if (!selectedUsuario) return;
+
+        const worksheet = XLSX.utils.json_to_sheet([selectedUsuario]);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Ruta");
+        XLSX.writeFile(workbook, `ruta_${selectedUsuario.id}.xlsx`);
+    };
+
+    // Función para descargar en TXT
+    const downloadTXT = () => {
+        if (!selectedUsuario) return;
+
+        // Crear un texto simple con los datos
+        const text = `
+Nombre Completo: ${selectedUsuario.nombcomp}
+Nombre Usuario: ${selectedUsuario.nombusuar}
+Email: ${selectedUsuario.email}
+Fecha de Nacimiento: ${formatDate(selectedUsuario.fechanaci)}
+NIT: ${selectedUsuario.nit}
+Teléfono: ${selectedUsuario.telefono}
+Dirección: ${selectedUsuario.direccion}
+`.trim(); // .trim() elimina espacios en blanco adicionales al principio y al final
+
+        const blob = new Blob([text], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `usuario_${selectedUsuario.id}.txt`;
+        link.click();
+    };
+
     return (
         <div className='container'>
             <div className='row justify-content-center my-4'>
-                {/* Título modificado */}
                 <h2 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
                     Gestión de Usuarios
                 </h2>
@@ -112,11 +185,11 @@ const CompShowUsuario = () => {
                     <input
                         type="text"
                         className="form-control me-2"
-                        placeholder="Buscar usuario..."  // Actualizado
+                        placeholder="Buscar usuario..."
                         value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}  // Actualizado para la búsqueda
+                        onChange={(e) => setSearchTerm(e.target.value)} 
                     />
-                    <Link to="/usuario/create" className="btn btn-primary ms-2">  {/* Ruta actualizada */}
+                    <Link to="/usuario/create" className="btn btn-primary ms-2">
                         <i className="fa-solid fa-plus"></i> 
                     </Link>
                 </div>
@@ -151,8 +224,10 @@ const CompShowUsuario = () => {
                                     <td>{usuario.telefono}</td>
                                     <td>{usuario.direccion}</td>
                                     <td>
-                                        {/* Botones alineados horizontalmente */}
                                         <div className="d-flex gap-2">
+                                            <button onClick={() => viewUsuarioDetails(usuario)} className='btn btn-info'>
+                                                <i className="fa-regular fa-eye"></i>
+                                            </button>
                                             <Link to={`/usuario/edit/${usuario.id}`} className="btn btn-warning">
                                                 <i className="fa-regular fa-pen-to-square"></i>
                                             </Link>
@@ -167,6 +242,60 @@ const CompShowUsuario = () => {
                     </table>
                 </div>
             </div>
+
+            {/* Modal para ver detalles del usuario */}
+            <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
+                <Modal.Header style={{ backgroundColor: '#17a2b8', color: 'white' }}>
+                    <h5 className="modal-title">Detalles del Usuario</h5>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedUsuario && (
+                        <div>
+                            <h5 className="mb-3">Información del Usuario</h5>
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nombre Completo</strong></td>
+                                        <td>{selectedUsuario.nombcomp}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Nombre Usuario</strong></td>
+                                        <td>{selectedUsuario.nombusuar}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email</strong></td>
+                                        <td>{selectedUsuario.email}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Fecha de Nacimiento</strong></td>
+                                        <td>{formatDate(selectedUsuario.fechanaci)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>NIT</strong></td>
+                                        <td>{selectedUsuario.nit}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Teléfono</strong></td>
+                                        <td>{selectedUsuario.telefono}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Dirección</strong></td>
+                                        <td>{selectedUsuario.direccion}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={downloadPDF}>Descargar PDF</Button>
+                    <Button variant="success" onClick={downloadExcel}>Descargar Excel</Button>
+                    <Button variant="info" onClick={downloadTXT}>Descargar TXT</Button>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
 
             {/* Paginación */}
             <nav className='row justify-content-center'>

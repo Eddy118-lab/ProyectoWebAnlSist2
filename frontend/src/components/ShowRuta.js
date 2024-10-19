@@ -3,6 +3,10 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Modal, Button } from 'react-bootstrap'; // Importar Modal y Button de react-bootstrap
+import jsPDF from 'jspdf';
+import 'jspdf-autotable'; // Importar autotable
+import * as XLSX from 'xlsx'; // Importar XLSX para descargar en Excel
 
 const URI = 'http://localhost:8000/api/ruta';
 
@@ -13,6 +17,9 @@ const CompShowRuta = () => {
     const [rutasPerPage] = useState(5);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedRuta, setSelectedRuta] = useState(null);
+    const [showModal, setShowModal] = useState(false); // Estado para controlar el modal
 
     const [sortOrder, setSortOrder] = useState('asc');
     const [sortField, setSortField] = useState('nombre');
@@ -49,6 +56,7 @@ const CompShowRuta = () => {
     };
 
     const handleSearch = (query) => {
+        setSearchTerm(query);
         const filtered = rutas.filter(ruta =>
             ruta.nombre.toLowerCase().includes(query.toLowerCase()) ||
             ruta.origen.toLowerCase().includes(query.toLowerCase()) ||
@@ -81,7 +89,64 @@ const CompShowRuta = () => {
     const currentRutas = filteredRutas.slice(indexOfFirstRuta, indexOfLastRuta);
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     const totalPages = Math.ceil(filteredRutas.length / rutasPerPage);
+
+    const viewRutaDetails = (ruta) => {
+        setSelectedRuta(ruta);
+        setShowModal(true); // Mostrar el modal
+    };
+
+    // Función para descargar en PDF
+    const downloadPDF = () => {
+        if (!selectedRuta) return;
+
+        const doc = new jsPDF();
+        doc.setFontSize(20);
+        doc.text("Detalles de la Ruta", 20, 20);
+        doc.setFontSize(12);
+
+        const headers = [["Nombre", "Descripción", "Origen", "Destino"]];
+        const data = [[selectedRuta.nombre, selectedRuta.descripcion, selectedRuta.origen, selectedRuta.destino]];
+
+        // Usar autoTable para crear la tabla en el PDF
+        doc.autoTable({
+            head: headers,
+            body: data,
+            startY: 30,
+        });
+
+        doc.save(`ruta_${selectedRuta.id}.pdf`);
+    };
+
+    // Función para descargar en Excel
+    const downloadExcel = () => {
+        if (!selectedRuta) return;
+
+        const worksheet = XLSX.utils.json_to_sheet([selectedRuta]);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Ruta");
+        XLSX.writeFile(workbook, `ruta_${selectedRuta.id}.xlsx`);
+    };
+
+    // Función para descargar en TXT
+    const downloadTXT = () => {
+        if (!selectedRuta) return;
+
+        // Crear un texto simple con los datos
+        const text = `
+Nombre: ${selectedRuta.nombre}
+Descripción: ${selectedRuta.descripcion}
+Origen: ${selectedRuta.origen}
+Ruta: ${selectedRuta.ruta}
+`.trim(); // .trim() elimina espacios en blanco adicionales al principio y al final
+
+        const blob = new Blob([text], { type: 'text/plain' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = `usuario_${selectedRuta.id}.txt`;
+        link.click();
+    };
 
     return (
         <div className="container">
@@ -91,19 +156,29 @@ const CompShowRuta = () => {
                 </h2>
             </div>
 
-            {/* Mostrar errores o cargando */}
+            <div className="row justify-content-center mb-4">
+                <div className="col-md-6">
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Buscar por nombre, origen o destino..."
+                        value={searchTerm}
+                        onChange={(e) => handleSearch(e.target.value)}
+                    />
+                </div>
+            </div>
+
             {loading && <p>Cargando...</p>}
             {error && <p className='text-danger'>{error}</p>}
 
-            <div className="row justify-content-between align-items-center mb-4">
-                <div className="col-md-3 text-end">
+            <div className="row justify-content-center mb-4">
+                <div className="col-md-3 text-center">
                     <Link to="/ruta/create" className="btn btn-primary">
                         <i className="fa-solid fa-plus"></i>
                     </Link>
                 </div>
             </div>
 
-            {/* Tabla de rutas */}
             <div className="row">
                 <div className="col">
                     <table className="table table-hover">
@@ -133,11 +208,14 @@ const CompShowRuta = () => {
                                 currentRutas.map(ruta => (
                                     <tr key={ruta.id}>
                                         <td>{ruta.nombre}</td>
-                                        <td>{ruta.descripcion}</td> {/* Campo descripción agregado */}
+                                        <td>{ruta.descripcion}</td>
                                         <td>{ruta.origen}</td>
                                         <td>{ruta.destino}</td>
                                         <td>
-                                            <div className="d-flex gap-2">
+                                            <div className="d-flex gap-2" style={{ marginRight: '-200px' }}>
+                                                <button onClick={() => viewRutaDetails(ruta)} className='btn btn-info btn-sm'>
+                                                    <i className="fa-regular fa-eye"></i> Ver
+                                                </button>
                                                 <Link to={`/ruta/edit/${ruta.id}`} className='btn btn-warning btn-sm'>
                                                     <i className="fa-regular fa-pen-to-square"></i> Editar
                                                 </Link>
@@ -154,20 +232,67 @@ const CompShowRuta = () => {
                 </div>
             </div>
 
-            {/* Paginación */}
-            <nav className='d-flex justify-content-center'>
-                <ul className='pagination'>
-                    {[...Array(totalPages).keys()].map(number => (
-                        <li key={number + 1} className={`page-item ${number + 1 === currentPage ? 'active' : ''}`}>
-                            <button onClick={() => paginate(number + 1)} className='page-link'>
-                                {number + 1}
-                            </button>
-                        </li>
-                    ))}
-                </ul>
-            </nav>
+            <div className="row">
+                <div className="col text-center">
+                    <nav aria-label="Page navigation example">
+                        <ul className="pagination">
+                            {[...Array(totalPages)].map((_, index) => (
+                                <li className={`page-item ${index + 1 === currentPage ? 'active' : ''}`} key={index}>
+                                    <button className="page-link" onClick={() => paginate(index + 1)}>
+                                        {index + 1}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+            {/* Modal para mostrar detalles de la ruta */}
+            <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
+                <Modal.Header style={{ backgroundColor: '#17a2b8', color: 'white' }}>
+                    <h5 className="modal-title">Detalles de la Ruta</h5>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedRuta && (
+                        <div>
+                            <h5 className="mb-3">Información de la Ruta</h5>
+                            <table className="table">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Nombre</strong></td>
+                                        <td>{selectedRuta.nombre}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Descripción</strong></td>
+                                        <td>{selectedRuta.descripcion}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Origen</strong></td>
+                                        <td>{selectedRuta.origen}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Ruta</strong></td>
+                                        <td>{selectedRuta.destino}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={downloadPDF}>Descargar PDF</Button>
+                    <Button variant="success" onClick={downloadExcel}>Descargar Excel</Button>
+                    <Button variant="info" onClick={downloadTXT}>Descargar TXT</Button>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Cerrar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
 
 export default CompShowRuta;
+
+

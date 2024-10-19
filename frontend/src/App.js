@@ -59,6 +59,7 @@ import CompShowReparacion from './components/ShowReparacion.js';
 import CompCreateRuta from './components/CreateRuta.js';
 import CompEditRuta from './components/EditRuta.js';
 import CompShowRuta from './components/ShowRuta.js';
+import CompShowTipoEstado from './components/ShowTipoEstado.js';
 import PrivateRoute from './components/privateroute.js';
 
 import HeaderInicio from './inicio/HeaderInicio.js';
