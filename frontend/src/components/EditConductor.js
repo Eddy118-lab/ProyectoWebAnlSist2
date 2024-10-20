@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import './Styles/StyleEditConductor.css';
+
 
 const URI_CONDUCTOR = 'http://localhost:8000/api/conductor/';
 const URI_IMG = 'http://localhost:8000/uploadsConductor/';

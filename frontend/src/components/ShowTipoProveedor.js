@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap instalado
-import './Styles/StyleShowTipoProveedor.css'; // Mantén este archivo si necesitas estilos adicionales
+
 
 const URI = 'http://localhost:8000/api/tipo-proveedor';
 

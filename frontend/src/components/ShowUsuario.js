@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import './Styles/StyleShowUsuario.css';
 import { Modal, Button } from 'react-bootstrap'; // Importar Modal y Button de react-bootstrap
 import jsPDF from 'jspdf';
 import 'jspdf-autotable'; // Importar autotable

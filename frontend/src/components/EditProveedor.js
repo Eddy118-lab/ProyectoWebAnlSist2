@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
-import './Styles/StyleEditProveedor.css';
+
 
 const URI_PROVEEDOR = 'http://localhost:8000/api/proveedor/';
 const URI_TIPO_PROVEEDOR = 'http://localhost:8000/api/tipo-proveedor/';

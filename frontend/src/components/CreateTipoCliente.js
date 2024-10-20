@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/StyleCreateTipoCliente.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 const URI_TIPO_CLIENTE = 'http://localhost:8000/api/tipo-cliente/';
 
@@ -40,36 +40,38 @@ const CompCreateTipoCliente = () => {
     };
 
     return (
-        <div className='form-container-Create-Tipo-Cliente'>
-            <h2 className='form-title-Create-Tipo-Cliente'>Crear Tipo de Cliente</h2>
-            
-            {successMessage && <div className="alert alert-success-Create-Tipo-Cliente">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger-Create-Tipo-Cliente">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className="form-grid-Create-Tipo-Cliente">
-                <div className="form-column-Create-Tipo-Cliente">
-                    <div className="form-group-Create-Tipo-Cliente">
-                        <label>Descripción</label>
-                        <input
-                            type="text"
-                            className="form-control-Create-Tipo-Cliente"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                            required
-                        />
-                    </div>
+        <div className='container vh-100 d-flex justify-content-center align-items-center'>
+            <div className="card" style={{ width: '100%', maxWidth: '500px' }}>
+                <div className="card-header text-center">
+                    <h2>Crear Tipo de Cliente</h2>
                 </div>
+                <div className="card-body">
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                    
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-3">
+                            <label className="form-label">Descripción</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={descripcion}
+                                onChange={(e) => setDescripcion(e.target.value)}
+                                required
+                            />
+                        </div>
 
-                {/* Botones en una fila separada */}
-                <div className="form-buttons-Create-Tipo-Cliente">
-                    <button type="submit" className="btn btn-primary-Create-Tipo-Cliente">
-                        Guardar
-                    </button>
-                    <button type="button" className="btn btn-secondary-Create-Tipo-Cliente" onClick={handleCancel}>
-                        Cancelar
-                    </button>
+                        <div className="d-flex justify-content-between">
+                            <button type="submit" className="btn btn-primary">
+                                Guardar
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };
