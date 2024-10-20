@@ -39,7 +39,7 @@ const CompEditTipoPagoProveedor = () => {
                 setSuccessMessage("Tipo de pago actualizado con éxito!");
                 setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+                    navigate('/factura-proveedor/gestion-facturas-proveedores'); // Cambia esta ruta si es necesario
                 }, 2000);
             } else {
                 setErrorMessage("Error al actualizar el tipo de pago.");
@@ -51,7 +51,7 @@ const CompEditTipoPagoProveedor = () => {
     };
 
     const handleCancel = () => {
-        navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+        navigate('/factura-proveedor/gestion-facturas-proveedores'); // Cambia esta ruta si es necesario
     };
 
     return (

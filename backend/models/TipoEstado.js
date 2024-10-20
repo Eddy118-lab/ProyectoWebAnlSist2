@@ -6,9 +6,9 @@ const TipoEstado = sequelize.define('TipoEstado', {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true,
     allowNull: false,
     comment: 'clave primaria de la tabla tipo de estado',
+    // Eliminado autoIncrement: true ya que no será autoincremental
   },
   descripcion: {
     type: DataTypes.STRING(150),
@@ -23,3 +23,4 @@ const TipoEstado = sequelize.define('TipoEstado', {
 
 // Exportar el modelo
 export default TipoEstado;
+

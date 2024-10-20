@@ -3,7 +3,7 @@ import { jwtDecode } from 'jwt-decode'; // Asegúrate de haber instalado esta li
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { EyeIcon, EyeOffIcon } from "lucide-react";
-import './Styles/Login.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = ({ onLoginSuccess, onClose }) => {
     const [email, setEmail] = useState('');
@@ -16,7 +16,7 @@ const Login = ({ onLoginSuccess, onClose }) => {
 
     const handleClick = () => {
         setIsVisible(!isVisible);
-    }
+    };
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -57,13 +57,13 @@ const Login = ({ onLoginSuccess, onClose }) => {
     };
 
     return (
-        <div className="login-container">
-            {loading && <div className="loading-overlay">Cargando...</div>}
+        <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
+            {loading && <div className="loading-message">Cargando...</div>}
             {!loading && (
-                <form className="login-form" onSubmit={handleLogin}>
-                    <h2 className="login-title">Iniciar Sesión</h2>
-                    <div className="form-group">
-                        <label>Email</label>
+                <form className="login-form shadow p-4 rounded bg-light-blue" onSubmit={handleLogin} style={{ width: '100%', maxWidth: '400px' }}>
+                    <h2 className="text-center mb-4">Iniciar Sesión</h2>
+                    <div className="mb-3">
+                        <label className="form-label">Email</label>
                         <input
                             type="email"
                             className="form-control"
@@ -72,43 +72,29 @@ const Login = ({ onLoginSuccess, onClose }) => {
                             required
                         />
                     </div>
-                    <div className="relative form-group">
-                        <label>Contraseña</label>
-                        <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                    <div className="mb-3">
+                        <label className="form-label">Contraseña</label>
+                        <div className="input-group">
                             <input
                                 type={isVisible ? "text" : "password"}
                                 className="form-control"
                                 value={contrasenha}
                                 onChange={(e) => setContrasenha(e.target.value)}
                                 required
-                                style={{ paddingRight: '40px' }} // Espacio a la derecha para el botón
                             />
                             <button
+                                className="btn btn-outline-secondary"
                                 type="button"
                                 onClick={handleClick}
-                                style={{
-                                    position: 'absolute',
-                                    right: '-30px',
-                                    background: 'none',
-                                    border: 'none',
-                                    padding: '0',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    marginBottom: '10px',
-                                }}
                             >
                                 {isVisible ? <EyeOffIcon /> : <EyeIcon />}
                             </button>
                         </div>
                     </div>
-                    {error && <div className="login-error">{error}</div>}
-                    <div className="button-container">
-                        <button type="submit" className="login-button">Iniciar Sesión</button>
-                        {/* Botón para regresar al inicio */}
-                        <button type="button" className="go-home-button" onClick={handleGoHome}>
-                            Regresar al Inicio
-                        </button>
+                    {error && <div className="text-danger mb-3">{error}</div>}
+                    <div className="d-flex justify-content-between">
+                        <button type="submit" className="btn btn-primary">Iniciar Sesión</button>
+                        <button type="button" className="btn btn-secondary" onClick={handleGoHome}>Regresar al Inicio</button>
                     </div>
                 </form>
             )}

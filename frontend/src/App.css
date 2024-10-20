@@ -1,5 +1,3 @@
-/* App.css */
-
 /* Estilos generales para la aplicación */
 body {
   font-family: Arial, sans-serif;
@@ -8,81 +6,26 @@ body {
   padding: 0;
 }
 
-/* Solo mostrar el menú lateral si se está en un módulo */
-body:not(.in-module) .side-nav {
-  display: none;
-}
-
-/* Mostrar el menú lateral cuando se está en un módulo */
-body.in-module .side-nav {
-  display: block;
-}
-
-/* Estilo del contenedor principal de la aplicación */
-.App {
-  text-align: center;
+.loading-message {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Asegura que la aplicación ocupe al menos toda la altura de la ventana */
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Ocupa toda la altura de la ventana */
+  font-size: 2rem; /* Aumenta el tamaño de la fuente */
+  color: #4A90E2; /* Color azul cielo */
+  animation: pulse 1s infinite; /* Animación de pulso */
 }
 
-/* Contenido principal */
-.App-content {
-  flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
-}
-
-/* Estilo del menú lateral */
-.side-nav {
-  font-size: 25px;
-  position: fixed;
-  top: 0;
-  left: -100%; /* Mueve el menú fuera de la vista completamente cuando está oculto */
-  width: 200px;
-  height: 100%;
-  background-color: #333;
-  color: white;
-  transition: left 0.5s ease; /* Transición suave al abrir/cerrar */
-  z-index: 999;
-  overflow-y: auto; /* Scroll vertical */
-  padding-right: 10px;
-}
-
-/* Cuando el menú esté abierto */
-.side-nav.open {
-  left: 0; /* Trae el menú a la vista */
-}
-
-/* Personalización del scroll */
-.side-nav::-webkit-scrollbar {
-  width: 1px; /* Hace el scroll más delgado */
-}
-
-.side-nav::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.3); /* Color del scroll con algo de transparencia */
-  border-radius: 10px; /* Bordes redondeados */
-}
-
-.side-nav::-webkit-scrollbar-track {
-  background-color: transparent; /* Elimina el fondo del track para que no se note */
+@keyframes pulse {
+  0% {
+      transform: scale(1);
+  }
+  50% {
+      transform: scale(1.1);
+  }
+  100% {
+      transform: scale(1);
+  }
 }
 
 
-.side-nav.open {
-  left: 0;
-}
-
-.side-nav ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-}
-
-.side-nav li {
-  font-size: 22px;
-  padding: 15px;
-  cursor: pointer;
-}
-
-.side-nav li:hover {
-  background-color: #575757;
-}

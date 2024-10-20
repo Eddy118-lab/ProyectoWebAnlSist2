@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Navigate, useNavigate, useLocation } from 'react-router-dom';
+import PrivateRoute from './components/privateroute.js';
 import Footer from './components/Footer';
 import Login from './components/Login.js';
 import Header from './components/Header.js';
@@ -59,8 +60,11 @@ import CompShowReparacion from './components/ShowReparacion.js';
 import CompCreateRuta from './components/CreateRuta.js';
 import CompEditRuta from './components/EditRuta.js';
 import CompShowRuta from './components/ShowRuta.js';
+import CompCreateAsignacion from './components/CreateAsignacion.js';
+import CompShowAsignacion from './components/ShowAsignacion.js';
 import CompShowTipoEstado from './components/ShowTipoEstado.js';
-import PrivateRoute from './components/privateroute.js';
+import CompCreateTipoEstado from './components/CreateTipoEstado.js';
+import CompEditTipoEstado from './components/EditTipoEstado.js';
 
 import HeaderInicio from './inicio/HeaderInicio.js';
 import FooterInicio from './inicio/FooterInicio.js';
@@ -70,7 +74,6 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
 
 function SaveLastValidRoute() {
   const location = useLocation();
@@ -185,7 +188,14 @@ function App() {
       // Rutas de ruta
       "/ruta/gestion-rutas",
       "/ruta/create",
-      "/ruta/edit/:id"
+      "/ruta/edit/:id",
+
+      // Rutas de Asignacion
+      "/asignacion/gestion-asignaciones",
+      "/asignacion/create",
+      "/asignacion/tipo-estado/gestion-tipos-estados",
+      "/asignacion/tipo-estado/create",
+      "/asignacion/tipo-estado/edit/:id"
     ];
 
     useEffect(() => {
@@ -204,7 +214,7 @@ function App() {
 
 
   if (loading) {
-    return <div>Cargando...</div>; // Estado de carga mientras se verifica la autenticación
+    return <div className="loading-message">Cargando...</div>;
   }
 
   return (
@@ -213,6 +223,7 @@ function App() {
         <BrowserRouter>
           {isAuthenticated && <Header onLogout={handleLogout} />}
           <div className="App-content">
+          <div className="d-flex flex-column min-vh-100"> 
             <SaveLastValidRoute />
             <Routes>
               <Route path="/inicio" element={
@@ -243,7 +254,7 @@ function App() {
                   <FooterInicio />
                 </>
               } />
-
+              
               <Route path="/login" element={<Login onLoginSuccess={handleLoginSuccess} />} />
               <Route path="/Home" element={isAuthenticated ? <MainContent /> : <Navigate to="/inicio" />} />
 
@@ -302,12 +313,19 @@ function App() {
               <Route path="/ruta/gestion-rutas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowRuta /></PrivateRoute>} />
               <Route path="/ruta/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateRuta /></PrivateRoute>} />
               <Route path="/ruta/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditRuta /></PrivateRoute>} />
+              
+              <Route path="/asignacion/gestion-asignaciones" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowAsignacion /></PrivateRoute>} />
+              <Route path="/asignacion/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateAsignacion /></PrivateRoute>} />
+              <Route path="/asignacion/tipo-estado/gestion-tipos-estados" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoEstado /></PrivateRoute>} />
+              <Route path="/asignacion/tipo-estado/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoEstado /></PrivateRoute>} />
+              <Route path="/asignacion/tipo-estado/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoEstado /></PrivateRoute>} />
               {/* Si la ruta no coincide, redirige a la última ruta válida */}
 
               <Route path="*" element={<RedirectToLastValidRoute />} />
             </Routes>
           </div>
           {isAuthenticated && <Footer onLogout={handleLogout} />}
+          </div>
         </BrowserRouter>
       </DetallesProvider>
     </div>

@@ -1,11 +1,13 @@
 import React from 'react';
-import './Styles/Footer.css';
-const Footer = () => {
+
+function Footer() {
   return (
-    <footer className="App-footer">
-      <p>© {new Date().getFullYear()} Transportes Eben-Ezer. Todos los derechos reservados.</p>
+    <footer style={{ backgroundColor: '#003366', color: 'white', textAlign: 'center', padding: '10px 0', position: 'relative', bottom: 0, width: '100%' }}>
+      <p>© 2024 Transportes Eben-Ezer. Todos los derechos reservados.</p>
     </footer>
   );
-};
+}
 
 export default Footer;
+
+

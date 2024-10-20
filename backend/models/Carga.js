@@ -46,7 +46,7 @@ const Carga = sequelize.define('Carga', {
     },
   }
 }, {
-  tableName: 'carga',
+  tableName: 'Carga',
   timestamps: false, // Desactiva createdAt/updatedAt si no es necesario
   engine: 'InnoDB'
 });

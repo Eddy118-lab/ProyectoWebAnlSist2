@@ -31,8 +31,15 @@ export const getTipoEstadoById = async (req, res) => {
 // Crear un nuevo tipo de estado
 export const createTipoEstado = async (req, res) => {
     try {
-        const { descripcion } = req.body;
-        const nuevoTipoEstado = await TipoEstado.create({ descripcion });
+        const { id, descripcion } = req.body;
+
+        // Verificar si el ID ya existe
+        const tipoEstadoExistente = await TipoEstado.findByPk(id);
+        if (tipoEstadoExistente) {
+            return res.status(400).json({ message: 'El ID ya existe.' });
+        }
+
+        const nuevoTipoEstado = await TipoEstado.create({ id, descripcion });
         return res.status(201).json(nuevoTipoEstado);
     } catch (error) {
         console.error('Error al crear el tipo de estado:', error);

@@ -2,123 +2,154 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import logo from './pictures/logo.png';
 import usuario from './pictures/usuario.png';
-import './Styles/Header.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Header({ onLogout }) {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [userName, setUserName] = useState(null); // Estado para el nombre del usuario
+  const [userName, setUserName] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const userMenuRef = useRef(null);
+  const navTimeoutRef = useRef(null);
+  const userMenuTimeoutRef = useRef(null);
 
   useEffect(() => {
-    // Obtener el nombre del usuario del localStorage
     const storedUserName = localStorage.getItem('userName');
     if (storedUserName) {
-      setUserName(storedUserName); // Actualiza el estado del nombre de usuario
+      setUserName(storedUserName);
     }
   }, []);
 
-  const isInModule = [
-    '/inventario/gestion-inventarios',
+  // Define las rutas en las que se debe mostrar el menú
+  const allowedRoutes = [
+    '/usuario/gestion-usuarios',
     '/ventas',
-    '/proveedor/gestion-proveedores',
+    '/cliente/gestion-clientes',
+    '/factura-cliente/gestion-facturas-clientes',
     '/conductor/gestion-conductores',
     '/vehiculo/gestion-vehiculos',
     '/ruta/gestion-rutas',
-    '/usuario/gestion-usuarios',
-    '/cliente/gestion-clientes',
+    '/carga/gestion-cargas',
+    '/asignacion/gestion-asignaciones',
     '/compra/gestion-compras/catalogo',
+    '/proveedor/gestion-proveedores',
+    '/factura-proveedor/gestion-facturas-proveedores',
+    '/inventario/gestion-inventarios',
     '/material/gestion-materiales',
-    '/factura-proveedor/gestion-facturas-proveedores'
-  ].includes(location.pathname);
+  ];
 
-  useEffect(() => {
-    if (isInModule) {
-      document.body.classList.add('in-module');
-    } else {
-      document.body.classList.remove('in-module');
-    }
-
-    if (!isInModule) {
-      setIsNavOpen(false);
-    }
-  }, [location.pathname, isInModule]);
-
-  const handleNavItemClick = (path) => {
-    navigate(path);
-    setIsNavOpen(false);
-  };
-
-  const toggleUserMenu = () => {
-    setIsUserMenuOpen(prevState => !prevState);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
-        setIsUserMenuOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
-
-  // Si está en la ruta de login, oculta el menú de usuario
   const isInLogin = location.pathname === '/login';
+  const isNavAllowed = allowedRoutes.includes(location.pathname); // Verifica si la ruta está permitida
+
+  const handleMouseEnterNav = () => {
+    if (navTimeoutRef.current) {
+      clearTimeout(navTimeoutRef.current);
+    }
+    setIsNavOpen(true);
+  };
+
+  const handleMouseLeaveNav = () => {
+    navTimeoutRef.current = setTimeout(() => {
+      setIsNavOpen(false);
+    }, 300);
+  };
+
+  const handleMouseEnterUserMenu = () => {
+    if (userMenuTimeoutRef.current) {
+      clearTimeout(userMenuTimeoutRef.current);
+    }
+    setIsUserMenuOpen(true);
+  };
+
+  const handleMouseLeaveUserMenu = () => {
+    userMenuTimeoutRef.current = setTimeout(() => {
+      setIsUserMenuOpen(false);
+    }, 300);
+  };
 
   return (
-    <header className="App-header">
+    <header className="d-flex justify-content-between align-items-center p-3 bg-primary text-white fixed-top" style={{ height: '80px', backgroundColor: '#8BC34A' }}>
       <div
         className="logo"
-        onMouseEnter={() => setIsNavOpen(true)}
-        onMouseLeave={() => setIsNavOpen(false)}
+        onMouseEnter={handleMouseEnterNav}
+        onMouseLeave={handleMouseLeaveNav}
+        onClick={() => navigate('/Home')}
+        style={{ cursor: 'pointer' }}
       >
-        <img src={logo} alt="Logo" className="App-logo" />
+        <img src={logo} alt="Logo" className="img-fluid" style={{ height: '70px' }} />
       </div>
 
       {!isInLogin && (
-        <div className="user-menu" ref={userMenuRef}>
-          {/* Mostrar el nombre del usuario si está disponible */}
-          {userName && <span className="user-name">Hola, {userName}</span>}
+        <div className="user-menu" ref={userMenuRef} onMouseEnter={handleMouseEnterUserMenu} onMouseLeave={handleMouseLeaveUserMenu}>
+          {userName && <span className="me-3">Hola, {userName}</span>}
           <img
             src={usuario}
             alt="Perfil de Usuario"
             className="profile-icon"
-            onClick={toggleUserMenu}
+            onClick={handleMouseEnterUserMenu} // Mantener el menú abierto al hacer clic
+            style={{ height: '30px', cursor: 'pointer' }}
           />
           {isUserMenuOpen && (
-            <div className="user-dropdown-menu">
-              <button onClick={onLogout} className="user-menu-item">Cerrar Sesión</button>
+            <div className="position-absolute" style={{ top: '80px', right: 0 }}>
+              <div className="bg-dark text-white p-2 rounded shadow">
+                <button onClick={onLogout} className="btn btn-link text-white">Cerrar Sesión</button>
+              </div>
             </div>
           )}
         </div>
       )}
 
-      <nav
-        className={`side-nav ${isNavOpen ? 'open' : ''}`}
-        onMouseEnter={() => setIsNavOpen(true)}
-        onMouseLeave={() => setIsNavOpen(false)}
-      >
-        <ul>
-          <li onClick={() => handleNavItemClick('/Home')}>Inicio</li>
-          <li onClick={() => handleNavItemClick('/inventario/gestion-inventarios')}>Gestión de Inventario</li>
-          <li onClick={() => handleNavItemClick('/ventas')}>Gestión de Ventas</li>
-          <li onClick={() => handleNavItemClick('/proveedor/gestion-proveedores')}>Gestión de Proveedores</li>
-          <li onClick={() => handleNavItemClick('/conductor/gestion-conductores')}>Gestión de Conductores</li>
-          <li onClick={() => handleNavItemClick('/vehiculo/gestion-vehiculos')}>Gestión de Vehículos</li>
-          <li onClick={() => handleNavItemClick('/ruta/gestion-rutas')}>Gestión de Rutas</li>
-          <li onClick={() => handleNavItemClick('/usuario/gestion-usuarios')}>Gestión de Usuarios</li>
-          <li onClick={() => handleNavItemClick('/cliente/gestion-clientes')}>Gestión de Clientes</li>
-          <li onClick={() => handleNavItemClick('/compra/gestion-compras/catalogo')}>Gestión de Compras</li> {/* Nuevo módulo */}
-          <li onClick={() => handleNavItemClick('/material/gestion-materiales')}>Gestión de Materiales</li>
-          <li onClick={() => handleNavItemClick('/factura-proveedor/gestion-facturas-proveedores')}>Gestión de Facturas de Proveedores</li>
-        </ul>
-      </nav>
+      {isNavAllowed && isNavOpen && ( // Muestra el menú solo si la ruta está permitida
+        <nav
+          className="side-nav position-fixed overflow-auto"
+          style={{
+            top: '80px',
+            left: 0,
+            width: '200px',
+            backgroundColor: '#333', // Fondo del menú
+            zIndex: 1000,
+            height: 'calc(100% - 80px)',
+            paddingTop: '10px',
+            maxHeight: 'calc(100% - 80px)',
+            scrollbarWidth: 'none', // Para navegadores Firefox
+            msOverflowStyle: 'none', // Para Internet Explorer y Edge
+          }}
+          onMouseEnter={handleMouseEnterNav}
+          onMouseLeave={handleMouseLeaveNav}
+        >
+          <ul className="list-unstyled p-0 m-0 d-flex flex-column">
+            {[
+              { path: '/Home', label: 'Inicio' },
+              { path: '/usuario/gestion-usuarios', label: 'Gestión de Usuarios' },
+              { path: '/ventas', label: 'Gestión de Ventas' },
+              { path: '/cliente/gestion-clientes', label: 'Gestión de Clientes' },
+              { path: '/factura-cliente/gestion-facturas-clientes', label: 'Gestión de Facturas a Clientes' },
+              { path: '/conductor/gestion-conductores', label: 'Gestión de Conductores' },
+              { path: '/vehiculo/gestion-vehiculos', label: 'Gestión de Vehículos' },
+              { path: '/ruta/gestion-rutas', label: 'Gestión de Rutas' },
+              { path: '/carga/gestion-cargas', label: 'Gestión de Cargas' },
+              { path: '/asignacion/gestion-asignaciones', label: 'Gestión de Asignaciones' },
+              { path: '/compra/gestion-compras/catalogo', label: 'Gestión de Compras' },
+              { path: '/proveedor/gestion-proveedores', label: 'Gestión de Proveedores' },
+              { path: '/factura-proveedor/gestion-facturas-proveedores', label: 'Gestión de Facturas de Proveedores' },
+              { path: '/inventario/gestion-inventarios', label: 'Gestión de Inventario' },
+              { path: '/material/gestion-materiales', label: 'Gestión de Materiales' }
+            ].map(({ path, label }) => (
+              <li
+                key={path}
+                className="text-white p-2 fw-bold"
+                style={{ cursor: 'pointer', textDecoration: 'none' }}
+                onClick={() => { navigate(path); setIsNavOpen(false); }}
+                onMouseEnter={(e) => e.currentTarget.style.textDecoration = 'underline'}
+                onMouseLeave={(e) => e.currentTarget.style.textDecoration = 'none'}
+              >
+                {label}
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
     </header>
   );
 }

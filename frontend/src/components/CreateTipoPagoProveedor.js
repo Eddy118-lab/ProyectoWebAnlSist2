@@ -24,7 +24,7 @@ const CompCreateTipoPagoProveedor = () => {
                 setSuccessMessage("Tipo de pago creado con éxito!");
                 setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+                    navigate('/factura-proveedor/gestion-facturas-proveedores'); // Cambia esta ruta si es necesario
                 }, 2000);
             } else {
                 setErrorMessage("Error al crear el tipo de pago.");
@@ -36,7 +36,7 @@ const CompCreateTipoPagoProveedor = () => {
     };
 
     const handleCancel = () => {
-        navigate('/factura-proveedor//tipo-pago-proveedor/gestion-tipos-pago-proveedor'); // Cambia esta ruta si es necesario
+        navigate('/factura-proveedor/gestion-facturas-proveedores'); // Cambia esta ruta si es necesario
     };
 
     return (

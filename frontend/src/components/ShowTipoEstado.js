@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const URI = 'http://localhost:8000/api/TipoEstado';
+const URI = 'http://localhost:8000/api/tipo-estado';
 
 const CompShowTipoEstado = () => {
     const [filteredTiposEstado, setFilteredTiposEstado] = useState([]);
@@ -84,10 +84,10 @@ const CompShowTipoEstado = () => {
             <h2 className="h2 text-center" style={{ marginBottom: '20px', marginTop: '90px' }}>Gestión de Tipos de Estado</h2>
 
             <div className="text-center mb-4">
-                <Link to="/estado/tipo-estado/create" className="btn btn-primary me-2">
+                <Link to="/asignacion/tipo-estado/create" className="btn btn-primary me-2">
                     <i className="fa-solid fa-plus"></i> Agregar Tipo
                 </Link>
-                <Link to="/estado/gestion-estados" className="btn btn-secondary">
+                <Link to="/asignacion/gestion-asignaciones" className="btn btn-secondary">
                     Regresar
                 </Link>
             </div>
@@ -109,6 +109,9 @@ const CompShowTipoEstado = () => {
             <table className="table table-hover mt-3">
                 <thead className="table-dark">
                     <tr>
+                        <th onClick={() => sortTiposEstado('id')} style={{ cursor: 'pointer' }}>
+                            ID {getSortIcon('id')}
+                        </th>
                         <th onClick={() => sortTiposEstado('descripcion')} style={{ cursor: 'pointer' }}>
                             Descripción {getSortIcon('descripcion')}
                         </th>
@@ -118,14 +121,15 @@ const CompShowTipoEstado = () => {
                 <tbody>
                     {currentTiposEstado.length === 0 ? (
                         <tr>
-                            <td colSpan="2" className="text-center text-muted">No hay tipos de estado disponibles</td>
+                            <td colSpan="3" className="text-center text-muted">No hay tipos de estado disponibles</td>
                         </tr>
                     ) : (
                         currentTiposEstado.map(tipoEstado => (
                             <tr key={tipoEstado.id}>
+                                <td>{tipoEstado.id}</td>
                                 <td>{tipoEstado.descripcion}</td>
                                 <td>
-                                    <Link to={`/estado/tipo-estado/edit/${tipoEstado.id}`} className='btn btn-warning btn-sm me-2'>
+                                    <Link to={`/asignacion/tipo-estado/edit/${tipoEstado.id}`} className='btn btn-warning btn-sm me-2'>
                                         <i className="fa-regular fa-pen-to-square"></i> Editar
                                     </Link>
                                     <button onClick={() => deleteTipoEstado(tipoEstado.id)} className='btn btn-danger btn-sm'>
