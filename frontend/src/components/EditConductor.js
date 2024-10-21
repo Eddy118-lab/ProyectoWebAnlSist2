@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const URI_CONDUCTOR = 'http://localhost:8000/api/conductor/';
 const URI_IMG = 'http://localhost:8000/uploadsConductor/';
@@ -74,8 +74,8 @@ const EditConductor = () => {
         try {
             const response = await axios.put(`${URI_CONDUCTOR}${id}`, formData, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+                    'Content-Type': 'multipart/form-data',
+                },
             });
 
             if (response.status === 200) {
@@ -98,144 +98,153 @@ const EditConductor = () => {
     };
 
     return (
-        <div className='form-container-Edit-Conductor'>
-            <h2 className='form-title-Edit-Conductor'>Editar Conductor</h2>
-            
-            {successMessage && <div className="alert alert-success-Edit-Conductor">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger-Edit-Conductor">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className='form-grid-Edit-Conductor'>
-                <div className='form-column-Edit-Conductor'>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Primer Nombre</label>
-                        <input
-                            type='text'
-                            className='form-control-Edit-Conductor'
-                            value={primerNom}
-                            onChange={(e) => setPrimerNom(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Segundo Nombre</label>
-                        <input
-                            type='text'
-                            className='form-control-Edit-Conductor'
-                            value={segundoNombre}
-                            onChange={(e) => setSegundoNombre(e.target.value)}
-                        />
-                    </div>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Primer Apellido</label>
-                        <input
-                            type='text'
-                            className='form-control-Edit-Conductor'
-                            value={primerApell}
-                            onChange={(e) => setPrimerApell(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Segundo Apellido</label>
-                        <input
-                            type='text'
-                            className='form-control-Edit-Conductor'
-                            value={segundoApell}
-                            onChange={(e) => setSegundoApell(e.target.value)}
-                        />
-                    </div>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Número de Licencia</label>
-                        <input
-                            type='text'
-                            className='form-control-Edit-Conductor'
-                            value={noLicencia}
-                            onChange={(e) => setNoLicencia(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Teléfono</label>
-                        <input
-                            type='text'
-                            className='form-control-Edit-Conductor'
-                            value={telefono}
-                            onChange={(e) => setTelefono(e.target.value)}
-                            required
-                        />
-                    </div>
+        <div className="container mt-5">
+            <div className="card shadow-lg mx-auto" style={{ marginTop: '50px', maxWidth: '900px' }}>
+                <div className="card-header text-center">
+                    <h3 className="mb-0">Editar Conductor</h3>
                 </div>
+                <div className="card-body">
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
 
-                <div className='form-column-Edit-Conductor'>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Email</label>
-                        <input
-                            type='email'
-                            className='form-control-Edit-Conductor'
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Fecha de Contratación</label>
-                        <input
-                            type='date'
-                            className='form-control-Edit-Conductor'
-                            value={fechaContratacion}
-                            onChange={(e) => setFechaContratacion(e.target.value)}
-                            required
-                        />
-                    </div>
+                    <form onSubmit={handleSubmit}>
+                        <div className="row">
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label className="form-label">Primer Nombre</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={primerNom}
+                                        onChange={(e) => setPrimerNom(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Segundo Nombre</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={segundoNombre}
+                                        onChange={(e) => setSegundoNombre(e.target.value)}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Primer Apellido</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={primerApell}
+                                        onChange={(e) => setPrimerApell(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Segundo Apellido</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={segundoApell}
+                                        onChange={(e) => setSegundoApell(e.target.value)}
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Número de Licencia</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={noLicencia}
+                                        onChange={(e) => setNoLicencia(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Teléfono</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        value={telefono}
+                                        onChange={(e) => setTelefono(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                            </div>
 
-                    {currentFrontImage && (
-                        <div className='form-group-Edit-Conductor'>
-                            <label>Imagen Frontal Actual</label>
-                            <img 
-                                src={`${URI_IMG}${currentFrontImage}`} 
-                                alt="Imagen Frontal Actual" 
-                                className="thumbnail-Edit-Conductor" 
-                            />
+                            <div className="col-md-6">
+                                <div className="mb-3">
+                                    <label className="form-label">Email</label>
+                                    <input
+                                        type="email"
+                                        className="form-control"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-3">
+                                    <label className="form-label">Fecha de Contratación</label>
+                                    <input
+                                        type="date"
+                                        className="form-control"
+                                        value={fechaContratacion}
+                                        onChange={(e) => setFechaContratacion(e.target.value)}
+                                        required
+                                    />
+                                </div>
+
+                                {currentFrontImage && (
+                                    <div className="mb-3">
+                                        <label className="form-label">Imagen Frontal Actual</label>
+                                        <img
+                                            src={`${URI_IMG}${currentFrontImage}`}
+                                            alt="Imagen Frontal Actual"
+                                            className="img-thumbnail"
+                                            style={{ maxWidth: '200px' }}
+                                        />
+                                    </div>
+                                )}
+
+                                <div className="mb-3">
+                                    <label className="form-label">Imagen Frontal (Nueva)</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        onChange={(e) => setFrontImagen(e.target.files[0])}
+                                        accept="image/*"
+                                    />
+                                </div>
+
+                                {currentTrasImage && (
+                                    <div className="mb-3">
+                                        <label className="form-label">Imagen Trasera Actual</label>
+                                        <img
+                                            src={`${URI_IMG}${currentTrasImage}`}
+                                            alt="Imagen Trasera Actual"
+                                            className="img-thumbnail"
+                                            style={{ maxWidth: '200px' }}
+                                        />
+                                    </div>
+                                )}
+
+                                <div className="mb-3">
+                                    <label className="form-label">Imagen Trasera (Nueva)</label>
+                                    <input
+                                        type="file"
+                                        className="form-control"
+                                        onChange={(e) => setTrasImagen(e.target.files[0])}
+                                        accept="image/*"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                    )}
 
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Imagen Frontal (Nueva)</label>
-                        <input
-                            type='file'
-                            className='form-control-Edit-Conductor'
-                            onChange={(e) => setFrontImagen(e.target.files[0])}
-                            accept="image/*"
-                        />
-                    </div>
-
-                    {currentTrasImage && (
-                        <div className='form-group-Edit-Conductor'>
-                            <label>Imagen Trasera Actual</label>
-                            <img 
-                                src={`${URI_IMG}${currentTrasImage}`} 
-                                alt="Imagen Trasera Actual" 
-                                className="thumbnail-Edit-Conductor" 
-                            />
+                        <div className="d-flex justify-content-center mt-4">
+                            <button type="submit" className="btn btn-primary me-2">Actualizar</button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCancel}>Cancelar</button>
                         </div>
-                    )}
-
-                    <div className='form-group-Edit-Conductor'>
-                        <label>Imagen Trasera (Nueva)</label>
-                        <input
-                            type='file'
-                            className='form-control-Edit-Conductor'
-                            onChange={(e) => setTrasImagen(e.target.files[0])}
-                            accept="image/*"
-                        />
-                    </div>
+                    </form>
                 </div>
-
-                <div className='form-buttons-Edit-Conductor'>
-                    <button type='submit' className='btn btn-primary-Edit-Conductor'>Actualizar</button>
-                    <button type='button' className='btn btn-secondary-Edit-Conductor' onClick={handleCancel}>Cancelar</button>
-                </div>
-            </form>
+            </div>
         </div>
     );
 };

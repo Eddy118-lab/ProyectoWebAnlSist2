@@ -150,8 +150,8 @@ Ruta: ${selectedRuta.ruta}
 
     return (
         <div className="container">
-            <div className="row justify-content-center my-4">
-                <h2 className="text-center display-6" style={{ color: '#343a40', fontWeight: 'bold', marginTop: '70px' }}>
+            <div className="row justify-content-center my-4" style={{ marginBottom: '-50px' }}>
+                <h2 className="text-center display-6" style={{ color: '#343a40', fontWeight: 'bold', marginTop: '80px'}}>
                     Gestión de Rutas
                 </h2>
             </div>
@@ -214,13 +214,13 @@ Ruta: ${selectedRuta.ruta}
                                         <td>
                                             <div className="d-flex gap-2" style={{ marginRight: '-200px' }}>
                                                 <button onClick={() => viewRutaDetails(ruta)} className='btn btn-info btn-sm'>
-                                                    <i className="fa-regular fa-eye"></i> Ver
+                                                    <i className="fa-regular fa-eye"></i>
                                                 </button>
                                                 <Link to={`/ruta/edit/${ruta.id}`} className='btn btn-warning btn-sm'>
-                                                    <i className="fa-regular fa-pen-to-square"></i> Editar
+                                                    <i className="fa-regular fa-pen-to-square"></i>
                                                 </Link>
                                                 <button onClick={() => deleteRuta(ruta.id)} className='btn btn-danger btn-sm'>
-                                                    <i className="fa-regular fa-trash-can"></i> Eliminar
+                                                    <i className="fa-regular fa-trash-can"></i>
                                                 </button>
                                             </div>
                                         </td>

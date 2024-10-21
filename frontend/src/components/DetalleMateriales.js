@@ -79,9 +79,9 @@ const CompDetalleMateriales = () => {
 
   return (
     <div className="container mt-5">
-      <div className="card" style={{ maxWidth: '800px', margin: 'auto' }}>
+      <div className="card" style={{ maxWidth: '800px', margin: 'auto', marginTop: '60px' }}>
         <div className="card-header text-center">
-        <h5 className='text-center display-6' style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>Detalle del Material</h5>
+        <h5 className='text-center display-6' style={{ marginTop: '10px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>Detalle del Material</h5>
           <p className="text-muted">ID del material seleccionado: <strong>{id}</strong></p>
         </div>
         <div className="card-body">

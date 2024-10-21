@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de incluir Bootstrap
 
 const URI_TIPO_PROVEEDOR = 'http://localhost:8000/api/tipo-proveedor/';
 
@@ -55,31 +56,33 @@ const CompEditTipoProveedor = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Tipo de Proveedor</h2>
-            
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className='form-grid'>
-                <div className='form-column'>
-                    <div className='form-group'>
-                        <label>Descripción</label>
-                        <input
-                            type='text'
-                            className='form-control'
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                            required
-                        />
-                    </div>
-                </div>
+        <div className='d-flex justify-content-center align-items-center min-vh-100'>
+            <div className='card shadow-sm'>
+                <div className='card-body' style={{ maxWidth: '200px' }}>
+                    <h2 className='form-title text-center'>Editar Tipo de Proveedor</h2>
+                    
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                    
+                    <form onSubmit={handleSubmit}>
+                        <div className='mb-3'>
+                            <label className='form-label'>Descripción</label>
+                            <input
+                                type='text'
+                                className='form-control'
+                                value={descripcion}
+                                onChange={(e) => setDescripcion(e.target.value)}
+                                required
+                            />
+                        </div>
 
-                <div className='form-buttons'>
-                    <button type='submit' className='btn btn-primary'>Actualizar</button>
-                    <button type='button' className='btn btn-secondary' onClick={handleCancel}>Cancelar</button>
+                        <div className='d-flex justify-content-between'>
+                            <button type='submit' className='btn btn-primary'>Actualizar</button>
+                            <button type='button' className='btn btn-secondary' onClick={handleCancel}>Cancelar</button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

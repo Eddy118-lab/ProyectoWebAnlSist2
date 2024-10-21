@@ -33,9 +33,10 @@ function MainContent() {
           </Link>
         </div>
         <div className="module-card">
-          <img src={ventas} alt="Gestión de Ventas" />
-          <h3>Gestión de Ventas</h3>
-          <p>Próximamente</p>
+          <Link to="/ventas/gestion-ventas/catalogo" className="btn-module">
+            <img src={ventas} alt="Gestión de Ventas" />
+            <h3>Gestión de Ventas</h3>
+          </Link>
         </div>
         <div className="module-card">
           <Link to="/cliente/gestion-clientes" className="btn-module">

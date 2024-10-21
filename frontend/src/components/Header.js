@@ -24,7 +24,7 @@ function Header({ onLogout }) {
   // Define las rutas en las que se debe mostrar el menú
   const allowedRoutes = [
     '/usuario/gestion-usuarios',
-    '/ventas',
+    '/ventas/gestion-ventas/catalogo',
     '/cliente/gestion-clientes',
     '/factura-cliente/gestion-facturas-clientes',
     '/conductor/gestion-conductores',
@@ -122,7 +122,7 @@ function Header({ onLogout }) {
             {[
               { path: '/Home', label: 'Inicio' },
               { path: '/usuario/gestion-usuarios', label: 'Gestión de Usuarios' },
-              { path: '/ventas', label: 'Gestión de Ventas' },
+              { path: '/ventas/gestion-ventas/catalogo', label: 'Gestión de Ventas' },
               { path: '/cliente/gestion-clientes', label: 'Gestión de Clientes' },
               { path: '/factura-cliente/gestion-facturas-clientes', label: 'Gestión de Facturas a Clientes' },
               { path: '/conductor/gestion-conductores', label: 'Gestión de Conductores' },

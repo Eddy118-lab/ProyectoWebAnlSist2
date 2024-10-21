@@ -14,11 +14,12 @@ const CompCreateCarga = () => {
     const [precioUnitario, setPrecioUnitario] = useState('');
     const [asignacionId, setAsignacionId] = useState('');
     const [inventarioId, setInventarioId] = useState('');
-    const [vehiculos, setVehiculos] = useState([]); // Estado para los vehículos
-    const [inventarios, setInventarios] = useState([]); // Estado para los inventarios
-    const [asignaciones, setAsignaciones] = useState([]); // Estado para las asignaciones
+    const [vehiculos, setVehiculos] = useState([]);
+    const [inventarios, setInventarios] = useState([]);
+    const [asignaciones, setAsignaciones] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [duplicateErrorMessage, setDuplicateErrorMessage] = useState(''); // Mensaje de advertencia por duplicados
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -43,7 +44,6 @@ const CompCreateCarga = () => {
         const fetchAsignaciones = async () => {
             try {
                 const response = await axios.get(URI_ASIGNACIONES);
-                // Filtrar asignaciones para excluir los estados no deseados
                 const asignacionesFiltradas = response.data.filter(asignacion => {
                     const estadoExcluidoIds = [1, 3, 5]; // IDs de estados a excluir
                     return !estadoExcluidoIds.includes(asignacion.tipo_estado_id);
@@ -59,8 +59,27 @@ const CompCreateCarga = () => {
         fetchAsignaciones();
     }, []);
 
+    // Función para verificar si ya existe una carga para la asignación seleccionada
+    const checkDuplicateCarga = async (asignacionId) => {
+        try {
+            const response = await axios.get(`${URI_CARGA}?asignacion_id=${asignacionId}`);
+            return response.data.length > 0; // Retorna true si hay registros duplicados
+        } catch (error) {
+            console.error("Error al verificar duplicados:", error);
+            return false;
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setDuplicateErrorMessage(''); // Resetear el mensaje de duplicados
+
+        // Verificar si ya existe una carga para la asignación seleccionada
+        const isDuplicate = await checkDuplicateCarga(asignacionId);
+        if (isDuplicate) {
+            setDuplicateErrorMessage("No se puede duplicar registros para esta asignación.");
+            return; // No continuar con la creación si hay duplicados
+        }
 
         const newCarga = {
             nombre,
@@ -100,6 +119,7 @@ const CompCreateCarga = () => {
                 <div className="card-body">
                     {successMessage && <div className="alert alert-success">{successMessage}</div>}
                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                    {duplicateErrorMessage && <div className="alert alert-warning">{duplicateErrorMessage}</div>} {/* Mensaje de advertencia por duplicados */}
                     
                     <form onSubmit={handleSubmit} className="row g-3">
                         <div className="col-md-6">

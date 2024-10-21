@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de incluir Bootstrap
 
 const URI_TIPO_PAGO_PROVEEDOR = 'http://localhost:8000/api/tipo-pago-proveedor/';
 
@@ -24,7 +24,7 @@ const CompCreateTipoPagoProveedor = () => {
                 setSuccessMessage("Tipo de pago creado con éxito!");
                 setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+                    navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores');
                 }, 2000);
             } else {
                 setErrorMessage("Error al crear el tipo de pago.");
@@ -36,40 +36,41 @@ const CompCreateTipoPagoProveedor = () => {
     };
 
     const handleCancel = () => {
-        navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+        navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores');
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Crear Tipo de Pago</h2>
-            
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className="form-grid">
-                <div className="form-column">
-                    <div className="form-group">
-                        <label>Descripción</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                            required
-                        />
-                    </div>
-                </div>
+        <div className='container mt-5 d-flex justify-content-center align-items-center' style={{ minHeight: '100vh' }}>
+            <div className='card shadow border-light' style={{ maxWidth: '600px', width: '100%' }}>
+                <div className='card-body'>
+                    <h2 className='form-title text-center mb-4'>Crear Tipo de Pago Proveedor</h2>
+                    
+                    {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                    {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                    
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-4">
+                            <label className="form-label">Descripción</label>
+                            <input
+                                type="text"
+                                className="form-control" style={{maxWidth: '500px'}}
+                                value={descripcion}
+                                onChange={(e) => setDescripcion(e.target.value)}
+                                required
+                            />
+                        </div>
 
-                {/* Botones en una fila separada */}
-                <div className="form-buttons">
-                    <button type="submit" className="btn btn-primary">
-                        Guardar
-                    </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
-                        Cancelar
-                    </button>
+                        <div className="d-flex justify-content-between mt-4">
+                            <button type="submit" className="btn btn-primary">
+                                Guardar
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                                Cancelar
+                            </button>
+                        </div>
+                    </form>
                 </div>
-            </form>
+            </div>
         </div>
     );
 };

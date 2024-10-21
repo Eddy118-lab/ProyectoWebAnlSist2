@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de incluir Bootstrap
 
 const URI_MATERIAL = 'http://localhost:8000/api/material/';
 const URI_IMG = 'http://localhost:8000/uploadsMaterial/'; // Constante para la URL de las imágenes
@@ -111,14 +112,14 @@ const EditMaterial = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Material</h2>
+        <div className='container mt-5'>
+            <h2 className='text-center mb-4'>Editar Material</h2>
             
             {successMessage && <div className="alert alert-success">{successMessage}</div>}
             {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
             
-            <form onSubmit={handleSubmit} className='form-grid'>
-                <div className='form-column'>
+            <form onSubmit={handleSubmit} className='row g-3'>
+                <div className='col-md-6'>
                     <div className='form-group'>
                         <label>Nombre</label>
                         <input
@@ -196,14 +197,14 @@ const EditMaterial = () => {
                     </div>
                 </div>
 
-                <div className='form-column'>
+                <div className='col-md-6'>
                     <div className='form-group'>
                         <label>Imagen Actual</label>
                         {currentImage && (
                             <img 
                                 src={`${URI_IMG}${currentImage}`} 
                                 alt="Imagen Actual" 
-                                className="thumbnail" 
+                                className="img-fluid mb-3" 
                             />
                         )}
                     </div>
@@ -218,8 +219,7 @@ const EditMaterial = () => {
                     </div>
                 </div>
 
-                <div className='form-buttons'>
-                    {/* Botones de acción */}
+                <div className='col-12 d-flex justify-content-between mt-3'>
                     <button type="submit" className="btn btn-primary">
                         Guardar
                     </button>

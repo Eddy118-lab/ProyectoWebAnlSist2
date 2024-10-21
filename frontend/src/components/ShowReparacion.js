@@ -81,7 +81,7 @@ const CompShowReparacion = () => {
         <div className="container mt-5">
             <div className="row">
                 <div className="col-lg-12">
-                    <h2 className="text-center display-6" style={{ marginTop: '70px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
+                    <h2 className="text-center display-6" style={{ marginTop: '90px', color: '#343a40', fontWeight: 'bold', paddingBottom: '10px' }}>
                         Gestión de Reparaciones
                     </h2>
 
