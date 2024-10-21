@@ -65,6 +65,8 @@ import CompShowAsignacion from './components/ShowAsignacion.js';
 import CompShowTipoEstado from './components/ShowTipoEstado.js';
 import CompCreateTipoEstado from './components/CreateTipoEstado.js';
 import CompEditTipoEstado from './components/EditTipoEstado.js';
+import CompShowCarga from './components/ShowCarga.js';
+import CompCreateCarga from './components/CreateCarga.js';
 
 import HeaderInicio from './inicio/HeaderInicio.js';
 import FooterInicio from './inicio/FooterInicio.js';
@@ -74,6 +76,13 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import CompShowFacturaCliente from './components/ShowFacturaCliente.js';
+import CompShowDetallFactCliente from './components/ShowDetallFactCliente.js';
+import CompShowPagoCliente from './components/ShowPagoCliente.js';
+import CompShowTipoPagoCliente from './components/ShowTipoPagoCliente.js';
+import CompEditTipoPagoCliente from './components/EditTipoPagoCliente.js';
+import CompCreateTipoPagoCliente from './components/CreateTipoPagoCliente.js';
+
 
 function SaveLastValidRoute() {
   const location = useLocation();
@@ -185,7 +194,7 @@ function App() {
       "/vehiculo/reparacion/create/:id",
       "/vehiculo/reparacion/edit/:id/:id",
 
-      // Rutas de ruta
+      // Rutas de Ruta
       "/ruta/gestion-rutas",
       "/ruta/create",
       "/ruta/edit/:id",
@@ -195,7 +204,19 @@ function App() {
       "/asignacion/create",
       "/asignacion/tipo-estado/gestion-tipos-estados",
       "/asignacion/tipo-estado/create",
-      "/asignacion/tipo-estado/edit/:id"
+      "/asignacion/tipo-estado/edit/:id",
+
+      // Rutas de Carga
+      "/carga/gestion-cargas",
+      "/carga/create",
+
+      // Rutas de Factura Cliente
+      "/factura-cliente/gestion-facturas-clientes",
+      "/factura-cliente/detalle-factura-cliente/:id",
+      "/factura-cliente/pago-cliente/:id",
+      "/factura-cliente/tipo-pago-cliente/gestion-tipos-pagos-clientes",
+      "/factura-cliente/tipo-pago-cliente/create",
+      "/factura-cliente/tipo-pago-cliente/edit/:id"
     ];
 
     useEffect(() => {
@@ -313,12 +334,20 @@ function App() {
               <Route path="/ruta/gestion-rutas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowRuta /></PrivateRoute>} />
               <Route path="/ruta/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateRuta /></PrivateRoute>} />
               <Route path="/ruta/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditRuta /></PrivateRoute>} />
-              
               <Route path="/asignacion/gestion-asignaciones" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowAsignacion /></PrivateRoute>} />
               <Route path="/asignacion/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateAsignacion /></PrivateRoute>} />
               <Route path="/asignacion/tipo-estado/gestion-tipos-estados" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoEstado /></PrivateRoute>} />
               <Route path="/asignacion/tipo-estado/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoEstado /></PrivateRoute>} />
               <Route path="/asignacion/tipo-estado/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoEstado /></PrivateRoute>} />
+              <Route path="/carga/gestion-cargas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowCarga /></PrivateRoute>} />
+              <Route path="/carga/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateCarga /></PrivateRoute>} />
+              
+              <Route path="/factura-cliente/gestion-facturas-clientes" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowFacturaCliente /></PrivateRoute>} />
+              <Route path="/factura-cliente/detalle-factura-cliente/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowDetallFactCliente /></PrivateRoute>} />
+              <Route path="/factura-cliente/pago-cliente/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowPagoCliente /></PrivateRoute>} />
+              <Route path="/factura-cliente/tipo-pago-cliente/gestion-tipos-pagos-clientes" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoPagoCliente /></PrivateRoute>} />
+              <Route path="/factura-cliente/tipo-pago-cliente/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoPagoCliente /></PrivateRoute>} />
+              <Route path="/factura-cliente/tipo-pago-cliente/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoPagoCliente /></PrivateRoute>} />
               {/* Si la ruta no coincide, redirige a la última ruta válida */}
 
               <Route path="*" element={<RedirectToLastValidRoute />} />

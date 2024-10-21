@@ -106,7 +106,7 @@ export const updateVehiculoEstado = async (req, res) => {
         }
 
         // Cambia el estado del vehículo
-        vehiculo.estado = vehiculo.estado === 'activo' ? 'inactivo' : 'activo';
+        vehiculo.estado = vehiculo.estado === 'Activo' ? 'Inactivo' : 'Activo';
         
         await vehiculo.save();
 

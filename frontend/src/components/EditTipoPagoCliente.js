@@ -2,9 +2,9 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const URI_TIPO_PAGO_PROVEEDOR = 'http://localhost:8000/api/tipo-pago-proveedor';
+const URI_TIPO_PAGO_CLIENTE = 'http://localhost:8000/api/tipo-pago-cliente';
 
-const CompEditTipoPagoProveedor = () => {
+const CompEditTipoPagoCliente = () => {
     const { id } = useParams();  // Obtener el ID del tipo de pago de los parámetros de la URL
     const [descripcion, setDescripcion] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
@@ -14,7 +14,7 @@ const CompEditTipoPagoProveedor = () => {
     useEffect(() => {
         const fetchTipoPago = async () => {
             try {
-                const res = await axios.get(`${URI_TIPO_PAGO_PROVEEDOR}/${id}`);
+                const res = await axios.get(`${URI_TIPO_PAGO_CLIENTE}/${id}`);
                 const tipoPago = res.data;
                 setDescripcion(tipoPago.descripcion);
             } catch (error) {
@@ -34,12 +34,12 @@ const CompEditTipoPagoProveedor = () => {
         };
 
         try {
-            const response = await axios.put(`${URI_TIPO_PAGO_PROVEEDOR}/${id}`, updatedTipoPago);
+            const response = await axios.put(`${URI_TIPO_PAGO_CLIENTE}/${id}`, updatedTipoPago);
             if (response.status === 200) {
                 setSuccessMessage("Tipo de pago actualizado con éxito!");
                 setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+                    navigate('/factura-cliente/tipo-pago-cliente/gestion-tipos-pagos-clientes'); // Cambia esta ruta si es necesario
                 }, 2000);
             } else {
                 setErrorMessage("Error al actualizar el tipo de pago.");
@@ -51,7 +51,7 @@ const CompEditTipoPagoProveedor = () => {
     };
 
     const handleCancel = () => {
-        navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+        navigate('/factura-cliente/tipo-pago-cliente/gestion-tipos-pagos-clientes'); // Cambia esta ruta si es necesario
     };
 
     return (
@@ -84,4 +84,4 @@ const CompEditTipoPagoProveedor = () => {
     );
 };
 
-export default CompEditTipoPagoProveedor;
+export default CompEditTipoPagoCliente;

@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-const URI_TIPO_PAGO_PROVEEDOR = 'http://localhost:8000/api/tipo-pago-proveedor/';
+const URI_TIPO_PAGO_CLIENTE = 'http://localhost:8000/api/tipo-pago-cliente/';
 
-const CompCreateTipoPagoProveedor = () => {
+const CompCreateTipoPagoCliente = () => {
     const [descripcion, setDescripcion] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -19,12 +19,12 @@ const CompCreateTipoPagoProveedor = () => {
         };
 
         try {
-            const response = await axios.post(URI_TIPO_PAGO_PROVEEDOR, newTipoPago);
+            const response = await axios.post(URI_TIPO_PAGO_CLIENTE, newTipoPago);
             if (response.status === 201) {
                 setSuccessMessage("Tipo de pago creado con éxito!");
                 setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+                    navigate('/factura-cliente/tipo-pago-cliente/gestion-tipos-pagos-clientes'); // Cambia esta ruta si es necesario
                 }, 2000);
             } else {
                 setErrorMessage("Error al crear el tipo de pago.");
@@ -36,7 +36,7 @@ const CompCreateTipoPagoProveedor = () => {
     };
 
     const handleCancel = () => {
-        navigate('/factura-proveedor/tipo-pago-proveedor/gestion-tipos-pagos-proveedores'); // Cambia esta ruta si es necesario
+        navigate('/factura-cliente/tipo-pago-cliente/gestion-tipos-pagos-clientes'); // Cambia esta ruta si es necesario
     };
 
     return (
@@ -74,4 +74,4 @@ const CompCreateTipoPagoProveedor = () => {
     );
 };
 
-export default CompCreateTipoPagoProveedor;
+export default CompCreateTipoPagoCliente;

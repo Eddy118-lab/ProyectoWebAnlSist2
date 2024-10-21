@@ -101,11 +101,10 @@ const CompShowVehiculo = () => {
     // Función para actualizar el estado del vehículo
     const updateVehiculoEstado = async (id, estadoActual) => {
         try {
-            // Determinar el nuevo estado basado en el booleano
-            const nuevoEstado = estadoActual === 1 ? 0 : 1; // 1 para activo, 0 para inactivo
-            const estadoTexto = nuevoEstado === 1 ? 'activo' : 'inactivo';
-            await axios.patch(`${URI_VEHICULOS}${id}/estado`, { estado: estadoTexto });
-            getVehiculos(); // Vuelve a obtener los vehículos para reflejar el cambio
+            // Cambiar el estado entre "Activo" e "Inactivo"
+            const nuevoEstado = estadoActual === 'Activo' ? 'Inactivo' : 'Activo';
+            await axios.patch(`${URI_VEHICULOS}${id}/estado`, { estado: nuevoEstado });
+            getVehiculos(); // Refrescar los vehículos tras la actualización
         } catch (error) {
             console.error("Error al actualizar el estado del vehículo:", error);
         }
@@ -168,46 +167,46 @@ const CompShowVehiculo = () => {
                                         <td>{vehiculo.placa}</td>
                                         <td>{vehiculo.modelo}</td>
                                         <td>
-                                            <button 
-                                                onClick={() => updateVehiculoEstado(vehiculo.id, vehiculo.estado === 'activo' ? 1 : 0)} // Utiliza 1 para activo y 0 para inactivo
-                                                className={`btn btn-sm ${vehiculo.estado.toLowerCase() === 'activo' ? 'btn-success' : 'btn-secondary'}`}
-                                                disabled={vehiculo.estado.toLowerCase() === 'inactivo'} // Deshabilitar si está inactivo
+                                            <button
+                                                onClick={() => updateVehiculoEstado(vehiculo.id, vehiculo.estado)}
+                                                className={`btn btn-sm ${vehiculo.estado === 'Activo' ? 'btn-success' : 'btn-secondary'}`}
+                                                disabled={vehiculo.estado === 'Inactivo'} // Deshabilitar si está Inactivo
                                             >
-                                                {vehiculo.estado.charAt(0).toUpperCase() + vehiculo.estado.slice(1)} {/* Capitaliza la primera letra */}
+                                                {vehiculo.estado}
                                             </button>
                                         </td>
                                         <td>{getMarcaNombre(vehiculo.tipo_marca_id)}</td>
                                         <td>
-                                            <Link 
-                                                to={`/vehiculo/edit/${vehiculo.id}`} 
-                                                className="btn btn-warning btn-sm mr-2" 
-                                                tabIndex={vehiculo.estado.toLowerCase() === 'inactivo' ? -1 : 0} // Evitar la navegación del teclado
-                                                aria-disabled={vehiculo.estado.toLowerCase() === 'inactivo'} // Añadir atributo de accesibilidad
-                                                style={{ pointerEvents: vehiculo.estado.toLowerCase() === 'inactivo' ? 'none' : 'auto', opacity: vehiculo.estado.toLowerCase() === 'inactivo' ? 0.5 : 1 }} // Estilo visual
+                                            <Link
+                                                to={`/vehiculo/edit/${vehiculo.id}`}
+                                                className="btn btn-warning btn-sm mr-2"
+                                                tabIndex={vehiculo.estado === 'Inactivo' ? -1 : 0} // Evitar la navegación del teclado
+                                                aria-disabled={vehiculo.estado === 'Inactivo'} // Añadir atributo de accesibilidad
+                                                style={{ pointerEvents: vehiculo.estado === 'Inactivo' ? 'none' : 'auto', opacity: vehiculo.estado === 'Inactivo' ? 0.5 : 1 }} // Estilo visual
                                             >
                                                 <i className="fa-regular fa-pen-to-square"></i>
                                             </Link>
-                                            <button 
-                                                onClick={() => deleteVehiculo(vehiculo.id)} 
-                                                className="btn btn-danger btn-sm" 
-                                                disabled={vehiculo.estado.toLowerCase() === 'inactivo'} // Deshabilitar si está inactivo
+                                            <button
+                                                onClick={() => deleteVehiculo(vehiculo.id)}
+                                                className="btn btn-danger btn-sm"
+                                                disabled={vehiculo.estado === 'Inactivo'} // Deshabilitar si está Inactivo
                                             >
                                                 <i className="fa-regular fa-trash-can"></i>
                                             </button>
-                                            <Link 
-                                                to={`/vehiculo/combustible/gestion-combustibles/${vehiculo.id}`} 
-                                                className="btn btn-secondary btn-sm ml-2" 
-                                                tabIndex={vehiculo.estado.toLowerCase() === 'inactivo' ? -1 : 0} // Evitar la navegación del teclado
-                                                aria-disabled={vehiculo.estado.toLowerCase() === 'inactivo'} // Añadir atributo de accesibilidad
-                                                style={{ pointerEvents: vehiculo.estado.toLowerCase() === 'inactivo' ? 'none' : 'auto', opacity: vehiculo.estado.toLowerCase() === 'inactivo' ? 0.5 : 1 }} // Estilo visual
+                                            <Link
+                                                to={`/vehiculo/combustible/gestion-combustibles/${vehiculo.id}`}
+                                                className="btn btn-secondary btn-sm ml-2"
+                                                tabIndex={vehiculo.estado === 'Inactivo' ? -1 : 0} // Evitar la navegación del teclado
+                                                aria-disabled={vehiculo.estado === 'Inactivo'} // Añadir atributo de accesibilidad
+                                                style={{ pointerEvents: vehiculo.estado === 'Inactivo' ? 'none' : 'auto', opacity: vehiculo.estado === 'Inactivo' ? 0.5 : 1 }} // Estilo visual
                                             >
                                                 <i className="fa-solid fa-gas-pump"></i>
                                             </Link>
-                                            <Link 
-                                                to={`/vehiculo/reparacion/gestion-reparaciones/${vehiculo.id}`} 
-                                                className="btn btn-dark btn-sm ml-2" 
+                                            <Link
+                                                to={`/vehiculo/reparacion/gestion-reparaciones/${vehiculo.id}`}
+                                                className="btn btn-dark btn-sm ml-2"
                                             >
-                                                <i className="fa-solid fa-wrench"></i>
+                                                <i className="fa-solid fa-screwdriver-wrench"></i>
                                             </Link>
                                         </td>
                                     </tr>
@@ -217,11 +216,11 @@ const CompShowVehiculo = () => {
                     </table>
 
                     <nav>
-                        <ul className="pagination">
-                            {Array.from({ length: totalPages }, (_, index) => (
-                                <li key={index} className={`page-item ${index + 1 === currentPage ? 'active' : ''}`}>
-                                    <button className="page-link" onClick={() => paginate(index + 1)}>
-                                        {index + 1}
+                        <ul className="pagination justify-content-center">
+                            {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => (
+                                <li key={number} className={`page-item ${currentPage === number ? 'active' : ''}`}>
+                                    <button onClick={() => paginate(number)} className="page-link">
+                                        {number}
                                     </button>
                                 </li>
                             ))}

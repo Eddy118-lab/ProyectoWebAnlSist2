@@ -10,12 +10,12 @@ export const getCargas = async (req, res) => {
                 {
                     model: Asignacion,
                     as: 'asignacion',
-                    attributes: ['id', 'fecha_asignacion']
+                    attributes: ['id', 'fecha_asignacion', 'conductor_id', 'vehiculo_id', 'ruta_id', 'tipo_estado_id']
                 },
                 {
                     model: Inventario,
                     as: 'inventario',
-                    attributes: ['id', 'precio_unitario', 'cantidad', 'fecha_ingreso']
+                    attributes: ['id', 'precio_unitario', 'cantidad', 'fecha_ingreso', 'stock_min', 'stock_max', 'material_id']
                 }
             ]
         });
@@ -35,12 +35,12 @@ export const getCargaById = async (req, res) => {
                 {
                     model: Asignacion,
                     as: 'asignacion',
-                    attributes: ['id', 'fecha_asignacion']
+                    attributes: ['id', 'fecha_asignacion', 'conductor_id', 'vehiculo_id', 'ruta_id', 'tipo_estado_id']
                 },
                 {
                     model: Inventario,
                     as: 'inventario',
-                    attributes: ['id', 'precio_unitario', 'cantidad', 'fecha_ingreso']
+                    attributes: ['id', 'precio_unitario', 'cantidad', 'fecha_ingreso', 'stock_min', 'stock_max', 'material_id']
                 }
             ]
         });
@@ -60,6 +60,12 @@ export const getCargaById = async (req, res) => {
 export const createCarga = async (req, res) => {
     try {
         const { nombre, descripcion, precio_unitario, asignacion_id, inventario_id } = req.body;
+
+        // Validaciones simples
+        if (!nombre || !descripcion || !precio_unitario || !asignacion_id || !inventario_id) {
+            return res.status(400).json({ message: 'Todos los campos son requeridos.' });
+        }
+
         const nuevaCarga = await Carga.create({
             nombre,
             descripcion,
@@ -83,6 +89,11 @@ export const updateCarga = async (req, res) => {
         const carga = await Carga.findByPk(id);
         if (!carga) {
             return res.status(404).json({ message: 'Carga no encontrada.' });
+        }
+
+        // Validaciones simples
+        if (!nombre || !descripcion || !precio_unitario || !asignacion_id || !inventario_id) {
+            return res.status(400).json({ message: 'Todos los campos son requeridos.' });
         }
 
         // Actualiza los campos de la carga

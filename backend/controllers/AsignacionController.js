@@ -5,9 +5,22 @@ import Ruta from '../models/Ruta.js';
 import TipoEstado from '../models/TipoEstado.js';
 
 // Obtener todas las asignaciones
+// Obtener todas las asignaciones, con opción de filtrar por fecha
 export const getAsignaciones = async (req, res) => {
     try {
+        // Verificar si se pasó el parámetro 'fecha_asignacion' en la consulta
+        const { fecha_asignacion } = req.query;
+        
+        // Crear un objeto de filtro
+        let whereClause = {};
+        
+        if (fecha_asignacion) {
+            // Si existe 'fecha_asignacion' en la consulta, se añade al filtro
+            whereClause.fecha_asignacion = fecha_asignacion;
+        }
+
         const asignaciones = await Asignacion.findAll({
+            where: whereClause,  // Aplicar el filtro de fecha si existe
             include: [
                 {
                     model: Conductor,
@@ -31,12 +44,14 @@ export const getAsignaciones = async (req, res) => {
                 }
             ]
         });
+
         return res.status(200).json(asignaciones);
     } catch (error) {
         console.error('Error al obtener las asignaciones:', error);
         return res.status(500).json({ message: 'Error al obtener las asignaciones.' });
     }
 };
+
 
 // Obtener una asignación por ID
 export const getAsignacionById = async (req, res) => {

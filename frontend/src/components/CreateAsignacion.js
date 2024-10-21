@@ -14,10 +14,12 @@ const CompCreateAsignacion = () => {
     const [vehiculoId, setVehiculoId] = useState('');
     const [rutaId, setRutaId] = useState('');
     const [estadoId, setEstadoId] = useState('');
-    const [fechaAsignacion, setFechaAsignacion] = useState(''); // Nuevo campo
+    const [fechaAsignacion, setFechaAsignacion] = useState('');
 
     const [conductores, setConductores] = useState([]);
     const [vehiculos, setVehiculos] = useState([]);
+    const [vehiculosDisponibles, setVehiculosDisponibles] = useState([]);
+    const [conductoresDisponibles, setConductoresDisponibles] = useState([]);
     const [rutas, setRutas] = useState([]);
     const [estados, setEstados] = useState([]);
 
@@ -35,9 +37,18 @@ const CompCreateAsignacion = () => {
                 const resEstados = await axios.get(URI_TIPO_ESTADO);
 
                 setConductores(resConductores.data);
-                setVehiculos(resVehiculos.data);
+
+                // Filtrar solo vehículos con estado "Activo"
+                const vehiculosActivos = resVehiculos.data.filter(vehiculo => vehiculo.estado === "Activo");
+                setVehiculos(vehiculosActivos);
+
                 setRutas(resRutas.data);
-                setEstados(resEstados.data);
+                
+                // Filtrar estados para incluir solo "Procesada" y "En espera"
+                const estadosFiltrados = resEstados.data.filter(estado => 
+                    estado.descripcion === "Procesada" || estado.descripcion === "En espera"
+                );
+                setEstados(estadosFiltrados);
             } catch (error) {
                 console.error("Error al obtener los datos:", error);
                 setErrorMessage("Error al obtener datos.");
@@ -47,11 +58,43 @@ const CompCreateAsignacion = () => {
         fetchData();
     }, []);
 
+    // Efecto para filtrar los vehículos y conductores según la fecha seleccionada
+    useEffect(() => {
+        const fetchDisponibles = async () => {
+            if (fechaAsignacion) {
+                try {
+                    // Obtener todas las asignaciones para la fecha seleccionada
+                    const resAsignaciones = await axios.get(`${URI_ASIGNACION}?fecha_asignacion=${fechaAsignacion}`);
+                    const asignaciones = resAsignaciones.data;
+
+                    // Filtrar vehículos que ya están asignados en esa fecha
+                    const vehiculosAsignados = asignaciones.map(a => a.vehiculo_id);
+                    const vehiculosDisponibles = vehiculos.filter(v => !vehiculosAsignados.includes(v.id));
+
+                    // Filtrar conductores que ya están asignados en esa fecha
+                    const conductoresAsignados = asignaciones.map(a => a.conductor_id);
+                    const conductoresDisponibles = conductores.filter(c => !conductoresAsignados.includes(c.id));
+
+                    setVehiculosDisponibles(vehiculosDisponibles);
+                    setConductoresDisponibles(conductoresDisponibles);
+                } catch (error) {
+                    console.error("Error al filtrar vehículos y conductores:", error);
+                    setErrorMessage("Error al filtrar vehículos y conductores.");
+                }
+            } else {
+                setVehiculosDisponibles(vehiculos);
+                setConductoresDisponibles(conductores);
+            }
+        };
+
+        fetchDisponibles();
+    }, [fechaAsignacion, vehiculos, conductores]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const newAsignacion = {
-            fecha_asignacion: fechaAsignacion, // Se agrega la fecha
+            fecha_asignacion: fechaAsignacion,
             conductor_id: conductorId,
             vehiculo_id: vehiculoId,
             ruta_id: rutaId,
@@ -79,6 +122,13 @@ const CompCreateAsignacion = () => {
         navigate('/asignacion/gestion-asignaciones');
     };
 
+    // Calcular fechas min y max
+    const today = new Date();
+    const maxDate = today.toISOString().split('T')[0];
+    const minDate = new Date(today);
+    minDate.setDate(today.getDate() - 7); // 7 días atrás
+    const minDateString = minDate.toISOString().split('T')[0];
+
     return (
         <div className='container vh-100 d-flex justify-content-center align-items-center'>
             <div className="card" style={{ maxWidth: '600px', width: '100%', maxHeight: '100%' }}>
@@ -100,7 +150,7 @@ const CompCreateAsignacion = () => {
                                     required
                                 >
                                     <option value="">Seleccione un conductor</option>
-                                    {conductores.map((conductor) => (
+                                    {conductoresDisponibles.map((conductor) => (
                                         <option key={conductor.id} value={conductor.id}>
                                             {conductor.primer_nom} {conductor.primer_apell}
                                         </option>
@@ -116,7 +166,7 @@ const CompCreateAsignacion = () => {
                                     required
                                 >
                                     <option value="">Seleccione un vehículo</option>
-                                    {vehiculos.map((vehiculo) => (
+                                    {vehiculosDisponibles.map((vehiculo) => (
                                         <option key={vehiculo.id} value={vehiculo.id}>
                                             {vehiculo.placa}
                                         </option>
@@ -153,7 +203,7 @@ const CompCreateAsignacion = () => {
                                     <option value="">Seleccione un estado</option>
                                     {estados.map((estado) => (
                                         <option key={estado.id} value={estado.id}>
-                                            {estado.id} {estado.descripcion}
+                                            {estado.descripcion}
                                         </option>
                                     ))}
                                 </select>
@@ -169,6 +219,8 @@ const CompCreateAsignacion = () => {
                                     value={fechaAsignacion}
                                     onChange={(e) => setFechaAsignacion(e.target.value)}
                                     required
+                                    min={minDateString}
+                                    max={maxDate}
                                 />
                             </div>
                         </div>
@@ -178,11 +230,8 @@ const CompCreateAsignacion = () => {
                                 <button type="submit" className="btn btn-primary me-2">
                                     Guardar
                                 </button>
-                                <button type="button" className="btn btn-secondary me-2" onClick={handleCancel}>
+                                <button type="button" className="btn btn-secondary" onClick={handleCancel}>
                                     Cancelar
-                                </button>
-                                <button type="button" className="btn btn-info me-2" onClick={() => navigate('/asignacion/tipo-estado/gestion-tipos-estados')}>
-                                    Gestión de Estados
                                 </button>
                             </div>
                         </div>

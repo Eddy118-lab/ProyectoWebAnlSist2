@@ -18,10 +18,14 @@ import {getTipoMarcas, getTipoMarcaById, createTipoMarca, updateTipoMarca, delet
 import {getVehiculos, getVehiculoById, createVehiculo, updateVehiculo, deleteVehiculo, updateVehiculoEstado} from '../controllers/VehiculoController.js';
 import {getReparaciones, getReparacionById, createReparacion, updateReparacion, deleteReparacion} from '../controllers/ReparacionController.js'; 
 import {getCombustibles, getCombustibleById, createCombustible, updateCombustible, deleteCombustible} from '../controllers/CombustibleController.js'; 
-import { getRutas, getRutaById, createRuta, updateRuta, deleteRuta } from '../controllers/RutaController.js';
-import { getTipoEstados, getTipoEstadoById, createTipoEstado, updateTipoEstado, deleteTipoEstado } from '../controllers/TipoEstadoController.js';
-import { getAsignaciones, getAsignacionById, createAsignacion, updateAsignacion, deleteAsignacion } from '../controllers/AsignacionController.js';
-import { getCargas, getCargaById, createCarga, updateCarga, deleteCarga } from '../controllers/CargaController.js';
+import {getRutas, getRutaById, createRuta, updateRuta, deleteRuta } from '../controllers/RutaController.js';
+import {getTipoEstados, getTipoEstadoById, createTipoEstado, updateTipoEstado, deleteTipoEstado } from '../controllers/TipoEstadoController.js';
+import {getAsignaciones, getAsignacionById, createAsignacion, updateAsignacion, deleteAsignacion } from '../controllers/AsignacionController.js';
+import {getCargas, getCargaById, createCarga, updateCarga, deleteCarga } from '../controllers/CargaController.js';
+import {getFacturasClientes, getFacturaClienteById, createFacturaCliente, updateFacturaCliente, deleteFacturaCliente} from '../controllers/FacturaClienteController.js';
+import {getDetallesFactClientesGroupedByFactura, getDetalleFactClienteById, createDetalleFactCliente, updateDetalleFactCliente, deleteDetalleFactCliente} from '../controllers/DetallFactClienteController.js';
+import {getTiposPagoCliente, getTipoPagoClienteById, createTipoPagoCliente, updateTipoPagoCliente, deleteTipoPagoCliente} from '../controllers/TipoPagoClienteController.js';
+import {getPagosClientesGroupedByFactura, getPagoClienteById, createPagoCliente, updatePagoCliente, deletePagoCliente} from '../controllers/PagoClienteController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -106,7 +110,7 @@ router.post('/inventario', createInventario);
 router.put('/inventario/:id', updateInventario);
 router.delete('/inventario/:id', deleteInventario);
 
-/////CRUD DE FACTURA
+/////CRUD DE FACTURA PROVEEDOR
 router.get('/factura-proveedor', getFacturasProveedores);
 router.get('/factura-proveedor/:id', getFacturaProveedorById);
 router.post('/factura-proveedor', createFacturaProveedor);
@@ -134,7 +138,7 @@ router.post('/detalle-factura-proveedor', createDetalleFactProveedor);
 router.put('/detalle-factura-proveedor/:id', updateDetalleFactProveedor);
 router.delete('/detalle-factura-proveedor/:id', deleteDetalleFactProveedor);
 
-// CRUD DE TIPO MARCAR
+// CRUD DE TIPO MARCA
 router.get('/tipo-marca', getTipoMarcas);
 router.get('/tipo-marca/:id', getTipoMarcaById);
 router.post('/tipo-marca', createTipoMarca);
@@ -190,6 +194,34 @@ router.get('/carga/:id', getCargaById);
 router.post('/carga', createCarga);
 router.put('/carga/:id', updateCarga);
 router.delete('/carga/:id', deleteCarga);
+
+// CRUD DE FACTURA CLIENTE
+router.get('/factura-cliente', getFacturasClientes);
+router.get('/factura-cliente/:id', getFacturaClienteById);
+router.post('/factura-cliente', createFacturaCliente);
+router.put('/factura-cliente/:id', updateFacturaCliente);
+router.delete('/factura-cliente/:id', deleteFacturaCliente);
+
+// CRUD DE DETALLE FACTURA CLIENTE
+router.get('/detalle-factura-cliente', getDetallesFactClientesGroupedByFactura);
+router.get('/detalle-factura-cliente/:id', getDetalleFactClienteById);
+router.post('/detalle-factura-cliente', createDetalleFactCliente);
+router.put('/detalle-factura-cliente/:id', updateDetalleFactCliente);
+router.delete('/detalle-factura-cliente/:id', deleteDetalleFactCliente);
+
+// CRUD DE TIPO PAGO CLIENTE
+router.get('/tipo-pago-cliente', getTiposPagoCliente);
+router.get('/tipo-pago-cliente/:id', getTipoPagoClienteById);
+router.post('/tipo-pago-cliente', createTipoPagoCliente);
+router.put('/tipo-pago-cliente/:id', updateTipoPagoCliente);
+router.delete('/tipo-pago-cliente/:id', deleteTipoPagoCliente);
+
+// CRUD DE PAGO CLIENTE
+router.get('/pago-cliente', getPagosClientesGroupedByFactura);
+router.get('/pago-cliente/:id', getPagoClienteById);
+router.post('/pago-cliente', createPagoCliente);
+router.put('/pago-cliente/:id', updatePagoCliente);
+router.delete('/pago-cliente/:id', deletePagoCliente);
 
 ///// RUTA LOGIN
 router.post('/login', login);

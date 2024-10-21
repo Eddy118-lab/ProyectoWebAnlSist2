@@ -35,15 +35,15 @@ const CompCreateReparacion = () => {
         e.preventDefault();
 
         // Verifica si el vehículo ya está activo
-        if (vehiculo?.estado === 'activo') {
+        if (vehiculo?.estado === 'Activo') {
             setErrorMessage("El vehículo ya está activo.");
             return;
         }
 
         // Primero, actualiza el estado del vehículo a "activo"
         try {
-            await axios.patch(`${URI_VEHICULO}${id}/estado`, { estado: 'activo' });
-            setVehiculo({ ...vehiculo, estado: 'activo' }); // Actualizar el estado localmente
+            await axios.patch(`${URI_VEHICULO}${id}/estado`, { estado: 'Activo' });
+            setVehiculo({ ...vehiculo, estado: 'Activo' }); // Actualizar el estado localmente
         } catch (error) {
             console.error("Error al actualizar el estado del vehículo:", error);
             setErrorMessage("Error al actualizar el estado del vehículo.");

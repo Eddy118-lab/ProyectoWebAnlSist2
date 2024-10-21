@@ -3,12 +3,12 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-const URI = 'http://localhost:8000/api/detalle-factura-proveedor'; // Cambia esto si es necesario
-const URI_MATERIALES = 'http://localhost:8000/api/material';
+const URI = 'http://localhost:8000/api/detalle-factura-cliente'; // Cambia esto si es necesario
+const URI_CARGAS = 'http://localhost:8000/api/carga';
 
-const CompShowDetallFactProveedor = () => {
+const CompShowDetallFactCliente = () => {
     const [detalles, setDetalles] = useState([]);
-    const [materiales, setMateriales] = useState([]);
+    const [cargas, setCargas] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
@@ -18,7 +18,7 @@ const CompShowDetallFactProveedor = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await Promise.all([getDetalles(), getMateriales()]);
+                await Promise.all([getDetalles(), getCargas()]);
             } catch (err) {
                 setError('Error al cargar los datos');
             } finally {
@@ -38,13 +38,13 @@ const CompShowDetallFactProveedor = () => {
         }
     };
 
-    const getMateriales = async () => {
+    const getCargas = async () => {
         try {
-            const res = await axios.get(URI_MATERIALES);
-            setMateriales(res.data);
+            const res = await axios.get(URI_CARGAS);
+            setCargas(res.data);
         } catch (error) {
-            setError('Error al obtener los materiales');
-            console.error('Error al obtener los materiales:', error);
+            setError('Error al obtener las cargas');
+            console.error('Error al obtener las cargas:', error);
         }
     };
 
@@ -52,7 +52,6 @@ const CompShowDetallFactProveedor = () => {
         return amount.toLocaleString('es-GT', { style: 'currency', currency: 'GTQ' });
     };
 
-    // Formato de fecha dd-mm-yyyy
     const formatDate = (dateString) => {
         const [year, month, day] = dateString.split('-');
         return `${day}-${month}-${year}`;
@@ -77,7 +76,7 @@ const CompShowDetallFactProveedor = () => {
                         }
                         h2, h3, h4 {
                             text-align: center; 
-                            color: #000000; /* Cambiado a #00FFFF */
+                            color: #000000;
                         }
                         .container {
                             background-color: #fff; 
@@ -98,8 +97,8 @@ const CompShowDetallFactProveedor = () => {
                             text-align: left; 
                         }
                         th {
-                            background-color: #00B0F6; /* Cambiado a #00FFFF */
-                            color: black; /* Cambié el color del texto a negro para mejor contraste */
+                            background-color: #00B0F6;
+                            color: black;
                         }
                         tr:nth-child(even) {
                             background-color: #f2f2f2;
@@ -112,7 +111,7 @@ const CompShowDetallFactProveedor = () => {
                 </head>
                 <body>
                     <div class="container">
-                        <h2>Detalles de Factura de Proveedores</h2>
+                        <h2>Detalles de Factura de Cliente</h2>
                         ${printRef.current.innerHTML}
                     </div>
                     <script>window.print();</script>
@@ -131,30 +130,30 @@ const CompShowDetallFactProveedor = () => {
         return <p>No se encontró la agrupación</p>;
     }
 
-    // Crear un objeto para un acceso más rápido a los nombres de materiales
-    const materialMap = materiales.reduce((acc, material) => {
-        acc[material.id] = material.nombre;
+    // Crear un objeto para un acceso más rápido a los nombres de cargas
+    const cargaMap = cargas.reduce((acc, carga) => {
+        acc[carga.id] = carga.descripcion;
         return acc;
     }, {});
 
-    // Función para obtener el nombre del material a partir del ID
-    const getMaterialName = (id) => {
-        return materialMap[id] || 'Material no encontrado';
+    // Función para obtener el nombre de la carga a partir del ID
+    const getCargaName = (id) => {
+        return cargaMap[id] || 'Carga no encontrada';
     };
 
     return (
         <div className="container">
             <div className="row">
                 <div className="col">
-                    <h2 className='text-center display-6' style={{ marginTop: '110px', fontWeight: 'bold', paddingBottom: '10px' }}>Detalles de Factura de Proveedores</h2>
+                    <h2 className='text-center display-6' style={{ marginTop: '110px', fontWeight: 'bold', paddingBottom: '10px' }}>Detalles de Factura de Clientes</h2>
                     
                     <div ref={printRef} className="mb-4" style={{ backgroundColor: '#ffffff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
                         <h3>
                             Factura ID: {grupo.factura.id} - Fecha: {formatDate(grupo.factura.fecha)} - Monto: {formatCurrency(grupo.factura.monto)}
                         </h3>
-                        {grupo.inventarios && grupo.inventarios.length > 0 && (
+                        {grupo.cargas && grupo.cargas.length > 0 && (
                             <h4>
-                                Inventarios: {grupo.inventarios.map(inv => `ID: ${inv.id} (Precio: ${inv.precio_unitario})`).join(', ')}
+                                Cargas: {grupo.cargas.map(carg => `ID: ${carg.id} (Nombre: ${carg.nombre})`).join(', ')}
                             </h4>
                         )}
                         <table className='table table-striped'>
@@ -166,7 +165,7 @@ const CompShowDetallFactProveedor = () => {
                                     <th>Subtotal</th>
                                     <th>Descuento</th>
                                     <th>Total</th>
-                                    <th>ID Inventario</th>
+                                    <th>Carga</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -179,7 +178,7 @@ const CompShowDetallFactProveedor = () => {
                                             <td>{formatCurrency(detalle.subtotal)}</td>
                                             <td>{formatCurrency(detalle.descuento)}</td>
                                             <td>{formatCurrency(detalle.total)}</td>
-                                            <td>{detalle.inventario ? getMaterialName(detalle.inventario.id) : 'No disponible'}</td>
+                                            <td>{detalle.carga ? getCargaName(detalle.carga.id) : 'No disponible'}</td>
                                         </tr>
                                     ))
                                 ) : (
@@ -194,7 +193,7 @@ const CompShowDetallFactProveedor = () => {
                     <div className="text-center">
                         <button 
                             className="btn btn-secondary mx-2" 
-                            onClick={() => navigate('/factura-proveedor/gestion-facturas-proveedores')}
+                            onClick={() => navigate('/factura-cliente/gestion-facturas-clientes')}
                         >
                             Volver a Facturas
                         </button>
@@ -211,4 +210,4 @@ const CompShowDetallFactProveedor = () => {
     );
 };
 
-export default CompShowDetallFactProveedor;
+export default CompShowDetallFactCliente;
