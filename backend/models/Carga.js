@@ -22,6 +22,11 @@ const Carga = sequelize.define('Carga', {
     allowNull: true,
     comment: 'descripción de la carga',
   },
+  cantidad: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    comment: 'cantidad de la carga',
+  },
   precio_unitario: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,

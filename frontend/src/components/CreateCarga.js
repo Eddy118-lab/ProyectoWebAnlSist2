@@ -11,6 +11,7 @@ const URI_ASIGNACIONES = 'http://localhost:8000/api/asignacion'; // Ruta para ob
 const CompCreateCarga = () => {
     const [nombre, setNombre] = useState('');
     const [descripcion, setDescripcion] = useState('');
+    const [cantidad, setCantidad] = useState('');
     const [precioUnitario, setPrecioUnitario] = useState('');
     const [asignacionId, setAsignacionId] = useState('');
     const [inventarioId, setInventarioId] = useState('');
@@ -49,8 +50,16 @@ const CompCreateCarga = () => {
                     return !estadoExcluidoIds.includes(asignacion.tipo_estado_id);
                 });
                 setAsignaciones(asignacionesFiltradas);
+
+                // Verificar si alguna asignación ya tiene carga
+                const responseCargas = await axios.get(URI_CARGA);
+                const cargasExistentes = responseCargas.data.map(carga => carga.asignacion_id);
+
+                // Filtrar las asignaciones que ya tienen carga
+                const asignacionesSinCarga = asignacionesFiltradas.filter(asignacion => !cargasExistentes.includes(asignacion.id));
+                setAsignaciones(asignacionesSinCarga);
             } catch (error) {
-                console.error("Error al obtener asignaciones:", error);
+                console.error("Error al obtener asignaciones o cargas:", error);
             }
         };
 
@@ -59,31 +68,21 @@ const CompCreateCarga = () => {
         fetchAsignaciones();
     }, []);
 
-    // Función para verificar si ya existe una carga para la asignación seleccionada
-    const checkDuplicateCarga = async (asignacionId) => {
-        try {
-            const response = await axios.get(`${URI_CARGA}?asignacion_id=${asignacionId}`);
-            return response.data.length > 0; // Retorna true si hay registros duplicados
-        } catch (error) {
-            console.error("Error al verificar duplicados:", error);
-            return false;
-        }
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setDuplicateErrorMessage(''); // Resetear el mensaje de duplicados
+        setDuplicateErrorMessage('');
+        setErrorMessage('');
 
-        // Verificar si ya existe una carga para la asignación seleccionada
-        const isDuplicate = await checkDuplicateCarga(asignacionId);
-        if (isDuplicate) {
-            setDuplicateErrorMessage("No se puede duplicar registros para esta asignación.");
-            return; // No continuar con la creación si hay duplicados
+        // Verificar si el usuario seleccionó una asignación
+        if (!asignacionId) {
+            setErrorMessage("Debe seleccionar una asignación.");
+            return;
         }
 
         const newCarga = {
             nombre,
             descripcion,
+            cantidad,
             precio_unitario: precioUnitario,
             asignacion_id: asignacionId,
             inventario_id: inventarioId
@@ -93,9 +92,8 @@ const CompCreateCarga = () => {
             const response = await axios.post(URI_CARGA, newCarga);
             if (response.status === 201) {
                 setSuccessMessage("Carga creada con éxito!");
-                setErrorMessage('');
                 setTimeout(() => {
-                    navigate('/carga/gestion-cargas'); 
+                    navigate('/carga/gestion-cargas');
                 }, 2000);
             } else {
                 setErrorMessage("Error al crear la carga.");
@@ -107,7 +105,7 @@ const CompCreateCarga = () => {
     };
 
     const handleCancel = () => {
-        navigate('/carga/gestion-cargas'); 
+        navigate('/carga/gestion-cargas');
     };
 
     return (
@@ -119,7 +117,7 @@ const CompCreateCarga = () => {
                 <div className="card-body">
                     {successMessage && <div className="alert alert-success">{successMessage}</div>}
                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-                    {duplicateErrorMessage && <div className="alert alert-warning">{duplicateErrorMessage}</div>} {/* Mensaje de advertencia por duplicados */}
+                    {duplicateErrorMessage && <div className="alert alert-warning">{duplicateErrorMessage}</div>}
                     
                     <form onSubmit={handleSubmit} className="row g-3">
                         <div className="col-md-6">
@@ -140,6 +138,16 @@ const CompCreateCarga = () => {
                                     className="form-control"
                                     value={descripcion}
                                     onChange={(e) => setDescripcion(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label>Cantidad</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    value={cantidad}
+                                    onChange={(e) => setCantidad(e.target.value)}
                                     required
                                 />
                             </div>

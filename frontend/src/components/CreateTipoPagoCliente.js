@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css'; // Asegúrate de tener Bootstrap importado
 
 const URI_TIPO_PAGO_CLIENTE = 'http://localhost:8000/api/tipo-pago-cliente/';
 
@@ -40,16 +40,16 @@ const CompCreateTipoPagoCliente = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Crear Tipo de Pago</h2>
-            
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className="form-grid">
-                <div className="form-column">
-                    <div className="form-group">
-                        <label>Descripción</label>
+        <div className='container d-flex justify-content-center align-items-center vh-100'>
+            <div className="border rounded p-4 shadow" style={{ maxWidth: '900px', backgroundColor: '#f8f9fa' }}>
+                <h2 className='text-center mb-4'>Crear Tipo de Pago</h2>
+                
+                {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-3">
+                        <label className="form-label">Descripción</label>
                         <input
                             type="text"
                             className="form-control"
@@ -58,18 +58,18 @@ const CompCreateTipoPagoCliente = () => {
                             required
                         />
                     </div>
-                </div>
 
-                {/* Botones en una fila separada */}
-                <div className="form-buttons">
-                    <button type="submit" className="btn btn-primary">
-                        Guardar
-                    </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
-                        Cancelar
-                    </button>
-                </div>
-            </form>
+                    {/* Botones en una fila separada y centrados */}
+                    <div className="text-center">
+                        <button type="submit" className="btn btn-primary me-2">
+                            Guardar
+                        </button>
+                        <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

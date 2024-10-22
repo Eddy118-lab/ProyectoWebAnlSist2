@@ -88,132 +88,139 @@ const CompCreateMaterial = () => {
 
     return (
         <div className='container'>
-            <h2 className='text-center' style={{marginTop: '140px'}}>Crear Material</h2>
-            
-            {successMessage && <div className="alert alert-success">{successMessage}</div>}
-            {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
-            
-            <form onSubmit={handleSubmit} className="row g-3">
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Nombre</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            value={nombre}
-                            onChange={(e) => setNombre(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label>Descripción</label>
-                        <textarea
-                            className="form-control"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                            required
-                        ></textarea>
-                    </div>
-                    <div className="form-group">
-                        <label>Imagen</label>
-                        <input
-                            type="file"
-                            className="form-control"
-                            accept="image/*"
-                            onChange={(e) => setImagen(e.target.files[0])}
-                            required
-                        />
-                    </div>
-                </div>
+            {/* Box contenedor para el formulario */}
+            <div className="border rounded p-4 shadow" style={{ backgroundColor: '#f8f9fa', marginTop: '140px' }}>
+                <h2 className='text-center'>Crear Material</h2>
                 
-                <div className="col-md-6">
-                    <div className="form-group">
-                        <label>Dimensión</label>
-                        <select
-                            className="form-select"
-                            value={dimensionId}
-                            onChange={(e) => setDimensionId(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccione una dimensión</option>
-                            {dimensiones.map((dim) => (
-                                <option key={dim.id} value={dim.id}>
-                                    {dim.descripcion}
-                                </option>
-                            ))}
-                        </select>
+                {successMessage && <div className="alert alert-success">{successMessage}</div>}
+                {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+                
+                <form onSubmit={handleSubmit} className="row g-3">
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label>Nombre</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                value={nombre}
+                                onChange={(e) => setNombre(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Descripción</label>
+                            <textarea
+                                className="form-control"
+                                value={descripcion}
+                                onChange={(e) => setDescripcion(e.target.value)}
+                                required
+                            ></textarea>
+                        </div>
+                        <div className="form-group">
+                            <label>Imagen</label>
+                            <input
+                                type="file"
+                                className="form-control"
+                                accept="image/*"
+                                onChange={(e) => setImagen(e.target.files[0])}
+                                required
+                            />
+                        </div>
                     </div>
-                    <div className="form-group">
-                        <label>Peso</label>
-                        <select
-                            className="form-select"
-                            value={pesoId}
-                            onChange={(e) => setPesoId(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccione un peso</option>
-                            {pesos.map((peso) => (
-                                <option key={peso.id} value={peso.id}>
-                                    {peso.descripcion}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Tipo de Material</label>
-                        <select
-                            className="form-select"
-                            value={tipoMaterialId}
-                            onChange={(e) => setTipoMaterialId(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccione un tipo de material</option>
-                            {tiposMaterial.map((tipoMat) => (
-                                <option key={tipoMat.id} value={tipoMat.id}>
-                                    {tipoMat.descripcion}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Proveedor</label>
-                        <select
-                            className="form-select"
-                            value={proveedorId}
-                            onChange={(e) => setProveedorId(e.target.value)}
-                            required
-                        >
-                            <option value="">Seleccione un proveedor</option>
-                            {proveedores.map((prov) => (
-                                <option key={prov.id} value={prov.id}>
-                                    {prov.nombre}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
 
-                <div className="col-12">
-                    <button type="submit" className="btn btn-primary me-2">
-                        Guardar
-                    </button>
-                    <button type="button" className="btn btn-secondary" onClick={handleCancel}>
-                        Cancelar
-                    </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/dimension/gestion-dimensiones')}>
-                        Gestionar Dimensiones
-                    </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/peso/gestion-pesos')}>
-                        Gestionar Pesos
-                    </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/material/tipo-material/gestion-tipos-materiales')}>
-                        Gestionar Tipos de Materiales
-                    </button>
-                    <button type="button" className="btn btn-info" onClick={() => navigate('/proveedor/gestion-proveedores')}>
-                        Gestionar Proveedores
-                    </button>
-                </div>
-            </form>
+                    <div className="col-md-6">
+                        <div className="form-group">
+                            <label>Dimensión</label>
+                            <select
+                                className="form-select"
+                                value={dimensionId}
+                                onChange={(e) => setDimensionId(e.target.value)}
+                                required
+                            >
+                                <option value="">Seleccione una dimensión</option>
+                                {dimensiones.map((dim) => (
+                                    <option key={dim.id} value={dim.id}>
+                                        {dim.descripcion}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Peso</label>
+                            <select
+                                className="form-select"
+                                value={pesoId}
+                                onChange={(e) => setPesoId(e.target.value)}
+                                required
+                            >
+                                <option value="">Seleccione un peso</option>
+                                {pesos.map((peso) => (
+                                    <option key={peso.id} value={peso.id}>
+                                        {peso.descripcion}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Tipo de Material</label>
+                            <select
+                                className="form-select"
+                                value={tipoMaterialId}
+                                onChange={(e) => setTipoMaterialId(e.target.value)}
+                                required
+                            >
+                                <option value="">Seleccione un tipo de material</option>
+                                {tiposMaterial.map((tipoMat) => (
+                                    <option key={tipoMat.id} value={tipoMat.id}>
+                                        {tipoMat.descripcion}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className="form-group">
+                            <label>Proveedor</label>
+                            <select
+                                className="form-select"
+                                value={proveedorId}
+                                onChange={(e) => setProveedorId(e.target.value)}
+                                required
+                            >
+                                <option value="">Seleccione un proveedor</option>
+                                {proveedores.map((prov) => (
+                                    <option key={prov.id} value={prov.id}>
+                                        {prov.nombre}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+                    </div>
+
+                    {/* Botones de gestión, centrados */}
+                    <div className="col-12 text-center mb-3">
+                        <button type="button" className="btn btn-info me-2" onClick={() => navigate('/material/dimension/gestion-dimensiones')}>
+                            Gestionar Dimensiones
+                        </button>
+                        <button type="button" className="btn btn-info me-2" onClick={() => navigate('/material/peso/gestion-pesos')}>
+                            Gestionar Pesos
+                        </button>
+                        <button type="button" className="btn btn-info me-2" onClick={() => navigate('/material/tipo-material/gestion-tipos-materiales')}>
+                            Gestionar Tipos de Materiales
+                        </button>
+                        <button type="button" className="btn btn-info" onClick={() => navigate('/proveedor/gestion-proveedores')}>
+                            Gestionar Proveedores
+                        </button>
+                    </div>
+
+                    <div className="col-12 text-center">
+                        <button type="submit" className="btn btn-primary me-2">
+                            Guardar
+                        </button>
+                        <button type="button" className="btn btn-secondary" onClick={handleCancel}>
+                            Cancelar
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 };

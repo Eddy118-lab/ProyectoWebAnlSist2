@@ -89,13 +89,14 @@ const CompShowCarga = () => {
 
         const doc = new jsPDF();
         doc.setFontSize(20);
-        doc.text("Detalles de la Carga", 20, 20);
+        doc.text("Detalles de la Carga", 24, 24);
         doc.setFontSize(12);
 
-        const headers = [["Nombre", "Descripción", "Precio Unitario", "Asignación", "Inventario"]];
+        const headers = [["Nombre", "Descripción", "Cantidad", "Precio Unitario", "Asignación", "Inventario"]];
         const data = [[
             selectedCarga.nombre,
             selectedCarga.descripcion,
+            selectedCarga.cantidad,
             selectedCarga.precio_unitario,
             `${selectedCarga.asignacion_id}`,  // Aquí puedes concatenar como desees
             `${selectedCarga.inventario_id}`   // Aquí puedes concatenar como desees
@@ -127,6 +128,7 @@ const CompShowCarga = () => {
         const text = `
 Nombre: ${selectedCarga.nombre}
 Descripción: ${selectedCarga.descripcion}
+Cantidad: ${selectedCarga.cantidad}
 Precio Unitario: ${selectedCarga.precio_unitario}
 Asignación: ${getAsignacionDetails(selectedCarga.asignacion_id)}
 Inventario: ${getInventarioName(selectedCarga.inventario_id)}
@@ -188,6 +190,7 @@ Inventario: ${getInventarioName(selectedCarga.inventario_id)}
                             <tr>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
+                                <th>Cantidad</th>
                                 <th>Precio Unitario</th>
                                 <th>Asignación</th>
                                 <th>Inventario</th>
@@ -197,13 +200,14 @@ Inventario: ${getInventarioName(selectedCarga.inventario_id)}
                         <tbody>
                             {currentCargas.length === 0 ? (
                                 <tr>
-                                    <td colSpan="6">No hay cargas disponibles</td>
+                                    <td colSpan="7">No hay cargas disponibles</td>
                                 </tr>
                             ) : (
                                 currentCargas.map(carga => (
                                     <tr key={carga.id}>
                                         <td>{carga.nombre}</td>
                                         <td>{carga.descripcion}</td>
+                                        <td>{carga.cantidad}</td>
                                         <td>{carga.precio_unitario}</td>
                                         <td>{getAsignacionDetails(carga.asignacion_id)}</td>
                                         <td>{getInventarioName(carga.inventario_id)}</td>
@@ -253,6 +257,10 @@ Inventario: ${getInventarioName(selectedCarga.inventario_id)}
                                     <tr>
                                         <td><strong>Descripción</strong></td>
                                         <td>{selectedCarga.descripcion}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Cantidad</strong></td>
+                                        <td>{selectedCarga.cantidad}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Precio Unitario</strong></td>
