@@ -74,6 +74,11 @@ import CompShowTipoPagoCliente from './components/ShowTipoPagoCliente.js';
 import CompEditTipoPagoCliente from './components/EditTipoPagoCliente.js';
 import CompCreateTipoPagoCliente from './components/CreateTipoPagoCliente.js';
 import CompListaCargas from './components/ListaCargas.js';
+import CompDetalleCargasFacturacion from './components/DetalleCargas.js';
+import { FacturaProvider } from './components/FacturaContext';
+import { SeleccionProvider } from './components/SelectContext';
+import CompResumenCargasFacturacion from './components/ResumenCargas.js';
+import CompMuestraGraficas from './components/ShowGraficas.js';
 
 import HeaderInicio from './inicio/HeaderInicio.js';
 import FooterInicio from './inicio/FooterInicio.js';
@@ -221,6 +226,11 @@ function App() {
 
       // Rutas de Ventas
       "/ventas/gestion-ventas/catalogo",
+      "/ventas/gestion-ventas/detalles-ventas",
+      "/ventas/gestion-ventas/resumen-ventas",
+
+      // Rutas de Graficas
+      "/grafica/muestra-graficas"
     ];
 
     useEffect(() => {
@@ -244,6 +254,8 @@ function App() {
 
   return (
     <div className="App">
+      <SeleccionProvider> 
+      <FacturaProvider>
       <DetallesProvider>
         <BrowserRouter>
           {isAuthenticated && <Header onLogout={handleLogout} />}
@@ -353,6 +365,10 @@ function App() {
               <Route path="/factura-cliente/tipo-pago-cliente/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoPagoCliente /></PrivateRoute>} />
               
               <Route path="/ventas/gestion-ventas/catalogo" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompListaCargas /></PrivateRoute>} />
+              <Route path="/ventas/gestion-ventas/detalles-ventas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleCargasFacturacion /></PrivateRoute>} />
+              <Route path="/ventas/gestion-ventas/resumen-ventas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompResumenCargasFacturacion /></PrivateRoute>} />
+              
+              <Route path="/grafica/muestra-graficas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompMuestraGraficas /></PrivateRoute>} />
               
               {/* Si la ruta no coincide, redirige a la última ruta válida */}
 
@@ -363,6 +379,8 @@ function App() {
           </div>
         </BrowserRouter>
       </DetallesProvider>
+      </FacturaProvider>
+      </SeleccionProvider>
     </div>
   );
 }

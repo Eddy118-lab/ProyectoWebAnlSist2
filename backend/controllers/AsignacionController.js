@@ -8,19 +8,16 @@ import TipoEstado from '../models/TipoEstado.js';
 // Obtener todas las asignaciones, con opción de filtrar por fecha
 export const getAsignaciones = async (req, res) => {
     try {
-        // Verificar si se pasó el parámetro 'fecha_asignacion' en la consulta
         const { fecha_asignacion } = req.query;
         
-        // Crear un objeto de filtro
         let whereClause = {};
         
         if (fecha_asignacion) {
-            // Si existe 'fecha_asignacion' en la consulta, se añade al filtro
             whereClause.fecha_asignacion = fecha_asignacion;
         }
 
         const asignaciones = await Asignacion.findAll({
-            where: whereClause,  // Aplicar el filtro de fecha si existe
+            where: whereClause,
             include: [
                 {
                     model: Conductor,
@@ -51,7 +48,6 @@ export const getAsignaciones = async (req, res) => {
         return res.status(500).json({ message: 'Error al obtener las asignaciones.' });
     }
 };
-
 
 // Obtener una asignación por ID
 export const getAsignacionById = async (req, res) => {
@@ -122,7 +118,6 @@ export const updateAsignacion = async (req, res) => {
             return res.status(404).json({ message: 'Asignación no encontrada.' });
         }
 
-        // Actualiza los campos de la asignación
         asignacion.fecha_asignacion = fecha_asignacion;
         asignacion.conductor_id = conductor_id;
         asignacion.vehiculo_id = vehiculo_id;
@@ -135,6 +130,29 @@ export const updateAsignacion = async (req, res) => {
     } catch (error) {
         console.error('Error al actualizar la asignación:', error);
         return res.status(500).json({ message: 'Error al actualizar la asignación.' });
+    }
+};
+
+// Actualizar el tipo de estado de una asignación
+export const updateTipoEstadoA = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { tipo_estado_id } = req.body; // Solo recibir el nuevo tipo de estado
+
+        const asignacion = await Asignacion.findByPk(id);
+        if (!asignacion) {
+            return res.status(404).json({ message: 'Asignación no encontrada.' });
+        }
+
+        // Actualiza solo el tipo de estado
+        asignacion.tipo_estado_id = tipo_estado_id;
+
+        await asignacion.save();
+
+        return res.status(200).json(asignacion);
+    } catch (error) {
+        console.error('Error al actualizar el tipo de estado de la asignación:', error);
+        return res.status(500).json({ message: 'Error al actualizar el tipo de estado de la asignación.' });
     }
 };
 

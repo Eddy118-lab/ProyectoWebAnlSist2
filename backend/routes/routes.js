@@ -20,7 +20,7 @@ import {getReparaciones, getReparacionById, createReparacion, updateReparacion, 
 import {getCombustibles, getCombustibleById, createCombustible, updateCombustible, deleteCombustible} from '../controllers/CombustibleController.js'; 
 import {getRutas, getRutaById, createRuta, updateRuta, deleteRuta } from '../controllers/RutaController.js';
 import {getTipoEstados, getTipoEstadoById, createTipoEstado, updateTipoEstado, deleteTipoEstado } from '../controllers/TipoEstadoController.js';
-import {getAsignaciones, getAsignacionById, createAsignacion, updateAsignacion, deleteAsignacion } from '../controllers/AsignacionController.js';
+import {getAsignaciones, getAsignacionById, createAsignacion, updateAsignacion, updateTipoEstadoA, deleteAsignacion } from '../controllers/AsignacionController.js';
 import {getCargas, getCargaById, createCarga, updateCarga, deleteCarga } from '../controllers/CargaController.js';
 import {getFacturasClientes, getFacturaClienteById, createFacturaCliente, updateFacturaCliente, deleteFacturaCliente} from '../controllers/FacturaClienteController.js';
 import {getDetallesFactClientesGroupedByFactura, getDetalleFactClienteById, createDetalleFactCliente, updateDetalleFactCliente, deleteDetalleFactCliente} from '../controllers/DetallFactClienteController.js';
@@ -186,6 +186,7 @@ router.get('/asignacion', getAsignaciones);
 router.get('/asignacion/:id', getAsignacionById);
 router.post('/asignacion', createAsignacion);
 router.put('/asignacion/:id', updateAsignacion);
+router.patch('/asignacion/:id/tipo-estado', updateTipoEstadoA);
 router.delete('/asignacion/:id', deleteAsignacion);
 
 ///// CRUD DE CARGA

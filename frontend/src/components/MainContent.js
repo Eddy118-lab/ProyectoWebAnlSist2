@@ -13,6 +13,7 @@ import proveedores from './pictures/suppliers.png';
 import FactProv from './pictures/supplierbilling.png';
 import materiales from './pictures/materials.png';
 import inventario from './pictures/inventory.png';
+import grafico from './pictures/charts.png';
 import './Styles/MainContent.css';
 
 function MainContent() {
@@ -108,6 +109,12 @@ function MainContent() {
           <Link to="/material/gestion-materiales" className="btn-module">
             <img src={materiales} alt="Gestión de Materiales" />
             <h3>Gestión de Materiales</h3>
+          </Link>
+        </div>
+        <div className="module-card">
+          <Link to="/grafica/muestra-graficas" className="btn-module">
+            <img src={grafico} alt="Muestra de Graficas" />
+            <h3>Muestra de Graficas</h3>
           </Link>
         </div>
       </div>

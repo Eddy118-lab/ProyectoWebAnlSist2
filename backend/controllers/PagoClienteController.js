@@ -72,13 +72,13 @@ export const getPagoClienteById = async (req, res) => {
 // Crear un nuevo pago
 export const createPagoCliente = async (req, res) => {
     try {
-        const { fecha, monto, factura_cliente_id, tipo_pago_cliente_id } = req.body;
+        const { fecha, monto, factura_cliente_id, tipo_pago_clien_id } = req.body;
 
         const newPagoCliente = await PagoCliente.create({
             fecha,
             monto,
             factura_cliente_id,
-            tipo_pago_cliente_id
+            tipo_pago_clien_id
         });
 
         res.status(201).json(newPagoCliente);

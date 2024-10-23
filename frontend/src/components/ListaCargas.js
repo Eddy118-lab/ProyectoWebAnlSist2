@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSeleccion } from './SelectContext';  
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const URI_CARGA = 'http://localhost:8000/api/carga/';
@@ -14,8 +16,13 @@ const CompListaCarga = () => {
     const [inventarios, setInventarios] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
-    const [selectedDates, setSelectedDates] = useState([]); // Estado para las fechas seleccionadas
-    const [isAscending, setIsAscending] = useState(true); // Estado para controlar el orden
+   
+    const [isAscending, setIsAscending] = useState(true); // Estado para controlar el orden asc/desc
+    const [showAgregarButton, setShowAgregarButton] = useState(false); // Estado para controlar la visibilidad del botón "Agregar"
+
+    const navigate = useNavigate(); // Hook para la redirección
+
+    const { selectedDates, setSelectedDates } = useSeleccion();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -91,22 +98,52 @@ const CompListaCarga = () => {
 
     const handleDateSelection = (fecha) => {
         if (selectedDates.includes(fecha)) {
-            setSelectedDates(selectedDates.filter(date => date !== fecha)); // Desmarcar
+            const newSelectedDates = selectedDates.filter(date => date !== fecha);
+            setSelectedDates(newSelectedDates); // Desmarcar
+            setShowAgregarButton(newSelectedDates.length > 0); // Si ya no hay fechas seleccionadas, ocultar el botón
         } else {
-            setSelectedDates([...selectedDates, fecha]); // Marcar
+            const newSelectedDates = [...selectedDates, fecha];
+            setSelectedDates(newSelectedDates); // Marcar
+            setShowAgregarButton(true); // Mostrar el botón si hay al menos una fecha seleccionada
         }
     };
 
     const handleSelectAll = () => {
         if (selectedDates.length === Object.keys(groupedCargas).length) {
             setSelectedDates([]); // Desmarcar todos
+            setShowAgregarButton(false); // Ocultar el botón
         } else {
             setSelectedDates(Object.keys(groupedCargas)); // Marcar todos
+            setShowAgregarButton(true); // Mostrar el botón
         }
     };
 
     const handleSort = () => {
         setIsAscending(!isAscending);
+    };
+
+    const sortedDates = () => {
+        const dates = Object.keys(groupedCargas);
+        return dates.sort((a, b) => {
+            const [dayA, monthA, yearA] = a.split('-');
+            const [dayB, monthB, yearB] = b.split('-');
+            const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+            const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+
+            return isAscending ? dateA - dateB : dateB - dateA;
+        });
+    };
+
+    // Función para manejar el clic en el botón "Agregar"
+    const handleAgregarClick = () => {
+        // Convertir fechas seleccionadas al formato yyyy-mm-dd
+        const formattedDates = selectedDates.map(date => {
+            const [day, month, year] = date.split('-');
+            return `${year}-${month}-${day}`;
+        });
+
+        // Navegamos al componente de facturación con las fechas seleccionadas como estado
+        navigate('/ventas/gestion-ventas/detalles-ventas', { state: { selectedDates: formattedDates } });
     };
 
     return (
@@ -125,6 +162,12 @@ const CompListaCarga = () => {
                 </div>
             ) : (
                 <div>
+                    {/* Botón para cambiar el orden */}
+                    <button className="btn btn-secondary my-3" onClick={handleSort}>
+                        {isAscending ? 'Ordenar Descendente' : 'Ordenar Ascendente'}
+                    </button>
+
+                    {/* Checkbox para seleccionar todos */}
                     <div className="form-check mb-3">
                         <input 
                             type="checkbox" 
@@ -135,28 +178,22 @@ const CompListaCarga = () => {
                         />
                         <label className="form-check-label" htmlFor="selectAll">Seleccionar Todos</label>
                     </div>
-                    {Object.keys(groupedCargas).map(fecha => (
-                        <div key={fecha} className="d-flex align-items-center my-3">
-                            <div className="form-check me-2">
-                                <input 
-                                    type="checkbox" 
-                                    className="form-check-input" 
-                                    id={`checkbox-${fecha}`} 
-                                    checked={selectedDates.includes(fecha)} 
-                                    onChange={() => handleDateSelection(fecha)} 
-                                />
-                            </div>
-                            <h6 className="mb-0 me-3">{fecha}</h6>
-                            <button className="btn btn-primary btn-sm">Agregar</button>
-                        </div>
-                    ))}
-                    <button className="btn btn-secondary my-3" onClick={handleSort}>
-                        {isAscending ? 'Ordenar Descendente' : 'Ordenar Ascendente'}
-                    </button>
-                    {/* Muestra todas las cargas independientemente de la selección */}
-                    {Object.keys(groupedCargas).map(fecha => (
+
+                    {/* Renderización de las cargas agrupadas por fecha */}
+                    {sortedDates().map(fecha => (
                         <div key={fecha}>
-                            <h6>{selectedDates.includes(fecha) ? `Grupo Seleccionado: ${fecha}` : fecha}</h6>
+                            <div className="d-flex align-items-center my-3">
+                                <div className="form-check me-2">
+                                    <input 
+                                        type="checkbox" 
+                                        className="form-check-input" 
+                                        id={`checkbox-${fecha}`} 
+                                        checked={selectedDates.includes(fecha)} 
+                                        onChange={() => handleDateSelection(fecha)} 
+                                    />
+                                </div>
+                                <h6 className="mb-0">{selectedDates.includes(fecha) ? `Grupo Seleccionado: ${fecha}` : fecha}</h6>
+                            </div>
                             <table className="table table-striped">
                                 <thead className="table-dark">
                                     <tr>
@@ -191,6 +228,15 @@ const CompListaCarga = () => {
                             </table>
                         </div>
                     ))}
+
+                    {/* Mostrar el botón "Agregar" solo si hay fechas seleccionadas */}
+                    {showAgregarButton && (
+                        <div className="text-center my-4">
+                            <button className="btn btn-primary" onClick={handleAgregarClick}>
+                                Agregar
+                            </button>
+                        </div>
+                    )}
                 </div>
             )}
         </div>

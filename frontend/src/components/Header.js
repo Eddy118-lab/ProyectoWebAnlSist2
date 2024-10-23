@@ -37,6 +37,7 @@ function Header({ onLogout }) {
     '/factura-proveedor/gestion-facturas-proveedores',
     '/inventario/gestion-inventarios',
     '/material/gestion-materiales',
+    '/grafica/muestra-graficas',
   ];
 
   const isInLogin = location.pathname === '/login';
@@ -134,7 +135,8 @@ function Header({ onLogout }) {
               { path: '/proveedor/gestion-proveedores', label: 'Gestión de Proveedores' },
               { path: '/factura-proveedor/gestion-facturas-proveedores', label: 'Gestión de Facturas de Proveedores' },
               { path: '/inventario/gestion-inventarios', label: 'Gestión de Inventario' },
-              { path: '/material/gestion-materiales', label: 'Gestión de Materiales' }
+              { path: '/material/gestion-materiales', label: 'Gestión de Materiales' },
+              { path: '/grafica/muestra-graficas', label: 'Mustra de Graficas' }
             ].map(({ path, label }) => (
               <li
                 key={path}
