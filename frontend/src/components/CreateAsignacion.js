@@ -46,7 +46,7 @@ const CompCreateAsignacion = () => {
                 
                 // Filtrar estados para incluir solo "Procesada" y "En espera"
                 const estadosFiltrados = resEstados.data.filter(estado => 
-                    estado.descripcion === "Procesada" || estado.descripcion === "En espera"
+                    estado.descripcion === "Procesada"
                 );
                 setEstados(estadosFiltrados);
             } catch (error) {

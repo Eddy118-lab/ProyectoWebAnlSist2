@@ -108,19 +108,20 @@ const CompDetalleCargasFacturacion = () => {
 
     return (
         <div className="container mt-5">
-            <h2 className="row justify-content-center my-4">Detalle de Cargas para Facturación</h2>
-
+            <div className="row justify-content-center mb-4">
+            <h2 className="container mt-5 text-center display-6 text-dark font-weight-bold">Detalle de Cargas para Facturación</h2>
+            </div>
             {/* Mostrar las fechas seleccionadas */}
             {selectedDates.length > 0 && (
                 <div className="row justify-content-center mb-4">
-                    <p>Fechas seleccionadas: {selectedDates.join(', ')}</p>
+                    <p className="text-dark">Fechas seleccionadas: {selectedDates.join(', ')}</p>
                 </div>
             )}
 
             {/* Tabla de cargas filtradas */}
-            <h3>Cargas Disponibles</h3>
-            <table className="table table-bordered">
-                <thead>
+            <h3 className="text-dark">Cargas Disponibles</h3>
+            <table className="table table-striped table-hover">
+                <thead className="table-dark">
                     <tr>
                         <th>Carga ID</th>
                         <th>Nombre</th>
@@ -159,9 +160,9 @@ const CompDetalleCargasFacturacion = () => {
             </table>
 
             {/* Tabla de detalle de la factura */}
-            <h3>Detalle de la Factura</h3>
-            <table className="table table-bordered">
-                <thead>
+            <h3 className="text-dark">Detalle de la Factura</h3>
+            <table className="table table-striped table-hover">
+                <thead className="table-dark">
                     <tr>
                         <th>Nombre</th>
                         <th>Cantidad</th>
@@ -197,7 +198,7 @@ const CompDetalleCargasFacturacion = () => {
             </table>
 
             {/* Botones de navegación */}
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between mt-4">
                 <button className="btn btn-secondary" onClick={() => navigate('/ventas/gestion-ventas/catalogo')}>Regresar</button>
                 <button className="btn btn-success" onClick={() => navigate('/ventas/gestion-ventas/resumen-ventas')}>Siguiente</button>
             </div>

@@ -147,9 +147,9 @@ const CompListaCarga = () => {
     };
 
     return (
-        <div className="container">
-            <div className="row justify-content-center my-4">
-                <h2 className="text-center display-6" style={{ color: '#343a40', fontWeight: 'bold', marginTop: '70px' }}>
+        <div className="container mt-5">
+            <div className="row justify-content-center mb-4">
+                <h2 className="container mt-5 text-center display-6 text-dark font-weight-bold">
                     Listado de Cargas
                 </h2>
             </div>
@@ -181,7 +181,7 @@ const CompListaCarga = () => {
 
                     {/* Renderización de las cargas agrupadas por fecha */}
                     {sortedDates().map(fecha => (
-                        <div key={fecha}>
+                        <div key={fecha} className="mb-4">
                             <div className="d-flex align-items-center my-3">
                                 <div className="form-check me-2">
                                     <input 
@@ -194,7 +194,7 @@ const CompListaCarga = () => {
                                 </div>
                                 <h6 className="mb-0">{selectedDates.includes(fecha) ? `Grupo Seleccionado: ${fecha}` : fecha}</h6>
                             </div>
-                            <table className="table table-striped">
+                            <table className="table table-striped table-hover">
                                 <thead className="table-dark">
                                     <tr>
                                         <th>ID</th>

@@ -79,7 +79,7 @@ import { FacturaProvider } from './components/FacturaContext';
 import { SeleccionProvider } from './components/SelectContext';
 import CompResumenCargasFacturacion from './components/ResumenCargas.js';
 import CompMuestraGraficas from './components/ShowGraficas.js';
-
+import CompExitoVentas from './components/MensajeExitoVent.js';
 import HeaderInicio from './inicio/HeaderInicio.js';
 import FooterInicio from './inicio/FooterInicio.js';
 import MainContentInicio from './inicio/MainContentInicio.js';
@@ -88,7 +88,6 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-
 
 function SaveLastValidRoute() {
   const location = useLocation();
@@ -228,6 +227,7 @@ function App() {
       "/ventas/gestion-ventas/catalogo",
       "/ventas/gestion-ventas/detalles-ventas",
       "/ventas/gestion-ventas/resumen-ventas",
+      "/ventas/gestion-ventas/exito",
 
       // Rutas de Graficas
       "/grafica/muestra-graficas"
@@ -363,15 +363,12 @@ function App() {
               <Route path="/factura-cliente/tipo-pago-cliente/gestion-tipos-pagos-clientes" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoPagoCliente /></PrivateRoute>} />
               <Route path="/factura-cliente/tipo-pago-cliente/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoPagoCliente /></PrivateRoute>} />
               <Route path="/factura-cliente/tipo-pago-cliente/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoPagoCliente /></PrivateRoute>} />
-              
               <Route path="/ventas/gestion-ventas/catalogo" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompListaCargas /></PrivateRoute>} />
               <Route path="/ventas/gestion-ventas/detalles-ventas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompDetalleCargasFacturacion /></PrivateRoute>} />
               <Route path="/ventas/gestion-ventas/resumen-ventas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompResumenCargasFacturacion /></PrivateRoute>} />
-              
+              <Route path="/ventas/gestion-ventas/exito" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompExitoVentas /></PrivateRoute>} />
               <Route path="/grafica/muestra-graficas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompMuestraGraficas /></PrivateRoute>} />
-              
               {/* Si la ruta no coincide, redirige a la última ruta válida */}
-
               <Route path="*" element={<RedirectToLastValidRoute />} />
             </Routes>
           </div>
