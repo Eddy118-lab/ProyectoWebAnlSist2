@@ -127,6 +127,8 @@ function App() {
   const RedirectToLastValidRoute = () => {
     const navigate = useNavigate();
     const lastValidRoute = localStorage.getItem('lastValidRoute') || '/inicio'; // Obtener la última ruta válida o /inicio
+    
+    useEffect(() => {
     const protectedRoutes = [
       "/Home",
 
@@ -233,13 +235,11 @@ function App() {
       "/grafica/muestra-graficas"
     ];
 
-    useEffect(() => {
-      // Verifica si la última ruta válida está dentro de las rutas protegidas
+    
+    
       if (!protectedRoutes.includes(lastValidRoute)) {
-        // Si no es una ruta protegida, redirige a inicio
         navigate('/inicio');
       } else {
-        // Si es una ruta protegida, redirige a la última ruta válida
         navigate(lastValidRoute);
       }
     }, [navigate, lastValidRoute]);
