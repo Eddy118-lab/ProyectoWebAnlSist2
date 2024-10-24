@@ -37,8 +37,8 @@ const CompCreatePeso = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Crear Peso</h2>
+        <div className='container mt-5'>
+            <h2 className='container mt-5 form-title'>Crear Peso</h2>
 
             {successMessage && <div className="alert alert-success">{successMessage}</div>}
             {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}

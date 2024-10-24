@@ -55,8 +55,8 @@ const CompEditDimension = () => {
     };
 
     return (
-        <div className='form-container'>
-            <h2 className='form-title'>Editar Dimensión</h2>
+        <div className='container mt-5 form-container'>
+            <h2 className='container mt-5 form-title'>Editar Dimensión</h2>
             
             {successMessage && <div className="alert alert-success">{successMessage}</div>}
             {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}

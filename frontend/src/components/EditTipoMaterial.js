@@ -21,8 +21,8 @@ const CompCreateTipoMaterial = () => {
     };
 
     return (
-        <div className="container">
-            <h2 className="text-center">Crear Tipo de Material</h2>
+        <div className="container mt-5">
+            <h2 className="container mt-5 text-center">Crear Tipo de Material</h2>
             {error && <p className="text-danger">{error}</p>}
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
