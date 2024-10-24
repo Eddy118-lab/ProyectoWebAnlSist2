@@ -56,9 +56,9 @@ const CompEditTipoProveedor = () => {
     };
 
     return (
-        <div className='d-flex justify-content-center align-items-center min-vh-100'>
+        <div className='container mt-5 d-flex justify-content-center align-items-center min-vh-100'>
             <div className='card shadow-sm'>
-                <div className='card-body' style={{ maxWidth: '200px' }}>
+                <div className='card-body' style={{ maxWidth: '600px' }}>
                     <h2 className='form-title text-center'>Editar Tipo de Proveedor</h2>
                     
                     {successMessage && <div className="alert alert-success">{successMessage}</div>}

@@ -43,7 +43,7 @@ const CompCreateTipoPagoProveedor = () => {
         <div className='container mt-5 d-flex justify-content-center align-items-center' style={{ minHeight: '100vh' }}>
             <div className='card shadow border-light' style={{ maxWidth: '600px', width: '100%' }}>
                 <div className='card-body'>
-                    <h2 className='form-title text-center mb-4'>Crear Tipo de Pago Proveedor</h2>
+                    <h2 className='form-title text-center mb-5'>Crear Tipo de Pago Proveedor</h2>
                     
                     {successMessage && <div className="alert alert-success">{successMessage}</div>}
                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
