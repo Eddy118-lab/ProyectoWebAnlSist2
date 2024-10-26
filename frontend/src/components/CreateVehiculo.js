@@ -90,6 +90,10 @@ const CompCreateVehiculo = () => {
         navigate('/vehiculo/gestion-vehiculos');
     };
 
+    const handleGestio = () => {
+        navigate('/vehiculo/tipo-marca/gestion-tipos-marcas');
+    };
+
     return (
         <div className='container vh-100 d-flex justify-content-center align-items-center'>
             <div className="card" style={{ maxWidth: '600px', width: '100%' }}>
@@ -162,6 +166,9 @@ const CompCreateVehiculo = () => {
                             </button>
                             <button type="button" className="btn btn-secondary" onClick={handleCancel}>
                                 Cancelar
+                            </button>
+                            <button type="button" className="btn btn-secondary" onClick={handleGestio}>
+                                Gestion Marcas
                             </button>
                         </div>
                     </form>

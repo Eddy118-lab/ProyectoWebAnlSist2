@@ -5,10 +5,9 @@ import sequelize from '../database/db.js'; // O la ruta a tu configuración de b
 const TipoEstado = sequelize.define('TipoEstado', {
   id: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
-    allowNull: false,
-    comment: 'clave primaria de la tabla tipo de estado',
-    // Eliminado autoIncrement: true ya que no será autoincremental
+    comment: 'clave primaria de la tabla tipo de marca'
   },
   descripcion: {
     type: DataTypes.STRING(150),

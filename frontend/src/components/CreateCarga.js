@@ -7,17 +7,20 @@ const URI_CARGA = 'http://localhost:8000/api/carga';
 const URI_VEHICULOS = 'http://localhost:8000/api/vehiculo'; // Ruta para obtener vehículos
 const URI_INVENTARIOS = 'http://localhost:8000/api/inventario'; // Ruta para obtener inventarios
 const URI_ASIGNACIONES = 'http://localhost:8000/api/asignacion'; // Ruta para obtener asignaciones
+const URI_PROYECTOS = 'http://localhost:8000/api/proyecto'; // Ruta para obtener proyectos
 
 const CompCreateCarga = () => {
-    const [nombre, setNombre] = useState('');
+    const [titulo, setTitulo] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [cantidad, setCantidad] = useState('');
     const [precioUnitario, setPrecioUnitario] = useState('');
     const [asignacionId, setAsignacionId] = useState('');
     const [inventarioId, setInventarioId] = useState('');
+    const [proyectoId, setProyectoId] = useState('');
     const [vehiculos, setVehiculos] = useState([]);
     const [inventarios, setInventarios] = useState([]);
     const [asignaciones, setAsignaciones] = useState([]);
+    const [proyectos, setProyectos] = useState([]);
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
     const [duplicateErrorMessage, setDuplicateErrorMessage] = useState(''); // Mensaje de advertencia por duplicados
@@ -63,9 +66,19 @@ const CompCreateCarga = () => {
             }
         };
 
+        const fetchProyectos = async () => {
+            try {
+                const response = await axios.get(URI_PROYECTOS);
+                setProyectos(response.data);
+            } catch (error) {
+                console.error("Error al obtener vehículos:", error);
+            }
+        };
+
         fetchVehiculos();
         fetchInventarios();
         fetchAsignaciones();
+        fetchProyectos();
     }, []);
 
     const handleSubmit = async (e) => {
@@ -80,12 +93,13 @@ const CompCreateCarga = () => {
         }
 
         const newCarga = {
-            nombre,
+            titulo,
             descripcion,
             cantidad,
             precio_unitario: precioUnitario,
             asignacion_id: asignacionId,
-            inventario_id: inventarioId
+            inventario_id: inventarioId,
+            proyecto_id: proyectoId,
         };
 
         try {
@@ -118,16 +132,16 @@ const CompCreateCarga = () => {
                     {successMessage && <div className="alert alert-success">{successMessage}</div>}
                     {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
                     {duplicateErrorMessage && <div className="alert alert-warning">{duplicateErrorMessage}</div>}
-                    
+
                     <form onSubmit={handleSubmit} className="row g-3">
                         <div className="col-md-6">
                             <div className="form-group">
-                                <label>Nombre</label>
+                                <label>Titulo</label>
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={nombre}
-                                    onChange={(e) => setNombre(e.target.value)}
+                                    value={titulo}
+                                    onChange={(e) => setTitulo(e.target.value)}
                                     required
                                 />
                             </div>
@@ -162,7 +176,7 @@ const CompCreateCarga = () => {
                                 />
                             </div>
                         </div>
-                        
+
                         <div className="col-md-6">
                             <div className="form-group">
                                 <label>Asignación</label>
@@ -192,6 +206,22 @@ const CompCreateCarga = () => {
                                     {inventarios.map(inventario => (
                                         <option key={inventario.id} value={inventario.id}>
                                             {inventario.material.nombre} - {inventario.precio_unitario}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div className="form-group">
+                                <label>Proyecto</label>
+                                <select
+                                    className="form-control"
+                                    value={proyectoId}
+                                    onChange={(e) => setProyectoId(e.target.value)}
+                                    required
+                                >
+                                    <option value="">Seleccione un proyecto</option>
+                                    {proyectos.map(proyecto => (
+                                        <option key={proyecto.id} value={proyecto.id}>
+                                            {proyecto.nombre}
                                         </option>
                                     ))}
                                 </select>

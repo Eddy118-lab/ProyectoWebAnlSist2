@@ -59,20 +59,21 @@ export const getCargaById = async (req, res) => {
 // Crear una nueva carga
 export const createCarga = async (req, res) => {
     try {
-        const { nombre, descripcion, cantidad, precio_unitario, asignacion_id, inventario_id } = req.body;
+        const { titulo, descripcion, cantidad, precio_unitario, asignacion_id, inventario_id, proyecto_id } = req.body;
 
         // Validaciones simples
-        if (!nombre || !descripcion || !cantidad || !precio_unitario || !asignacion_id || !inventario_id) {
+        if (!titulo || !descripcion || !cantidad || !precio_unitario || !asignacion_id || !inventario_id || !proyecto_id) {
             return res.status(400).json({ message: 'Todos los campos son requeridos.' });
         }
 
         const nuevaCarga = await Carga.create({
-            nombre,
+            titulo,
             descripcion,
             cantidad,
             precio_unitario,
             asignacion_id,
-            inventario_id
+            inventario_id,
+            proyecto_id
         });
         return res.status(201).json(nuevaCarga);
     } catch (error) {
@@ -85,7 +86,7 @@ export const createCarga = async (req, res) => {
 export const updateCarga = async (req, res) => {
     try {
         const { id } = req.params;
-        const { nombre, descripcion, cantidad, precio_unitario, asignacion_id, inventario_id } = req.body;
+        const { titulo, descripcion, cantidad, precio_unitario, asignacion_id, inventario_id, proyecto_id } = req.body;
 
         const carga = await Carga.findByPk(id);
         if (!carga) {
@@ -93,17 +94,18 @@ export const updateCarga = async (req, res) => {
         }
 
         // Validaciones simples
-        if (!nombre || !descripcion || !cantidad || !precio_unitario || !asignacion_id || !inventario_id) {
+        if (!titulo || !descripcion || !cantidad || !precio_unitario || !asignacion_id || !inventario_id || !proyecto_id) {
             return res.status(400).json({ message: 'Todos los campos son requeridos.' });
         }
 
         // Actualiza los campos de la carga
-        carga.nombre = nombre;
+        carga.titulo = titulo;
         carga.descripcion = descripcion;
         carga.cantidad = cantidad;
         carga.precio_unitario = precio_unitario;
         carga.asignacion_id = asignacion_id;
         carga.inventario_id = inventario_id;
+        carga.proyecto_id = proyecto_id;
 
         await carga.save();
 

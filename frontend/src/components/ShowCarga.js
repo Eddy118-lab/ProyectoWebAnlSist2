@@ -12,6 +12,7 @@ import * as XLSX from 'xlsx';
 const URI_CARGA = 'http://localhost:8000/api/carga';
 const URI_ASIGNACION = 'http://localhost:8000/api/asignacion';
 const URI_INVENTARIO = 'http://localhost:8000/api/inventario';
+const URI_PROYECTO = 'http://localhost:8000/api/proyecto';
 
 const CompShowCarga = () => {
     const [cargas, setCargas] = useState([]);
@@ -23,11 +24,13 @@ const CompShowCarga = () => {
     const [selectedCarga, setSelectedCarga] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [asignaciones, setAsignaciones] = useState([]);
+    const [proyectos, setProyectos] = useState([]);
     const [inventarios, setInventarios] = useState([]);
 
     useEffect(() => {
         getCargas();
         getAsignaciones();
+        getProyectos();
         getInventarios();
     }, []);
 
@@ -54,6 +57,15 @@ const CompShowCarga = () => {
         }
     };
 
+    const getProyectos = async () => {
+        try {
+            const res = await axios.get(URI_PROYECTO);
+            setProyectos(res.data);
+        } catch (error) {
+            console.error("Error al obtener los datos de asignaciones:", error);
+        }
+    };
+
     const getInventarios = async () => {
         try {
             const res = await axios.get(URI_INVENTARIO);
@@ -65,7 +77,7 @@ const CompShowCarga = () => {
 
     const handleSearch = (query) => {
         const filtered = cargas.filter(carga =>
-            carga.nombre.toLowerCase().includes(query.toLowerCase()) ||
+            carga.titulo.toLowerCase().includes(query.toLowerCase()) ||
             carga.descripcion.toLowerCase().includes(query.toLowerCase())
         );
         setFilteredCargas(filtered);
@@ -92,14 +104,15 @@ const CompShowCarga = () => {
         doc.text("Detalles de la Carga", 24, 24);
         doc.setFontSize(12);
 
-        const headers = [["Nombre", "Descripción", "Cantidad", "Precio Unitario", "Asignación", "Inventario"]];
+        const headers = [["Titulo", "Descripción", "Cantidad", "Precio Unitario", "Asignación", "Inventario", "Proyecto"]];
         const data = [[
-            selectedCarga.nombre,
+            selectedCarga.titulo,
             selectedCarga.descripcion,
             selectedCarga.cantidad,
             selectedCarga.precio_unitario,
             `${selectedCarga.asignacion_id}`,  // Aquí puedes concatenar como desees
             `${selectedCarga.inventario_id}`   // Aquí puedes concatenar como desees
+            `${selectedCarga.proyecto_id}`   // Aquí puedes concatenar como desees
         ]];
 
         doc.autoTable({
@@ -132,6 +145,7 @@ Cantidad: ${selectedCarga.cantidad}
 Precio Unitario: ${selectedCarga.precio_unitario}
 Asignación: ${getAsignacionDetails(selectedCarga.asignacion_id)}
 Inventario: ${getInventarioName(selectedCarga.inventario_id)}
+Proyecto: ${getProyectoDetails(selectedCarga.proyecto_id)}
 `.trim(); // .trim() elimina espacios en blanco adicionales al principio y al final
 
         const blob = new Blob([text], { type: 'text/plain' });
@@ -147,6 +161,15 @@ Inventario: ${getInventarioName(selectedCarga.inventario_id)}
         const asignacion = asignaciones.find(a => a.id === asignacionId);
         if (asignacion) {
             return `${formatDate(asignacion.fecha_asignacion)} - ${asignacion.vehiculo.placa}`; // Asumiendo que 'vehiculo' tiene un campo 'placa'
+        }
+        return 'No disponible';
+    };
+
+    ///// Función para obtener el nombre del proyecto
+    const getProyectoDetails = (proyectoId) => {
+        const proyecto = proyectos.find(p => p.id === proyectoId);
+        if (proyecto) {
+            return proyecto.nombre;
         }
         return 'No disponible';
     };
@@ -188,29 +211,31 @@ Inventario: ${getInventarioName(selectedCarga.inventario_id)}
                     <table className="table table-hover">
                         <thead className="table-dark">
                             <tr>
-                                <th>Nombre</th>
+                                <th>Titulo</th>
                                 <th>Descripción</th>
                                 <th>Cantidad</th>
                                 <th>Precio Unitario</th>
                                 <th>Asignación</th>
                                 <th>Inventario</th>
+                                <th>Proyecto</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {currentCargas.length === 0 ? (
                                 <tr>
-                                    <td colSpan="7">No hay cargas disponibles</td>
+                                    <td colSpan="8">No hay cargas disponibles</td>
                                 </tr>
                             ) : (
                                 currentCargas.map(carga => (
                                     <tr key={carga.id}>
-                                        <td>{carga.nombre}</td>
+                                        <td>{carga.titulo}</td>
                                         <td>{carga.descripcion}</td>
                                         <td>{carga.cantidad}</td>
                                         <td>{carga.precio_unitario}</td>
                                         <td>{getAsignacionDetails(carga.asignacion_id)}</td>
                                         <td>{getInventarioName(carga.inventario_id)}</td>
+                                        <td>{getProyectoDetails(carga.proyecto_id)}</td>
                                         <td>
                                             <div className="d-flex gap-2">
                                                 <button onClick={() => { viewCargaDetails(carga); }} className='btn btn-info btn-sm'>
@@ -251,8 +276,8 @@ Inventario: ${getInventarioName(selectedCarga.inventario_id)}
                             <table className="table">
                                 <tbody>
                                     <tr>
-                                        <td><strong>Nombre</strong></td>
-                                        <td>{selectedCarga.nombre}</td>
+                                        <td><strong>Titulo</strong></td>
+                                        <td>{selectedCarga.titulo}</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Descripción</strong></td>
@@ -273,6 +298,10 @@ Inventario: ${getInventarioName(selectedCarga.inventario_id)}
                                     <tr>
                                         <td><strong>Inventario</strong></td>
                                         <td>{getInventarioName(selectedCarga.inventario_id)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Proyecto</strong></td>
+                                        <td>{getProyectoDetails(selectedCarga.proyecto_id)}</td>
                                     </tr>
                                 </tbody>
                             </table>

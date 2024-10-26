@@ -26,6 +26,7 @@ import {getFacturasClientes, getFacturaClienteById, createFacturaCliente, update
 import {getDetallesFactClientesGroupedByFactura, getDetalleFactClienteById, createDetalleFactCliente, updateDetalleFactCliente, deleteDetalleFactCliente} from '../controllers/DetallFactClienteController.js';
 import {getTiposPagoCliente, getTipoPagoClienteById, createTipoPagoCliente, updateTipoPagoCliente, deleteTipoPagoCliente} from '../controllers/TipoPagoClienteController.js';
 import {getPagosClientesGroupedByFactura, getPagoClienteById, createPagoCliente, updatePagoCliente, deletePagoCliente} from '../controllers/PagoClienteController.js';
+import {getProyectos, getProyectoById, createProyecto, updateProyecto, deleteProyecto } from '../controllers/ProyectoController.js';
 import { login } from '../controllers/LoginController.js';
 import uploadConductor from '../middleware/uploadConductor.js';
 import uploadMaterial from '../middleware/uploadMaterial.js';
@@ -195,6 +196,15 @@ router.get('/carga/:id', getCargaById);
 router.post('/carga', createCarga);
 router.put('/carga/:id', updateCarga);
 router.delete('/carga/:id', deleteCarga);
+
+
+///// CRUD DE PROYECTO
+router.get('/proyecto', getProyectos);
+router.get('/proyecto/:id', getProyectoById);
+router.post('/proyecto', createProyecto);
+router.put('/proyecto/:id', updateProyecto);
+router.delete('/proyecto/:id', deleteProyecto);
+
 
 // CRUD DE FACTURA CLIENTE
 router.get('/factura-cliente', getFacturasClientes);

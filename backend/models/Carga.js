@@ -2,6 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../database/db.js'; // O la ruta a tu configuración de base de datos
 import Asignacion from './Asignacion.js';
 import Inventario from './Inventario.js';
+import Proyecto from './Proyecto.js';
 
 // Definir el modelo de Sequelize para la tabla 'Carga'
 const Carga = sequelize.define('Carga', {
@@ -12,10 +13,10 @@ const Carga = sequelize.define('Carga', {
     allowNull: false,
     comment: 'clave primaria de la tabla carga',
   },
-  nombre: {
+  titulo: {
     type: DataTypes.STRING(150),
     allowNull: false,
-    comment: 'nombre de la carga',
+    comment: 'titulo de la carga',
   },
   descripcion: {
     type: DataTypes.STRING(255),
@@ -49,6 +50,15 @@ const Carga = sequelize.define('Carga', {
       model: Inventario,
       key: 'id',
     },
+  },
+  proyecto_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    comment: 'clave foránea proveniente de la tabla proyecto',
+    references: {
+      model: Proyecto,
+      key: 'id',
+    },
   }
 }, {
   tableName: 'Carga',
@@ -65,6 +75,11 @@ Carga.belongsTo(Asignacion, {
 Carga.belongsTo(Inventario, {
   foreignKey: 'inventario_id',
   as: 'inventario'
+});
+
+Carga.belongsTo(Proyecto, {
+  foreignKey: 'proyecto_id',
+  as: 'proyecto'
 });
 
 // Exportar el modelo

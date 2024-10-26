@@ -44,7 +44,7 @@ const CompCreateAsignacion = () => {
 
                 setRutas(resRutas.data);
                 
-                // Filtrar estados para incluir solo "Procesada" y "En espera"
+                // Filtrar estados para incluir solo "Procesada"
                 const estadosFiltrados = resEstados.data.filter(estado => 
                     estado.descripcion === "Procesada"
                 );

@@ -7,6 +7,7 @@ import personal from './pictures/staff.png';
 import camion from './pictures/truck.png';
 import ruta from './pictures/route.png';
 import carga from './pictures/loadings.png';
+import proyecto from './pictures/project.png';
 import asignacion from './pictures/assignments.png';
 import compra from './pictures/buys.png';
 import proveedores from './pictures/suppliers.png';
@@ -73,6 +74,12 @@ function MainContent() {
           <Link to="/carga/gestion-cargas" className="btn-module">
             <img src={carga} alt="Gestión de Cargas" />
             <h3>Gestión de Cargas</h3>
+          </Link>
+        </div>
+        <div className="module-card">
+          <Link to="/proyecto/gestion-proyectos" className="btn-module">
+            <img src={proyecto} alt="Gestión de Proyectos" />
+            <h3>Gestión de Proyectos</h3>
           </Link>
         </div>
         <div className="module-card">

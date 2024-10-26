@@ -139,6 +139,11 @@ Estado: ${selectedAsignacion.tipoEstado.descripcion}`.trim();
                         <i className="fa-solid fa-plus"></i>
                     </Link>
                 </div>
+                <div className="col-md-3 text-end">
+                    <Link to="/asignacion/tipo-estado/gestion-tipos-estados" className="btn btn-secondary">
+                        Gestion de Estados
+                    </Link>
+                </div>
             </div>
 
             <div className="row">

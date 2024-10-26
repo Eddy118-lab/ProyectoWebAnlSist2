@@ -80,6 +80,12 @@ import { SeleccionProvider } from './components/SelectContext';
 import CompResumenCargasFacturacion from './components/ResumenCargas.js';
 import CompMuestraGraficas from './components/ShowGraficas.js';
 import CompExitoVentas from './components/MensajeExitoVent.js';
+import CompShowProyecto from './components/ShowProyecto.js';
+import CompCreateProyecto from './components/CreateProyecto.js';
+import CompEditProyecto from './components/EditProyecto.js';
+import CompShowTipoMarca from './components/ShowTipoMarca.js';
+import CompCreateTipoMarca from './components/CreateTipoMarca.js';
+import CompEditTipoMarca from './components/EditTipoMarca.js';
 import HeaderInicio from './inicio/HeaderInicio.js';
 import FooterInicio from './inicio/FooterInicio.js';
 import MainContentInicio from './inicio/MainContentInicio.js';
@@ -88,6 +94,7 @@ import Productos from './inicio/Productos.js';
 import Contacto from './inicio/Contacto.js';
 import './App.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 function SaveLastValidRoute() {
   const location = useLocation();
@@ -200,6 +207,9 @@ function App() {
       "/vehiculo/reparacion/gestion-reparaciones/:id",
       "/vehiculo/reparacion/create/:id",
       "/vehiculo/reparacion/edit/:id/:id",
+      "/vehiculo/tipo-marca/gestion-tipos-marcas", 
+      "/vehiculo/tipo-marca/create",
+      "/vehiculo/tipo-marca/edit/:id",
 
       // Rutas de Ruta
       "/ruta/gestion-rutas",
@@ -216,6 +226,11 @@ function App() {
       // Rutas de Carga
       "/carga/gestion-cargas",
       "/carga/create",
+
+      // Rutas de Proyecto
+      "/proyecto/gestion-proyectos",
+      "/proyecto/create",
+      "/proyecto/edit/:id",
 
       // Rutas de Factura Cliente
       "/factura-cliente/gestion-facturas-clientes",
@@ -341,6 +356,9 @@ function App() {
               <Route path="/vehiculo/gestion-vehiculos" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowVehiculo /></PrivateRoute>} />
               <Route path="/vehiculo/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateVehiculo /></PrivateRoute>} />
               <Route path="/vehiculo/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditVehiculo /></PrivateRoute>} />
+              <Route path="/vehiculo/tipo-marca/gestion-tipos-marcas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoMarca /></PrivateRoute>} />
+              <Route path="/vehiculo/tipo-marca/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoMarca /></PrivateRoute>} />
+              <Route path="/vehiculo/tipo-marca/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoMarca /></PrivateRoute>} />
               <Route path="/vehiculo/combustible/gestion-combustibles/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowCombustible /></PrivateRoute>} />
               <Route path="/vehiculo/combustible/create/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateCombustible /></PrivateRoute>} />
               <Route path="/vehiculo/combustible/edit/:id/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditCombustible /></PrivateRoute>} />
@@ -352,11 +370,15 @@ function App() {
               <Route path="/ruta/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditRuta /></PrivateRoute>} />
               <Route path="/asignacion/gestion-asignaciones" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowAsignacion /></PrivateRoute>} />
               <Route path="/asignacion/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateAsignacion /></PrivateRoute>} />
+              
               <Route path="/asignacion/tipo-estado/gestion-tipos-estados" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoEstado /></PrivateRoute>} />
               <Route path="/asignacion/tipo-estado/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoEstado /></PrivateRoute>} />
               <Route path="/asignacion/tipo-estado/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoEstado /></PrivateRoute>} />
               <Route path="/carga/gestion-cargas" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowCarga /></PrivateRoute>} />
               <Route path="/carga/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateCarga /></PrivateRoute>} />
+              <Route path="/proyecto/gestion-proyectos" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowProyecto /></PrivateRoute>} />
+              <Route path="/proyecto/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateProyecto /></PrivateRoute>} />
+              <Route path="/proyecto/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditProyecto /></PrivateRoute>} />
               <Route path="/factura-cliente/gestion-facturas-clientes" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowFacturaCliente /></PrivateRoute>} />
               <Route path="/factura-cliente/detalle-factura-cliente/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowDetallFactCliente /></PrivateRoute>} />
               <Route path="/factura-cliente/pago-cliente/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowPagoCliente /></PrivateRoute>} />
