@@ -114,7 +114,7 @@ const CompResumenCargasFacturacion = () => {
         for (const detalle of facturaDetalle) {
             const inventario = inventarios[detalle.inventario_id]; // Obtener el inventario desde el objeto
             if (detalle.cantidad > inventario.cantidad) {
-                alert(`La cantidad de la carga ${detalle.nombre} excede el stock disponible.`);
+                alert(`La cantidad de la carga ${detalle.titulo} excede el stock disponible.`);
                 return; // Detener el proceso si hay una violación
             }
         }
@@ -298,7 +298,7 @@ const CompResumenCargasFacturacion = () => {
                         {facturaDetalle.map((detalle) => (
                             <tr key={detalle.carga_id}>
                                 <td>{detalle.carga_id}</td>
-                                <td>{detalle.nombre}</td>
+                                <td>{detalle.titulo}</td>
                                 <td>{detalle.cantidad}</td>
                                 <td>{detalle.precio_unitario}</td>
                                 <td>{detalle.subtotal.toFixed(2)}</td>

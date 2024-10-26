@@ -370,7 +370,6 @@ function App() {
               <Route path="/ruta/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditRuta /></PrivateRoute>} />
               <Route path="/asignacion/gestion-asignaciones" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowAsignacion /></PrivateRoute>} />
               <Route path="/asignacion/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateAsignacion /></PrivateRoute>} />
-              
               <Route path="/asignacion/tipo-estado/gestion-tipos-estados" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompShowTipoEstado /></PrivateRoute>} />
               <Route path="/asignacion/tipo-estado/create" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompCreateTipoEstado /></PrivateRoute>} />
               <Route path="/asignacion/tipo-estado/edit/:id" element={<PrivateRoute isAuthenticated={isAuthenticated}><CompEditTipoEstado /></PrivateRoute>} />

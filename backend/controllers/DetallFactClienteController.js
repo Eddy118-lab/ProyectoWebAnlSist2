@@ -15,7 +15,7 @@ export const getDetallesFactClientesGroupedByFactura = async (req, res) => {
                 {
                     model: Carga,
                     as: 'carga', // Asegúrate de que el alias coincida
-                    attributes: ['id', 'nombre', 'descripcion', 'precio_unitario'],
+                    attributes: ['id', 'titulo', 'descripcion', 'precio_unitario'],
                 }
             ],
             attributes: ['id', 'cantidad', 'precio_unitario', 'subtotal', 'descuento', 'total'],

@@ -8,12 +8,14 @@ const URI_CARGA = 'http://localhost:8000/api/carga/';
 const URI_ASIGNACION = 'http://localhost:8000/api/asignacion/';
 const URI_TIPO_ESTADO = 'http://localhost:8000/api/tipo-estado/';
 const URI_INVENTARIO = 'http://localhost:8000/api/inventario/';
+const URI_PROYECTO = 'http://localhost:8000/api/proyecto/';
 
 const CompListaCarga = () => {
     const [cargas, setCargas] = useState([]);
     const [asignaciones, setAsignaciones] = useState([]);
     const [estados, setEstados] = useState([]);
     const [inventarios, setInventarios] = useState([]);
+    const [proyectos, setProyectos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errorMessage, setErrorMessage] = useState('');
    
@@ -31,11 +33,13 @@ const CompListaCarga = () => {
                 const resAsignaciones = await axios.get(URI_ASIGNACION);
                 const resEstados = await axios.get(URI_TIPO_ESTADO);
                 const resInventarios = await axios.get(URI_INVENTARIO);
+                const resProyectos = await axios.get(URI_PROYECTO);
 
                 setCargas(resCargas.data);
                 setAsignaciones(resAsignaciones.data);
                 setEstados(resEstados.data);
                 setInventarios(resInventarios.data);
+                setProyectos(resProyectos.data);
             } catch (error) {
                 console.error("Error al obtener los datos:", error);
                 setErrorMessage("Error al obtener datos.");
@@ -75,6 +79,14 @@ const CompListaCarga = () => {
         const asignacion = asignaciones.find(a => a.id === asignacionId);
         if (asignacion) {
             return `${formatDate(asignacion.fecha_asignacion)} - ${asignacion.vehiculo.placa}`;
+        }
+        return 'No disponible';
+    };
+
+    const getProyectoInfo = (proyectoId) => {
+        const proyecto = proyectos.find(p => p.id === proyectoId);
+        if (proyecto) {
+            return proyecto.nombre;
         }
         return 'No disponible';
     };
@@ -198,12 +210,13 @@ const CompListaCarga = () => {
                                 <thead className="table-dark">
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nombre</th>
+                                        <th>Titulo</th>
                                         <th>Descripción</th>
                                         <th>Cantidad</th>
                                         <th>Precio Unitario</th>
                                         <th>Asignación</th>
                                         <th>Inventario</th>
+                                        <th>Proyecto</th>
                                         <th>Estado</th>
                                     </tr>
                                 </thead>
@@ -214,12 +227,13 @@ const CompListaCarga = () => {
                                         return (
                                             <tr key={carga.id}>
                                                 <td>{carga.id}</td>
-                                                <td>{carga.nombre}</td>
+                                                <td>{carga.titulo}</td>
                                                 <td>{carga.descripcion}</td>
                                                 <td>{carga.cantidad}</td>
                                                 <td>{carga.precio_unitario}</td>
                                                 <td>{getAsignacionInfo(carga.asignacion_id)}</td>
                                                 <td>{getInventarioName(carga.inventario_id)}</td>
+                                                <td>{getProyectoInfo(carga.proyecto_id)}</td>
                                                 <td>{estadoDescripcion ? estadoDescripcion.descripcion : 'No asignado'}</td>
                                             </tr>
                                         );

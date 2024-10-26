@@ -132,7 +132,7 @@ const CompShowDetallFactCliente = () => {
 
     // Crear un objeto para un acceso más rápido a los nombres de cargas
     const cargaMap = cargas.reduce((acc, carga) => {
-        acc[carga.id] = carga.descripcion;
+        acc[carga.id] = carga.titulo;
         return acc;
     }, {});
 
@@ -153,7 +153,7 @@ const CompShowDetallFactCliente = () => {
                         </h3>
                         {grupo.cargas && grupo.cargas.length > 0 && (
                             <h4>
-                                Cargas: {grupo.cargas.map(carg => `ID: ${carg.id} (Nombre: ${carg.nombre})`).join(', ')}
+                                Cargas: {grupo.cargas.map(carg => `ID: ${carg.id} (Nombre: ${carg.titulo})`).join(', ')}
                             </h4>
                         )}
                         <table className='table table-striped'>

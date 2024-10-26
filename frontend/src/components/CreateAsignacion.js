@@ -58,25 +58,52 @@ const CompCreateAsignacion = () => {
         fetchData();
     }, []);
 
-    // Efecto para filtrar los vehículos y conductores según la fecha seleccionada
     useEffect(() => {
         const fetchDisponibles = async () => {
             if (fechaAsignacion) {
                 try {
+                    // Preguntar al usuario si se habilita doble turno
+                    const habilitarDobleTurno = window.confirm("¿Hay doble turno para esta fecha?");
+                    
                     // Obtener todas las asignaciones para la fecha seleccionada
                     const resAsignaciones = await axios.get(`${URI_ASIGNACION}?fecha_asignacion=${fechaAsignacion}`);
                     const asignaciones = resAsignaciones.data;
-
-                    // Filtrar vehículos que ya están asignados en esa fecha
-                    const vehiculosAsignados = asignaciones.map(a => a.vehiculo_id);
-                    const vehiculosDisponibles = vehiculos.filter(v => !vehiculosAsignados.includes(v.id));
-
-                    // Filtrar conductores que ya están asignados en esa fecha
-                    const conductoresAsignados = asignaciones.map(a => a.conductor_id);
-                    const conductoresDisponibles = conductores.filter(c => !conductoresAsignados.includes(c.id));
-
+    
+                    // Filtrar las asignaciones en función de si se habilita doble turno
+                    const asignacionesFiltradas = asignaciones.filter(a => {
+                        if (habilitarDobleTurno) {
+                            // Permitir solo aquellos que están "Entregada" para el doble turno
+                            return a.estado === 'Entregada';
+                        }
+                        // Sin doble turno, incluir solo asignaciones que aún no están procesadas
+                        return a.estado !== 'Entregada';
+                    });
+    
+                    // Identificar vehículos y conductores que ya están asignados y procesados (si hay doble turno)
+                    const vehiculosAsignados = asignacionesFiltradas.map(a => a.vehiculo_id);
+                    const conductoresAsignados = asignacionesFiltradas.map(a => a.conductor_id);
+    
+                    // Filtrar vehículos y conductores según la lógica de doble turno y asignaciones previas
+                    const vehiculosDisponibles = vehiculos.filter(v => {
+                        if (habilitarDobleTurno) {
+                            // Solo permitir vehículos no asignados o ya procesados una vez en el día
+                            return !vehiculosAsignados.includes(v.id) || asignaciones.some(a => a.vehiculo_id === v.id && a.estado === 'Entregada');
+                        }
+                        return !vehiculosAsignados.includes(v.id);
+                    });
+    
+                    const conductoresDisponibles = conductores.filter(c => {
+                        if (habilitarDobleTurno) {
+                            // Solo permitir conductores no asignados o ya procesados una vez en el día
+                            return !conductoresAsignados.includes(c.id) || asignaciones.some(a => a.conductor_id === c.id && a.estado === 'Entregada');
+                        }
+                        return !conductoresAsignados.includes(c.id);
+                    });
+    
+                    // Actualizar el estado con los vehículos y conductores disponibles
                     setVehiculosDisponibles(vehiculosDisponibles);
                     setConductoresDisponibles(conductoresDisponibles);
+    
                 } catch (error) {
                     console.error("Error al filtrar vehículos y conductores:", error);
                     setErrorMessage("Error al filtrar vehículos y conductores.");
@@ -86,9 +113,11 @@ const CompCreateAsignacion = () => {
                 setConductoresDisponibles(conductores);
             }
         };
-
+    
         fetchDisponibles();
     }, [fechaAsignacion, vehiculos, conductores]);
+    
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
